@@ -1,0 +1,30 @@
+image: node:latest
+
+stages:
+  - test
+  - build
+  - publish
+
+test:
+  stage: test
+  script:
+    - npm ci
+    - npm test
+
+build:
+  stage: build
+  script:
+    - npm ci
+    - npm run build
+  artifacts:
+    paths:
+      - dist/
+
+publish:
+  stage: publish
+  script:
+    - echo "@your-gitlab-username:registry=https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/" > .npmrc
+    - echo "//gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
+    - npm publish
+  only:
+    - tags
