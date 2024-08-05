@@ -1,5 +1,5 @@
 {
-  "name": "@your-gitlab-username/my-react-component",
+  "name": "@rtorcato/shadcn-ui",
   "version": "1.0.0",
   "description": "A React component package",
   "main": "dist/cjs/index.js",
@@ -9,7 +9,7 @@
   ],
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rollup -c --config --bundleConfigAsCjs",
+    "build": "rollup -c",
     "prepublishOnly": "npm run build",
     "test": "vitest",
     "coverage": "vitest run --coverage"
@@ -36,6 +36,7 @@
     "react-dom": "^18.3.1",
     "rollup": "^4.20.0",
     "rollup-plugin-dts": "^6.1.1",
+    "tslib": "^2.6.3",
     "typescript": "^5.5.4",
     "vite": "^5.3.5",
     "vitest": "^2.0.5"
