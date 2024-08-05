@@ -1,9 +1,25 @@
 image: node:latest
 
+cache:
+  key: $CI_COMMIT_REF_SLUG
+  paths:
+    - .pnpm-store
+  policy: pull-push
+
+before_script:
+  - corepack enable
+  - corepack prepare --activate
+  - pnpm config set store-dir .pnpm-store
+  - pnpm config set @scope:registry https://${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/
+  - pnpm config set -- //${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken ${CI_JOB_TOKEN}
+  - pnpm install
+
 stages:
+  # - lint
+  # - typecheck
   - test
   - build
-  - publish
+  # - publish
 
 test:
   stage: test
@@ -20,11 +36,11 @@ build:
     paths:
       - dist/
 
-publish:
-  stage: publish
-  script:
-    - echo "@your-gitlab-username:registry=https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/" > .npmrc
-    - echo "//gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
-    - npm publish
-  only:
-    - tags
+# publish:
+#   stage: publish
+#   script:
+#     - echo "@your-gitlab-username:registry=https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/" > .npmrc
+#     - echo "//gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
+#     - npm publish
+#   only:
+#     - tags

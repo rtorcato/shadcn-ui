@@ -1,2 +1,0 @@
-@your-gitlab-username:registry=https://gitlab.com/api/v4/projects/YOUR_PROJECT_ID/packages/npm/
-//gitlab.com/api/v4/projects/YOUR_PROJECT_ID/packages/npm/:_authToken=${GITLAB_TOKEN}
