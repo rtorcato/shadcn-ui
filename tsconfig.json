@@ -16,8 +16,16 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"],
+      "~/*": ["./src/*"]
     },
+    "types": [
+      "react",
+      "react-dom",
+      "@radix-ui/react-slot",
+      "class-variance-authority",
+      "clsx",
+      "tailwind-merge"
+    ]
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

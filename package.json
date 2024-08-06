@@ -48,18 +48,23 @@
   ],
   "types": "dist/index.d.ts",
   "scripts": {
+    "component-add": "pnpm dlx shadcn-ui add",
+    "ui-add": "pnpm dlx shadcn-ui add && prettier src --write --list-different",
     "build": "rollup -c",
     "prepublishOnly": "npm run build",
-    "lint": "npx eslint . --ext .ts,.tsx,.js,.jsx",
     "lint:fix": "turbo run lint:fix",
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "version": "changeset",
     "release": "changeset version",
-    "typecheck": "tsc --noEmit",
-    "clean": "rimraf dist && rimraf components",
     "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
-    "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache"
+    "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
+    "==================== Common ====================": "",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint",
+    "clean": "rimraf .turbo node_modules dist",
+    "================================================": ""
   },
   "keywords": [
     "react",
@@ -97,6 +102,7 @@
     "@radix-ui/react-toggle": "^1.1.0",
     "@radix-ui/react-toggle-group": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.2",
+    "@rollup/plugin-image": "^3.0.3",
     "changesets-gitlab": "^0.12.0",
     "cmdk": "^1.0.0",
     "embla-carousel-react": "^8.1.8",
@@ -138,17 +144,20 @@
     "rimraf": "^6.0.1",
     "rollup": "^4.20.0",
     "rollup-plugin-dts": "^6.1.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-terser": "^7.0.2",
     "tailwind-merge": "^2.4.0",
     "tailwindcss": "3.4.7",
     "tslib": "^2.6.3",
     "vite": "^5.3.5",
-    "vitest": "^2.0.5"
+    "vitest": "^2.0.5",
+    "typescript": "^5.4.5"
   },
   "peerDependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-hook-form": "7.52.2",
-    "typescript": "^5.5.4"
+    "react-hook-form": "7.52.2"
   },
   "publishConfig": {
     "@rtorcato:registry": "https://gitlab.com/api/v4/projects/60598964/packages/npm/"

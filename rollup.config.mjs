@@ -1,43 +1,66 @@
 // import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import alias from '@rollup/plugin-alias';
-import { fileURLToPath } from 'url';
-import path from 'path';
-import typescript from '@rollup/plugin-typescript';
-import dts from 'rollup-plugin-dts';
-import { readFileSync } from 'fs';
+import { readFileSync } from "fs"
+import path from "path"
+import { fileURLToPath } from "url"
+import alias from "@rollup/plugin-alias"
+import commonjs from "@rollup/plugin-commonjs"
+import image from "@rollup/plugin-image"
+import typescript from "@rollup/plugin-typescript"
+import dts from "rollup-plugin-dts"
+// import external from 'rollup-plugin-peer-deps-external';
+import postcss from "rollup-plugin-postcss"
+// import resolve from '@rollup/plugin-node-resolve';
+import { terser } from "rollup-plugin-terser"
 
-const packageJson = JSON.parse(readFileSync('./package.json', 'utf-8'));
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const packageJson = JSON.parse(readFileSync("./package.json", "utf-8"))
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 export default [
   {
-    input: 'src/index.ts',
+    input: "src/index.ts",
     output: [
       {
         file: packageJson.main,
-        format: 'cjs',
+        format: "cjs",
         sourcemap: true,
+        name: "@rtorcato/shadcn-ui",
       },
       {
         file: packageJson.module,
-        format: 'esm',
+        format: "esm",
         sourcemap: true,
       },
     ],
-    plugins: [commonjs(), typescript({ tsconfig: './tsconfig.json' }),
-      alias({
-        entries: [
-          { find: '~', replacement: path.resolve(__dirname, 'src') },
-        ]
+    plugins: [
+      commonjs(),
+      typescript({
+        tsconfig: "./tsconfig.json",
+        declaration: true,
+        declarationDir: "dist/types",
       }),
+      alias({
+        entries: [{ find: "~", replacement: path.resolve(__dirname, "src") }],
+      }),
+      postcss(),
+      terser(),
+      image(),
     ],
-    external: ['react', 'react-dom'],
+    external: [
+      /\.css$/, // telling rollup anything that is .css aren't part of type exports
+      "react",
+      "react-dom",
+      "react/jsx-runtime",
+      "@radix-ui/react-slot",
+      "class-variance-authority",
+      "clsx",
+      "tailwind-merge",
+      // Add any other dependencies you want to keep external
+    ],
   },
   {
-    input: 'dist/esm/types/index.d.ts',
-    output: { file: 'dist/index.d.ts', format: 'esm' },
+    input: "dist/esm/types/index.d.ts",
+    output: { file: "dist/index.d.ts", format: "esm" },
     plugins: [dts()],
   },
-];
+]

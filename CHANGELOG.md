@@ -1,5 +1,11 @@
 # @rtorcato/shadcn-ui
 
+## 1.0.4
+
+### Patch Changes
+
+- add shad button
+
 ## 1.0.3
 
 ### Patch Changes
