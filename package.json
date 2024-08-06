@@ -7,6 +7,28 @@
   "module": "dist/esm/index.js",
   "homepage": "https://gitlab.com/rtorcato/shadcn-ui",
   "packageManager": "pnpm@9.5.0",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/esm/index.cjs"
+    },
+    "./icons": {
+      "types": "./dist/icons.d.ts",
+      "import": "./dist/icons.js",
+      "require": "./dist/icons.cjs"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "index": [
+        "./dist/index.d.ts"
+      ],
+      "icons": [
+        "./dist/icons.d.ts"
+      ]
+    }
+  },
   "files": [
     "dist"
   ],
