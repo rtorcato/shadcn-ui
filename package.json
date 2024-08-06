@@ -1,6 +1,6 @@
 {
   "name": "@rtorcato/shadcn-ui",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "description": "A React component package",
   "main": "dist/cjs/index.js",
@@ -12,33 +12,12 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/esm/index.js",
       "require": "./dist/esm/index.cjs"
-    },
-    "./icons": {
-      "types": "./dist/icons.d.ts",
-      "import": "./dist/icons.js",
-      "require": "./dist/icons.cjs"
-    },
-    "./utils": {
-      "types": "./dist/utils.d.ts",
-      "import": "./dist/utils.js",
-      "require": "./dist/utils.cjs"
-    },
-    "./hooks": {
-      "types": "./dist/hooks.d.ts",
-      "import": "./dist/hooks.js",
-      "require": "./dist/hooks.cjs"
     }
   },
   "typesVersions": {
     "*": {
       "index": [
         "./dist/index.d.ts"
-      ],
-      "icons": [
-        "./dist/icons.d.ts"
-      ],
-      "utils": [
-        "./dist/utils.d.ts"
       ]
     }
   },
@@ -150,14 +129,25 @@
     "tailwind-merge": "^2.4.0",
     "tailwindcss": "3.4.7",
     "tslib": "^2.6.3",
+    "tsup": "^8.2.4",
+    "typescript": "^5.4.5",
     "vite": "^5.3.5",
-    "vitest": "^2.0.5",
-    "typescript": "^5.4.5"
+    "vitest": "^2.0.5"
   },
   "peerDependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "@types/react": "*",
+    "@types/react-dom": "*",
+    "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc",
+    "react-dom": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc",
     "react-hook-form": "7.52.2"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    },
+    "@types/react-dom": {
+      "optional": true
+    }
   },
   "publishConfig": {
     "@rtorcato:registry": "https://gitlab.com/api/v4/projects/60598964/packages/npm/"
