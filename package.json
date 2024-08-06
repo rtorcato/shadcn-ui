@@ -1,6 +1,6 @@
 {
   "name": "@rtorcato/shadcn-ui",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "description": "A React component package",
   "main": "dist/cjs/index.js",
@@ -17,6 +17,16 @@
       "types": "./dist/icons.d.ts",
       "import": "./dist/icons.js",
       "require": "./dist/icons.cjs"
+    },
+    "./utils": {
+      "types": "./dist/utils.d.ts",
+      "import": "./dist/utils.js",
+      "require": "./dist/utils.cjs"
+    },
+    "./hooks": {
+      "types": "./dist/hooks.d.ts",
+      "import": "./dist/hooks.js",
+      "require": "./dist/hooks.cjs"
     }
   },
   "typesVersions": {
@@ -26,10 +36,14 @@
       ],
       "icons": [
         "./dist/icons.d.ts"
+      ],
+      "utils": [
+        "./dist/utils.d.ts"
       ]
     }
   },
   "files": [
+    "CHANGELOG.md",
     "dist"
   ],
   "types": "dist/index.d.ts",
@@ -101,6 +115,7 @@
     "@changesets/cli": "^2.27.7",
     "@ianvs/prettier-plugin-sort-imports": "^4.3.1",
     "@jest/globals": "^29.7.0",
+    "@rollup/plugin-alias": "^5.1.0",
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.6",
