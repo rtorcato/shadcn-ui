@@ -1,5 +1,14 @@
 image: node:latest
 
+stages:
+  # - lint
+  # - typecheck
+  - test
+  - build
+  - comment
+  # - version
+  - publish
+
 cache:
   key: $CI_COMMIT_REF_SLUG
   paths:
@@ -13,14 +22,6 @@ before_script:
   - pnpm config set @scope:registry https://${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/
   - pnpm config set -- //${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken ${CI_JOB_TOKEN}
   - pnpm install --frozen-lockfile
-
-stages:
-  # - lint
-  # - typecheck
-  - test
-  - build
-  # - version
-  # - publish
 
 test:
   stage: test
@@ -36,6 +37,33 @@ build:
   artifacts:
     paths:
       - dist/
+
+changesets_comment: 
+  stage: comment
+  script: 
+  # this runs the command that will detect if there are any changesets and then comment on the current Merge Request
+    - pnpm changesets-gitlab comment
+  variables: 
+    - GITLAB_TOKEN: ${$YOUR_TOKEN_HERE}
+  rules: 
+    if: $IS_MERGE_REQUEST
+
+
+publish: 
+  stage: publish
+  script: 
+    - |
+      cat <<EOF > "$HOME/.npmrc"
+      //${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}
+      EOF
+    - pnpm build
+    - pnpm changesets-gitlab
+  variables:
+    GITLAB_TOKEN: $YOUR_TOKEN_HERE
+    NPM_TOKEN: $CI_JOB_TOKEN
+    INPUT_PUBLISH: pnpm changeset publish
+  rules: 
+    - if: $IS_MAIN_BRANCH
 
 # version:
 #   stage: version

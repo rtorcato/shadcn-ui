@@ -11,3 +11,7 @@ To use your package in another project, you'll need to authenticate with GitLab'
 Then you can install your package with:
 
 npm install @your-gitlab-username/my-react-component
+
+
+
+https://medium.com/@haleywardo/simplify-package-versioning-with-changesets-for-gitlab-private-registries-4306762c9e29
