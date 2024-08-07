@@ -5,6 +5,8 @@
   "description": "A React component package",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
+  "style": "dist/styles.css",
   "homepage": "https://gitlab.com/rtorcato/shadcn-ui",
   "packageManager": "pnpm@9.5.0",
   "exports": {
@@ -12,7 +14,8 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/esm/index.js",
       "require": "./dist/esm/index.cjs"
-    }
+    },
+    "./styles.css": "./dist/styles.css"
   },
   "typesVersions": {
     "*": {
@@ -25,11 +28,14 @@
     "CHANGELOG.md",
     "dist"
   ],
-  "types": "dist/index.d.ts",
+  
   "scripts": {
     "component-add": "pnpm dlx shadcn-ui add",
     "ui-add": "pnpm dlx shadcn-ui add && prettier src --write --list-different",
-    "build": "rollup -c",
+    "build:css": "postcss src/styles/globals.css -o dist/esm/styles.css && postcss src/styles/globals.css -o dist/cjs/styles.css",
+    "build:js": "rollup -c",
+    "build": "rimraf ./dist && pnpm build:css && pnpm build:js",
+    "build1": "tsup",
     "prepublishOnly": "npm run build",
     "lint:fix": "turbo run lint:fix",
     "test": "vitest",
@@ -38,6 +44,8 @@
     "release": "changeset version",
     "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
     "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore",
     "==================== Common ====================": "",
     "format": "prettier --check . --ignore-path ../../.gitignore",
     "typecheck": "tsc --noEmit",
@@ -104,6 +112,7 @@
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.6",
+    "@swc/core": "^1.7.6",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/typography": "^0.5.13",
     "@testing-library/jest-dom": "^6.4.8",
@@ -115,9 +124,11 @@
     "@vitest/coverage-v8": "^2.0.5",
     "autoprefixer": "10.4.20",
     "class-variance-authority": "^0.7.0",
+    "clean-package": "2.2.0",
     "clsx": "^2.1.1",
     "jsdom": "^24.1.1",
     "postcss": "8.4.41",
+    "postcss-cli": "^11.0.0",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.5",
     "rimraf": "^6.0.1",
@@ -130,15 +141,15 @@
     "tailwindcss": "3.4.7",
     "tslib": "^2.6.3",
     "tsup": "^8.2.4",
-    "typescript": "^5.4.5",
+    "typescript": "^5.5.4",
     "vite": "^5.3.5",
     "vitest": "^2.0.5"
   },
   "peerDependencies": {
-    "@types/react": "*",
-    "@types/react-dom": "*",
-    "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc",
-    "react-dom": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-hook-form": "7.52.2"
   },
   "peerDependenciesMeta": {

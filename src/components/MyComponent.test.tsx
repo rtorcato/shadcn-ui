@@ -1,16 +1,17 @@
-import '@testing-library/jest-dom';
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { MyComponent } from './MyComponent';
+import "@testing-library/jest-dom"
 
-describe('MyComponent', () => {
-  it('renders the text prop', () => {
-    render(<MyComponent text="Hello, World!" />);
-    expect(screen.getByText('Hello, World!')).toBeInTheDocument();
-  });
+import { render, screen } from "@testing-library/react"
 
-  it('renders with different text', () => {
-    render(<MyComponent text="Testing is fun!" />);
-    expect(screen.getByText('Testing is fun!')).toBeInTheDocument();
-  });
-});
+import MyComponent from "./MyComponent"
+
+describe("MyComponent", () => {
+  it("renders the text prop", () => {
+    render(<MyComponent text="Hello, World!" />)
+    expect(screen.getByText("Hello, World!")).toBeInTheDocument()
+  })
+
+  it("renders with different text", () => {
+    render(<MyComponent text="Testing is fun!" />)
+    expect(screen.getByText("Testing is fun!")).toBeInTheDocument()
+  })
+})

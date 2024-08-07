@@ -24,25 +24,37 @@ export default [
         file: packageJson.main,
         format: "cjs",
         sourcemap: true,
-        name: "@rtorcato/shadcn-ui",
+        // preserveModules: true,
+        // dir: "dist/cjs",
+        exports: "named",
       },
       {
         file: packageJson.module,
         format: "esm",
+        // preserveModules: true,
+        // dir: "dist/esm",
         sourcemap: true,
+        exports: "named",
       },
     ],
     plugins: [
-      commonjs(),
+      // commonjs(),
       typescript({
         tsconfig: "./tsconfig.json",
-        declaration: true,
-        declarationDir: "dist/types",
+        declaration: false,
+        outDir: "dist",
+        // declarationDir: "dist/types",
+        rootDir: "./src",
+        exclude: ["*/**/test"],
       }),
       alias({
         entries: [{ find: "~", replacement: path.resolve(__dirname, "src") }],
       }),
-      postcss(),
+      postcss({
+        extract: path.resolve("dist/styles.css"),
+        minimize: true,
+        modules: false,
+      }),
       terser(),
       image(),
     ],
@@ -58,9 +70,17 @@ export default [
       // Add any other dependencies you want to keep external
     ],
   },
+
   {
-    input: "dist/esm/types/index.d.ts",
-    output: { file: "dist/index.d.ts", format: "esm" },
+    input: "src/index.ts",
+    output: { file: "dist/cjs/index.d.ts", format: "cjs" },
+    external: [/\.css$/],
+    plugins: [dts()],
+  },
+  {
+    input: "src/index.ts",
+    external: [/\.css$/],
+    output: { file: "dist/esm/index.d.ts", format: "esm" },
     plugins: [dts()],
   },
 ]
