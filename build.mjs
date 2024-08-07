@@ -6,14 +6,14 @@ import { nodeExternalsPlugin } from "esbuild-node-externals"
 async function getEntryPoints(dir) {
   const entries = await fs.readdir(dir, { withFileTypes: true })
   const entryPoints = entries
-    .filter((entry) => !entry.isDirectory() && entry.name.endsWith(".ts"))
+    .filter((entry) => !entry.isDirectory() && entry.name.endsWith("index.ts"))
     .map((entry) => path.join(dir, entry.name))
-  console.log("Found entry points:", entryPoints)
   return entryPoints
 }
 
 async function build() {
-  const allEntryPoints = await getEntryPoints("src/components")
+  const allEntryPoints = ["src/index.ts"]
+  allEntryPoints.push(...(await getEntryPoints("src/components")))
   allEntryPoints.push(...(await getEntryPoints("src/hooks")))
   allEntryPoints.push(...(await getEntryPoints("src/lib")))
 
