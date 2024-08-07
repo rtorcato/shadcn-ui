@@ -136,14 +136,14 @@ export default [
   //   external: [/\.css$/],
   //   plugins: [dts()],
   // },
-  // {
-  //   input: "src/index.ts",
-  //   external: [/\.css$/],
-  //   output: {
-  //     file: "dist/esm/index.d.ts",
-  //     format: "esm",
-  //     preserveModulesRoot: "src",
-  //   },
-  //   plugins: [dts()],
-  // },
+  {
+    input: "src/index.ts",
+    external: [/\.css$/],
+    output: {
+      file: "dist/esm/index.d.ts",
+      format: "es",
+      preserveModulesRoot: "src",
+    },
+    plugins: [dts()],
+  },
 ]
