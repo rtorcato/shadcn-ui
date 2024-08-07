@@ -22,29 +22,29 @@ const createExternals = (pkg) => [
   ...Object.keys(pkg.peerDependencies || {}),
 ]
 
-const createTildeResolver = () => {
-  return (node) => {
-    if (
-      ts.isImportDeclaration(node) &&
-      node.moduleSpecifier &&
-      ts.isStringLiteral(node.moduleSpecifier) &&
-      node.moduleSpecifier.text.startsWith("~/")
-    ) {
-      const newModuleSpecifier = ts.factory.createStringLiteral(
-        node.moduleSpecifier.text.replace("~/", "../")
-      )
-      return ts.factory.updateImportDeclaration(
-        node,
-        node.decorators,
-        node.modifiers,
-        node.importClause,
-        newModuleSpecifier,
-        node.assertClause
-      )
-    }
-    return node
-  }
-}
+// const createTildeResolver = () => {
+//   return (node) => {
+//     if (
+//       ts.isImportDeclaration(node) &&
+//       node.moduleSpecifier &&
+//       ts.isStringLiteral(node.moduleSpecifier) &&
+//       node.moduleSpecifier.text.startsWith("~/")
+//     ) {
+//       const newModuleSpecifier = ts.factory.createStringLiteral(
+//         node.moduleSpecifier.text.replace("~/", "../")
+//       )
+//       return ts.factory.updateImportDeclaration(
+//         node,
+//         node.decorators,
+//         node.modifiers,
+//         node.importClause,
+//         newModuleSpecifier,
+//         node.assertClause
+//       )
+//     }
+//     return node
+//   }
+// }
 
 export default [
   {
@@ -82,20 +82,20 @@ export default [
         // declarationDir: "dist/types",
         rootDir: "./src",
         exclude: ["**/__tests__", "**/*.test.ts", "**/*.test.tsx", "dist"],
-        transformers: {
-          before: [
-            {
-              type: "program",
-              factory: (program) => {
-                const typeChecker = program.getTypeChecker()
-                return (ctx) => {
-                  const tildeResolver = createTildeResolver()
-                  return (sourceFile) => ts.visitNode(sourceFile, tildeResolver)
-                }
-              },
-            },
-          ],
-        },
+        // transformers: {
+        //   before: [
+        //     {
+        //       type: "program",
+        //       factory: (program) => {
+        //         const typeChecker = program.getTypeChecker()
+        //         return (ctx) => {
+        //           const tildeResolver = createTildeResolver()
+        //           return (sourceFile) => ts.visitNode(sourceFile, tildeResolver)
+        //         }
+        //       },
+        //     },
+        //   ],
+        // },
       }),
       alias({
         entries: [{ find: "~", replacement: path.resolve(__dirname, "src") }],
@@ -126,25 +126,24 @@ export default [
       ...createExternals(packageJson),
     ],
   },
-
-  {
-    input: "src/index.ts",
-    output: {
-      file: "dist/cjs/index.d.ts",
-      format: "cjs",
-      preserveModulesRoot: "src",
-    },
-    external: [/\.css$/],
-    plugins: [dts()],
-  },
-  {
-    input: "src/index.ts",
-    external: [/\.css$/],
-    output: {
-      file: "dist/esm/index.d.ts",
-      format: "esm",
-      preserveModulesRoot: "src",
-    },
-    plugins: [dts()],
-  },
+  // {
+  //   input: "src/index.ts",
+  //   output: {
+  //     file: "dist/cjs/index.d.ts",
+  //     format: "cjs",
+  //     preserveModulesRoot: "src",
+  //   },
+  //   external: [/\.css$/],
+  //   plugins: [dts()],
+  // },
+  // {
+  //   input: "src/index.ts",
+  //   external: [/\.css$/],
+  //   output: {
+  //     file: "dist/esm/index.d.ts",
+  //     format: "esm",
+  //     preserveModulesRoot: "src",
+  //   },
+  //   plugins: [dts()],
+  // },
 ]
