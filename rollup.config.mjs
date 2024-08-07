@@ -149,25 +149,31 @@ export default [
     ],
   },
   {
-    input: inputFileName,
-    output: {
-      file: "dist/cjs/index.d.ts",
-      format: "cjs",
-      preserveModulesRoot: "src",
-      exports: "named",
-    },
-    external: [/\.css$/],
+    input: "dist/esm/index.d.ts",
+    output: [{ file: "dist/index.d.ts", format: "esm" }],
     plugins: [dts()],
-  },
-  {
-    input: "src/index.ts",
     external: [/\.css$/],
-    output: {
-      file: "dist/esm/index.d.ts",
-      format: "es",
-      preserveModulesRoot: "src",
-      exports: "named",
-    },
-    plugins: [dts()],
   },
+  // {
+  //   input: "dist/esm/types/index.d.ts",
+  //   output: {
+  //     file: "dist/index.d.ts",
+  //     format: "cjs",
+  //     preserveModulesRoot: "src",
+  //     exports: "named",
+  //   },
+  //   external: [/\.css$/],
+  //   plugins: [dts()],
+  // },
+  // {
+  //   input: "dist/esm/types/index.d.ts",
+  //   external: [/\.css$/],
+  //   output: {
+  //     file: "dist/esm/index.d.ts",
+  //     format: "es",
+  //     preserveModulesRoot: "src",
+  //     exports: "named",
+  //   },
+  //   plugins: [dts()],
+  // },
 ]
