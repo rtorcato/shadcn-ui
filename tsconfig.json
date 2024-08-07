@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "esModuleInterop": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
@@ -11,9 +12,10 @@
     "moduleResolution": "bundler",
     "sourceMap": true,
     "outDir": "dist",
+    "declarationDir": "./dist/types",
+    "emitDeclarationOnly": false,
     // "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "emitDeclarationOnly": false,
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {

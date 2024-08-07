@@ -62,7 +62,8 @@ export default [
     output: [
       {
         name: moduleName,
-        file: packageJson.main,
+        // file: packageJson.main,
+        dir: "dist/cjs",
         format: "cjs",
         sourcemap: true,
         // preserveModules: true,
@@ -73,7 +74,8 @@ export default [
       },
       {
         name: moduleName,
-        file: packageJson.module,
+        // file: packageJson.module,
+        dir: "dist/esm",
         format: "esm",
         // dir: "dist/esm",
         // preserveModules: true,
@@ -100,8 +102,9 @@ export default [
       }),
       pluginTypescript({
         tsconfig: "./tsconfig.json",
-        declaration: false,
-        outDir: "dist",
+        declaration: true,
+        // outDir: "dist",
+        declarationDir: "./dist/types",
         // declarationDir: "dist/types",
         rootDir: "./src",
         exclude: ["**/__tests__", "**/*.test.ts", "**/*.test.tsx", "dist"],
@@ -144,15 +147,14 @@ export default [
       "recharts",
       "input-otp",
       "react-resizable-panels",
-      // Add any other dependencies you want to keep external
       ...createExternals(packageJson),
     ],
   },
   {
-    input: "dist/esm/index.d.ts",
-    output: [{ file: "dist/index.d.ts", format: "esm" }],
+    input: "dist/types/index.d.ts",
+    output: [{ file: "dist/index.d.ts", format: "es" }],
     plugins: [dts()],
-    external: [/\.css$/],
+    external: createExternals(packageJson),
   },
   // {
   //   input: "dist/esm/types/index.d.ts",

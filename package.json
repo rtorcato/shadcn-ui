@@ -39,7 +39,8 @@
     "ui-add": "pnpm dlx shadcn-ui add && prettier src --write --list-different",
     "build:css": "postcss src/styles/globals.css -o dist/styles.css",
     "build:js": "rollup -c",
-    "build": "rimraf ./dist && pnpm build:css && pnpm build:js",
+    "build": "node build.mjs && tsc --emitDeclarationOnly",
+    "build0": "rimraf ./dist && pnpm build:css && pnpm build:js",
     "build1": "tsup",
     "prepublishOnly": "npm run build",
     "lint:fix": "turbo run lint:fix",
@@ -59,7 +60,6 @@
     "clean": "rimraf .turbo node_modules dist",
     "================================================": ""
   },
-  
   "dependencies": {
     "cmdk": "^1.0.0",
     "embla-carousel-react": "^8.1.8",
@@ -97,6 +97,8 @@
     "class-variance-authority": "^0.7.0",
     "clean-package": "2.2.0",
     "clsx": "^2.1.1",
+    "esbuild": "^0.23.0",
+    "esbuild-node-externals": "^1.14.0",
     "jsdom": "^24.1.1",
     "postcss": "8.4.41",
     "postcss-cli": "^11.0.0",
