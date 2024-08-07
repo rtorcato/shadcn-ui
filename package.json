@@ -24,6 +24,14 @@
       "types": "./dist/types/components/*.d.ts",
       "import": "./dist/components/*.js"
     },
+    "./hooks/*": {
+      "types": "./dist/types/hooks/*.d.ts",
+      "import": "./dist/hooks/*.js"
+    },
+    "./lib/*": {
+      "types": "./dist/types/lib/*.d.ts",
+      "import": "./dist/lib/*.js"
+    },
     "./styles.css": "./dist/styles.css"
   },
   "typesVersions": {

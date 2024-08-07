@@ -14,6 +14,9 @@ async function getEntryPoints(dir) {
 
 async function build() {
   const allEntryPoints = await getEntryPoints("src/components")
+  allEntryPoints.push(...(await getEntryPoints("src/hooks")))
+  allEntryPoints.push(...(await getEntryPoints("src/lib")))
+
   console.log("All entry points:", allEntryPoints)
   await esbuild.build({
     // entryPoints: ["src/index.ts"],
