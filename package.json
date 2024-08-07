@@ -1,12 +1,11 @@
 {
   "name": "@rtorcato/shadcn-ui",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "type": "module",
   "description": "A React component package",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
-  "style": "dist/styles.css",
   "homepage": "https://gitlab.com/rtorcato/shadcn-ui",
   "packageManager": "pnpm@9.5.0",
   "exports": {
@@ -31,7 +30,7 @@
   "scripts": {
     "component-add": "pnpm dlx shadcn-ui add",
     "ui-add": "pnpm dlx shadcn-ui add && prettier src --write --list-different",
-    "build:css": "postcss src/styles/globals.css -o dist/esm/styles.css && postcss src/styles/globals.css -o dist/cjs/styles.css",
+    "build:css": "postcss src/styles/globals.css -o dist/styles.css",
     "build:js": "rollup -c",
     "build": "rimraf ./dist && pnpm build:css && pnpm build:js",
     "build1": "tsup",
