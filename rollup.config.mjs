@@ -5,12 +5,12 @@ import { fileURLToPath } from "url"
 import alias from "@rollup/plugin-alias"
 import commonjs from "@rollup/plugin-commonjs"
 import image from "@rollup/plugin-image"
+// import resolve from '@rollup/plugin-node-resolve';
+import terser from "@rollup/plugin-terser"
 import typescript from "@rollup/plugin-typescript"
 import dts from "rollup-plugin-dts"
 // import external from 'rollup-plugin-peer-deps-external';
 import postcss from "rollup-plugin-postcss"
-// import resolve from '@rollup/plugin-node-resolve';
-import { terser } from "rollup-plugin-terser"
 
 const packageJson = JSON.parse(readFileSync("./package.json", "utf-8"))
 const __filename = fileURLToPath(import.meta.url)
@@ -38,7 +38,7 @@ export default [
       },
     ],
     plugins: [
-      // commonjs(),
+      commonjs(),
       typescript({
         tsconfig: "./tsconfig.json",
         declaration: false,
