@@ -3,17 +3,27 @@ import { readFileSync } from "fs"
 import path from "path"
 import { fileURLToPath } from "url"
 import alias from "@rollup/plugin-alias"
-import commonjs from "@rollup/plugin-commonjs"
+// import { babel } from "@rollup/plugin-babel"
+import pluginCommonjs from "@rollup/plugin-commonjs"
 import image from "@rollup/plugin-image"
-import resolve from "@rollup/plugin-node-resolve"
+import pluginNodeResolve from "@rollup/plugin-node-resolve"
 import terser from "@rollup/plugin-terser"
-import typescript from "@rollup/plugin-typescript"
+import pluginTypescript from "@rollup/plugin-typescript"
 import dts from "rollup-plugin-dts"
 import peerDepsExternal from "rollup-plugin-peer-deps-external"
 import postcss from "rollup-plugin-postcss"
 import ts from "typescript"
 
 const packageJson = JSON.parse(readFileSync("./package.json", "utf-8"))
+const moduleName = packageJson.name.replace(/^@.*\//, "")
+const banner = `
+  /**
+   * @license
+   * author: ${packageJson.author}
+   * ${moduleName}.js v${packageJson.version}
+   * Released under the ${packageJson.license} license.
+   */`
+const inputFileName = "src/index.ts"
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
@@ -48,9 +58,10 @@ const createExternals = (pkg) => [
 
 export default [
   {
-    input: "src/index.ts",
+    input: inputFileName,
     output: [
       {
+        name: moduleName,
         file: packageJson.main,
         format: "cjs",
         sourcemap: true,
@@ -58,15 +69,18 @@ export default [
         preserveModulesRoot: "src",
         // dir: "dist/cjs",
         exports: "named",
+        banner,
       },
       {
+        name: moduleName,
         file: packageJson.module,
         format: "esm",
-        // preserveModules: true,
         // dir: "dist/esm",
+        // preserveModules: true,
         preserveModulesRoot: "src",
         sourcemap: true,
         exports: "named",
+        banner,
       },
     ],
     plugins: [
@@ -74,8 +88,17 @@ export default [
       // resolve({
       //   extensions: [".js", ".jsx", ".ts", ".tsx"],
       // }),
-      commonjs(),
-      typescript({
+      // babel({
+      //   babelHelpers: "bundled",
+      //   configFile: path.resolve(__dirname, ".babelrc.js"),
+      // }),
+      pluginNodeResolve({
+        browser: false,
+      }),
+      pluginCommonjs({
+        extensions: [".js", ".ts"],
+      }),
+      pluginTypescript({
         tsconfig: "./tsconfig.json",
         declaration: false,
         outDir: "dist",
@@ -113,7 +136,6 @@ export default [
       "react",
       "react-dom",
       "react/jsx-runtime",
-      "class-variance-authority",
       "tailwind-merge",
       "clsx",
       "react-day-picker",
@@ -126,16 +148,17 @@ export default [
       ...createExternals(packageJson),
     ],
   },
-  // {
-  //   input: "src/index.ts",
-  //   output: {
-  //     file: "dist/cjs/index.d.ts",
-  //     format: "cjs",
-  //     preserveModulesRoot: "src",
-  //   },
-  //   external: [/\.css$/],
-  //   plugins: [dts()],
-  // },
+  {
+    input: inputFileName,
+    output: {
+      file: "dist/cjs/index.d.ts",
+      format: "cjs",
+      preserveModulesRoot: "src",
+      exports: "named",
+    },
+    external: [/\.css$/],
+    plugins: [dts()],
+  },
   {
     input: "src/index.ts",
     external: [/\.css$/],
@@ -143,6 +166,7 @@ export default [
       file: "dist/esm/index.d.ts",
       format: "es",
       preserveModulesRoot: "src",
+      exports: "named",
     },
     plugins: [dts()],
   },

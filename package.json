@@ -2,10 +2,17 @@
   "name": "@rtorcato/shadcn-ui",
   "version": "1.0.1",
   "type": "module",
+  "author": "Richard Torcato",
   "description": "A React component package",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
+  "keywords": [
+    "react",
+    "component",
+    "typescript"
+  ],
+  "license": "ISC",
   "homepage": "https://gitlab.com/rtorcato/shadcn-ui",
   "packageManager": "pnpm@9.5.0",
   "exports": {
@@ -51,13 +58,7 @@
     "clean": "rimraf .turbo node_modules dist",
     "================================================": ""
   },
-  "keywords": [
-    "react",
-    "component",
-    "typescript"
-  ],
-  "author": "Richard Torcato",
-  "license": "ISC",
+  
   "dependencies": {
     "cmdk": "^1.0.0",
     "embla-carousel-react": "^8.1.8",
@@ -105,8 +106,9 @@
     "rollup-plugin-dts": "^6.1.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-ts": "^3.4.5",
     "tailwind-merge": "^2.4.0",
-    "tailwindcss": "3.4.7",
+    "tailwindcss": "3.4.8",
     "tslib": "^2.6.3",
     "typescript": "^5.5.4",
     "vite": "^5.4.0",
