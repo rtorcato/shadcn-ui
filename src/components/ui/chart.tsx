@@ -1,9 +1,7 @@
-"use client"
-
 import * as React from "react"
 import * as RechartsPrimitive from "recharts"
 
-import { cn } from "~/lib/utils"
+import { cn } from "./../../lib/utils"
 
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const
@@ -196,7 +194,7 @@ const ChartTooltipContent = React.forwardRef<
                   indicator === "dot" && "items-center"
                 )}
               >
-                {formatter && (item?.value !== undefined) && item.name ? (
+                {formatter && item?.value !== undefined && item.name ? (
                   formatter(item.value, item.name, item, index, item.payload)
                 ) : (
                   <>

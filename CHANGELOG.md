@@ -1,5 +1,11 @@
 # @rtorcato/shadcn-ui
 
+## 1.0.7
+
+### Patch Changes
+
+- added all shad components
+
 ## 1.0.5
 
 ### Patch Changes
