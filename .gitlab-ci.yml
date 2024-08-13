@@ -23,15 +23,15 @@ before_script:
   - pnpm config set -- //${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken ${CI_JOB_TOKEN}
   - pnpm install --frozen-lockfile
 
-# typecheck:
-#   stage: lint
-#   script:
-#     - pnpm typecheck
+typecheck:
+  stage: lint
+  script:
+    - pnpm typecheck
 
-# lint:
-#   stage: lint
-#   script:
-#     - pnpm lint
+lint:
+  stage: lint
+  script:
+    - pnpm lint
 
 test:
   stage: test
@@ -50,16 +50,17 @@ build:
 version:
   stage: version
   script:
-    - npx changeset version
-    - git config user.name "GitLab CI"
-    - git config user.email "your-email@example.com"
-    - git add .
-    - git commit -m "Version packages [skip ci]"
-    - git push origin HEAD:$CI_COMMIT_REF_NAME
-  rules: 
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  # only:
-  #   - main  # Run this job only on the main branch
+    - npx changeset
+    - npx changeset version --verbose || { echo "Changeset versioning failed"; exit 1; }
+    # - git config user.name "GitLab CI"
+    # - git config user.email "your-email@example.com"
+    # - git add .
+    # - git commit -m "Version packages [skip ci]"
+    # - git push origin HEAD:$CI_COMMIT_REF_NAME
+  # rules: 
+  #   - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  only:
+    - main  # Run this job only on the main branch
 
 publish:
   stage: publish
@@ -72,17 +73,6 @@ publish:
   # only:
   #   - main  # Run this job only on the main branch
 
-# version:
-#   stage: version
-#   script:
-#     - git config user.name "GitLab CI"
-#     - git config user.email "rtorcato@me.com"
-#     - pnpm changeset version
-#     - git add .
-#     - git commit -m "Version packages [skip ci]"
-#     - git push origin HEAD:$CI_COMMIT_REF_NAME
-#   rules:
-#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 
 # changesets_comment: 
@@ -94,44 +84,7 @@ publish:
   #   - GITLAB_TOKEN: ${$YOUR_TOKEN_HERE}
   # rules: 
   #   - if: $IS_MERGE_REQUEST
-
-
-# publish: 
-#   stage: publish
-#   script: 
-#     - |
-#       cat <<EOF > "$HOME/.npmrc"
-#       //${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}
-#       EOF
-#     - pnpm build
-#     - pnpm changesets-gitlab
-#   variables:
-#     GITLAB_TOKEN: $YOUR_TOKEN_HERE
-#     NPM_TOKEN: $CI_JOB_TOKEN
-#     INPUT_PUBLISH: pnpm changeset publish
-#   rules: 
-#     - if: $IS_MAIN_BRANCH
-
-
-# publish:
-#   stage: publish
-#   script:
-#     - echo "@your-scope:registry=https://${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/" > .npmrc
-#     - echo "//${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
-#     - pnpm changeset publish
-#   rules:
-#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-
-# publish:
-#   stage: publish
-#   script:
-#     - echo "@your-gitlab-username:registry=https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/" > .npmrc
-#     - echo "//gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
-#     - npm publish
-#   only:
-#     - tags
-
-
+  
 # Combine lint and test into a single stage
 # lint_and_typecheck:
 #   stage: lint
