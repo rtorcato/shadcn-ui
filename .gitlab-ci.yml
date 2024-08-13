@@ -58,8 +58,8 @@ version:
     - git push origin HEAD:$CI_COMMIT_REF_NAME
   rules: 
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  only:
-    - main  # Run this job only on the main branch
+  # only:
+  #   - main  # Run this job only on the main branch
 
 publish:
   stage: publish
@@ -69,8 +69,8 @@ publish:
   environment: production
   rules: 
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  only:
-    - main  # Run this job only on the main branch
+  # only:
+  #   - main  # Run this job only on the main branch
 
 # version:
 #   stage: version
