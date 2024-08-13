@@ -4,7 +4,7 @@ stages:
   - lint
   - test
   - build
-  # - comment
+  - comment
   - version
   - publish
 
@@ -47,6 +47,16 @@ build:
     paths:
       - dist/
 
+changesets_comment: 
+  stage: comment
+  #   # this runs the command that will detect if there are any changesets and then comment on the current Merge Request
+  script: 
+    - pnpm changesets-gitlab comment
+  variables:
+    GITLAB_TOKEN: ${$GITLAB_DEPLOY_TOKEN}
+  rules: 
+    - if: $IS_MERGE_REQUEST
+
 version:
   stage: version
   script:
@@ -54,9 +64,9 @@ version:
     - npx changeset version --verbose || { echo "Changeset versioning failed"; exit 1; }
     - git config user.name "GitLab CI"
     - git config user.email "your-email@example.com"
-    - git add .
-    - git commit -m "Version packages [skip ci]"
-    - git push origin HEAD:$CI_COMMIT_REF_NAME
+    # - git add .
+    # - git commit -m "Version packages [skip ci]"
+    # - git push origin HEAD:$CI_COMMIT_REF_NAME
   # rules: 
   #   - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   only:
@@ -74,16 +84,22 @@ publish:
   #   - main  # Run this job only on the main branch
 
 
-
-# changesets_comment: 
-#   stage: comment
+# publish: 
+#   stage: publish
 #   script: 
-#   # this runs the command that will detect if there are any changesets and then comment on the current Merge Request
-#     - pnpm changesets-gitlab comment
-  # variables: 
-  #   - GITLAB_TOKEN: ${$YOUR_TOKEN_HERE}
-  # rules: 
-  #   - if: $IS_MERGE_REQUEST
+#     - pnpm install
+#     - |
+#       cat <<EOF > "$HOME/.npmrc"
+#       //${CI_SERVER_HOST}/api/v4/projects/${YOUR_PACKAGE_REGISTRY_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}
+#       EOF
+#     - pnpm build
+#     - pnpm changesets-gitlab
+#   variables:
+#     GITLAB_TOKEN: $YOUR_TOKEN_HERE
+#     NPM_TOKEN: $CI_JOB_TOKEN
+#     INPUT_PUBLISH: pnpm changeset publish
+#   rules: 
+#     - if: $IS_MAIN_BRANCH
   
 # Combine lint and test into a single stage
 # lint_and_typecheck:
