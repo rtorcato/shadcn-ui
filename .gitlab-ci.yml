@@ -52,11 +52,11 @@ version:
   script:
     - npx changeset
     - npx changeset version --verbose || { echo "Changeset versioning failed"; exit 1; }
-    # - git config user.name "GitLab CI"
-    # - git config user.email "your-email@example.com"
-    # - git add .
-    # - git commit -m "Version packages [skip ci]"
-    # - git push origin HEAD:$CI_COMMIT_REF_NAME
+    - git config user.name "GitLab CI"
+    - git config user.email "your-email@example.com"
+    - git add .
+    - git commit -m "Version packages [skip ci]"
+    - git push origin HEAD:$CI_COMMIT_REF_NAME
   # rules: 
   #   - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   only:
