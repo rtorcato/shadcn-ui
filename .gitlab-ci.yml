@@ -4,7 +4,7 @@ stages:
   - lint
   - test
   - build
-  - comment
+  - commentversion
   - version
   - publish
 
@@ -48,7 +48,7 @@ build:
       - dist/
 
 changesets_comment: 
-  stage: comment
+  stage: commentversion
   # this runs the command that will detect if there are any changesets and then comment on the current Merge Request
   script: 
     - pnpm changesets-gitlab comment
