@@ -1,12 +1,12 @@
 image: node:20.11.1
 
 stages:
-  # - lint
+  - lint
   - typecheck
   - test
   - build
   # - comment
-  # - version
+  - version
   - publish
 
 cache:
@@ -28,30 +28,55 @@ typecheck:
   script:
     - pnpm typecheck
 
+lint:
+  stage: lint
+  script:
+    - pnpm lint
+
 test:
   stage: test
   script:
-    # - pnpm install --frozen-lockfile
     - pnpm test
 
 build:
   stage: build
   script:
-    # - pnpm install --frozen-lockfile
     - pnpm run build
   artifacts:
     paths:
       - dist/
+
+publish:
+  stage: publish
+  script:
+    - echo "//${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}">.npmrc
+    - npm publish
+  environment: production
+  rules: 
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+version:
+  stage: version
+  script:
+    - git config user.name "GitLab CI"
+    - git config user.email "rtorcato@me.com"
+    - pnpm changeset version
+    - git add .
+    - git commit -m "Version packages [skip ci]"
+    - git push origin HEAD:$CI_COMMIT_REF_NAME
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
 
 # changesets_comment: 
 #   stage: comment
 #   script: 
 #   # this runs the command that will detect if there are any changesets and then comment on the current Merge Request
 #     - pnpm changesets-gitlab comment
-#   variables: 
-#     - GITLAB_TOKEN: ${$YOUR_TOKEN_HERE}
-#   rules: 
-#     if: $IS_MERGE_REQUEST
+  # variables: 
+  #   - GITLAB_TOKEN: ${$YOUR_TOKEN_HERE}
+  # rules: 
+  #   - if: $IS_MERGE_REQUEST
 
 
 # publish: 
@@ -89,23 +114,3 @@ build:
 #   only:
 #     - tags
 
-# version:
-#   stage: version
-#   script:
-#     - git config user.name "GitLab CI"
-#     - git config user.email "rtorcato@me.com"
-#     - pnpm changeset version
-#     - git add .
-#     - git commit -m "Version packages [skip ci]"
-#     - git push origin HEAD:$CI_COMMIT_REF_NAME
-#   rules:
-#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-
-publish:
-  stage: publish
-  script:
-    - echo "//${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}">.npmrc
-    - npm publish
-  environment: production
-  rules: 
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
