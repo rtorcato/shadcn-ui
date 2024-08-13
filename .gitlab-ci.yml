@@ -6,7 +6,7 @@ stages:
   - test
   - build
   # - comment
-  # - version
+  - version
   - publish
 
 cache:
@@ -70,17 +70,6 @@ build:
 #   rules: 
 #     - if: $IS_MAIN_BRANCH
 
-# version:
-#   stage: version
-#   script:
-#     - git config user.name "GitLab CI"
-#     - git config user.email "rtorcato@me.com"
-#     - pnpm changeset version
-#     - git add .
-#     - git commit -m "Version packages [skip ci]"
-#     - git push origin HEAD:$CI_COMMIT_REF_NAME
-#   rules:
-#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 # publish:
 #   stage: publish
@@ -97,18 +86,20 @@ build:
 #     - echo "@your-gitlab-username:registry=https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/" > .npmrc
 #     - echo "//gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
 #     - npm publish
-
 #   only:
 #     - tags
 
-
-# publish-npm:
-#   stage: deploy
-#   script:
-#     - echo "@scope:registry=https://${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/" > .npmrc
-#     - echo "//${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
-#     - npm publish
-
+version:
+  stage: version
+  script:
+    - git config user.name "GitLab CI"
+    - git config user.email "rtorcato@me.com"
+    - pnpm changeset version
+    - git add .
+    - git commit -m "Version packages [skip ci]"
+    - git push origin HEAD:$CI_COMMIT_REF_NAME
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 publish:
   stage: publish

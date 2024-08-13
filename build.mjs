@@ -6,7 +6,12 @@ import { nodeExternalsPlugin } from "esbuild-node-externals"
 async function getEntryPoints(dir) {
   const entries = await fs.readdir(dir, { withFileTypes: true })
   const entryPoints = entries
-    .filter((entry) => !entry.isDirectory() && entry.name.endsWith("index.ts"))
+    .filter(
+      (entry) =>
+        !entry.isDirectory() &&
+        entry.name.endsWith("index.ts") &&
+        !entry.name.includes(".test.")
+    )
     .map((entry) => path.join(dir, entry.name))
   return entryPoints
 }
@@ -14,14 +19,24 @@ async function getEntryPoints(dir) {
 async function getComponentEntryPoints(dir) {
   const entries = await fs.readdir(dir, { withFileTypes: true })
   return entries
-    .filter((entry) => entry.isFile() && entry.name.endsWith(".tsx"))
+    .filter(
+      (entry) =>
+        entry.isFile() &&
+        entry.name.endsWith(".tsx") &&
+        !entry.name.includes(".test.")
+    )
     .map((entry) => path.join(dir, entry.name))
 }
 
 async function getFileEntryPoints(dir) {
   const entries = await fs.readdir(dir, { withFileTypes: true })
   return entries
-    .filter((entry) => entry.isFile() && entry.name.endsWith(".ts"))
+    .filter(
+      (entry) =>
+        entry.isFile() &&
+        entry.name.endsWith(".ts") &&
+        !entry.name.includes(".test.")
+    )
     .map((entry) => path.join(dir, entry.name))
 }
 
