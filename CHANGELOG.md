@@ -4,6 +4,13 @@
 
 ### Patch Changes
 
+- ce9f6d8: fixed it
+- changes
+
+## 1.0.7
+
+### Patch Changes
+
 - added all shad components
 
 ## 1.0.5
