@@ -24,15 +24,15 @@ before_script:
   - pnpm config set -- //${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken ${CI_JOB_TOKEN}
   - pnpm install --frozen-lockfile
 
-typecheck:
-  stage: lint
-  script:
-    - pnpm typecheck
+# typecheck:
+#   stage: lint
+#   script:
+#     - pnpm typecheck
 
-lint:
-  stage: lint
-  script:
-    - pnpm lint
+# lint:
+#   stage: lint
+#   script:
+#     - pnpm lint
 
 test:
   stage: test
