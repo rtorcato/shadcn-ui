@@ -49,11 +49,11 @@ build:
 
 changesets_comment: 
   stage: comment
-  #   # this runs the command that will detect if there are any changesets and then comment on the current Merge Request
+  # this runs the command that will detect if there are any changesets and then comment on the current Merge Request
   script: 
     - pnpm changesets-gitlab comment
   variables:
-    GITLAB_TOKEN: ${$GITLAB_DEPLOY_TOKEN}
+    GITLAB_TOKEN: ${CI_JOB_TOKEN}
   rules: 
     - if: $IS_MERGE_REQUEST
 
@@ -64,8 +64,8 @@ version:
     - npx changeset version --verbose || { echo "Changeset versioning failed"; exit 1; }
     - git config user.name "GitLab CI"
     - git config user.email "your-email@example.com"
-    # - git add .
-    # - git commit -m "Version packages [skip ci]"
+    - git add .
+    - git commit -m "Version packages [skip ci]"
     # - git push origin HEAD:$CI_COMMIT_REF_NAME
   # rules: 
   #   - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
