@@ -117,4 +117,4 @@ publish:
     - npm publish
   environment: production
   rules: 
-    - if: $IS_MAIN_BRANCH
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
