@@ -1,6 +1,6 @@
 {
   "name": "@rtorcato/shadcn-ui",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "type": "module",
   "author": "Richard Torcato",
   "description": "A React component package",
