@@ -11,11 +11,34 @@ async function getEntryPoints(dir) {
   return entryPoints
 }
 
+async function getComponentEntryPoints(dir) {
+  const entries = await fs.readdir(dir, { withFileTypes: true })
+  return entries
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".tsx"))
+    .map((entry) => path.join(dir, entry.name))
+}
+
+async function getFileEntryPoints(dir) {
+  const entries = await fs.readdir(dir, { withFileTypes: true })
+  return entries
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".ts"))
+    .map((entry) => path.join(dir, entry.name))
+}
+
+const hookEntryPoints = await getFileEntryPoints("src/hooks")
+const uiEntryPoints = await getComponentEntryPoints("src/components/ui")
+const libEntryPoints = await getFileEntryPoints("src/lib")
+// allEntryPoints.push(...(await getEntryPoints("src/components")))
+// allEntryPoints.push(...(await getEntryPoints("src/hooks")))
+// allEntryPoints.push(...(await getEntryPoints("src/lib")))
+
 async function build() {
-  const allEntryPoints = ["src/index.ts"]
-  allEntryPoints.push(...(await getEntryPoints("src/components")))
-  allEntryPoints.push(...(await getEntryPoints("src/hooks")))
-  allEntryPoints.push(...(await getEntryPoints("src/lib")))
+  const allEntryPoints = [
+    // "src/index.ts",
+    ...uiEntryPoints,
+    ...hookEntryPoints,
+    ...libEntryPoints,
+  ]
 
   console.log("All entry points:", allEntryPoints)
   await esbuild.build({
