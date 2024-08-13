@@ -2,18 +2,19 @@ image: node:20.11.1
 
 stages:
   - lint
-  - typecheck
   - test
   - build
   # - comment
-  - version
+  # - version
   - publish
 
 cache:
-  key: $CI_COMMIT_REF_SLUG
-  paths:
-    - .pnpm-store
-  policy: pull-push
+    key: $CI_COMMIT_REF_SLUG
+    paths:
+      - .pnpm-store
+      - node_modules/
+    #   policy: pull-push
+
 
 before_script:
   - corepack enable
@@ -24,22 +25,37 @@ before_script:
   - pnpm install --frozen-lockfile
 
 typecheck:
-  stage: typecheck
+  stage: lint
+  needs: []
   script:
     - pnpm typecheck
 
 lint:
   stage: lint
+  needs: []
   script:
     - pnpm lint
 
 test:
   stage: test
+  needs: []
   script:
     - pnpm test
 
+# Combine lint and test into a single stage
+lint_and_typecheck:
+  stage: lint
+  needs: []
+  parallel: 2  # Optional: specify the number of parallel jobs
+  script:
+    - pnpm lint &
+    - pnpm typecheck &
+    - wait  # Wait for both background jobs to finish
+
+
 build:
   stage: build
+  needs: []
   script:
     - pnpm run build
   artifacts:
@@ -48,6 +64,7 @@ build:
 
 publish:
   stage: publish
+  needs: []
   script:
     - echo "//${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}">.npmrc
     - npm publish
@@ -57,6 +74,7 @@ publish:
 
 version:
   stage: version
+  needs: []
   script:
     - git config user.name "GitLab CI"
     - git config user.email "rtorcato@me.com"
