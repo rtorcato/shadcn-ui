@@ -66,17 +66,17 @@ publish:
   rules: 
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
-version:
-  stage: version
-  script:
-    - git config user.name "GitLab CI"
-    - git config user.email "rtorcato@me.com"
-    - pnpm changeset version
-    - git add .
-    - git commit -m "Version packages [skip ci]"
-    - git push origin HEAD:$CI_COMMIT_REF_NAME
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+# version:
+#   stage: version
+#   script:
+#     - git config user.name "GitLab CI"
+#     - git config user.email "rtorcato@me.com"
+#     - pnpm changeset version
+#     - git add .
+#     - git commit -m "Version packages [skip ci]"
+#     - git push origin HEAD:$CI_COMMIT_REF_NAME
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 
 # changesets_comment: 
