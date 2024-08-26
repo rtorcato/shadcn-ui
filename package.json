@@ -262,7 +262,7 @@
     "@changesets/cli": "^2.27.7",
     "@ianvs/prettier-plugin-sort-imports": "^4.3.1",
     "@jest/globals": "^29.7.0",
-    "@rtorcato/js-tooling": "^1.0.3",
+    "@rtorcato/js-tooling": "1.0.4",
     "@swc/core": "^1.7.18",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/typography": "^0.5.14",
