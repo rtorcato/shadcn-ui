@@ -1,6 +1,5 @@
 dist
 node_modules
+coverage
 .next
 build
-.contentlayer
-apps/www/pages/api/registry.json

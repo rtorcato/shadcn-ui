@@ -42,6 +42,9 @@ async function getFileEntryPoints(dir) {
 
 const hookEntryPoints = await getFileEntryPoints("src/hooks")
 const uiEntryPoints = await getComponentEntryPoints("src/components/ui")
+const uiExtendedEntryPoints = await getComponentEntryPoints(
+  "src/components/ui-extended"
+)
 const libEntryPoints = await getFileEntryPoints("src/lib")
 // allEntryPoints.push(...(await getEntryPoints("src/components")))
 // allEntryPoints.push(...(await getEntryPoints("src/hooks")))
@@ -51,6 +54,7 @@ async function build() {
   const allEntryPoints = [
     // "src/index.ts",
     ...uiEntryPoints,
+    ...uiExtendedEntryPoints,
     ...hookEntryPoints,
     ...libEntryPoints,
   ]

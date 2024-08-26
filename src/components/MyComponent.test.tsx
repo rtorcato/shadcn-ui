@@ -1,18 +1,19 @@
-import React from "react"
-import "@testing-library/jest-dom"
+import React from 'react'
 
-import { render, screen } from "@testing-library/react"
+import '@testing-library/jest-dom'
 
-import MyComponent from "./MyComponent"
+import { render, screen } from '@testing-library/react'
 
-describe("MyComponent", () => {
-  it("renders the text prop", () => {
+import MyComponent from './MyComponent'
+
+describe('MyComponent', () => {
+  it('renders the text prop', () => {
     render(<MyComponent text="Hello, World!" />)
-    expect(screen.getByText("Hello, World!")).toBeInTheDocument()
+    expect(screen.getByText('Hello, World!')).toBeInTheDocument()
   })
 
-  it("renders with different text", () => {
+  it('renders with different text', () => {
     render(<MyComponent text="Testing is fun!" />)
-    expect(screen.getByText("Testing is fun!")).toBeInTheDocument()
+    expect(screen.getByText('Testing is fun!')).toBeInTheDocument()
   })
 })
