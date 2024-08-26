@@ -1,5 +1,7 @@
 image: node:20.11.1
 
+# variables: 
+
 stages:
   - lint
   - test
