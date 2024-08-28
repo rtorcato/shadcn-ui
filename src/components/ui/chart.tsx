@@ -1,7 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
+'use client'
+
 import * as React from 'react'
 import * as RechartsPrimitive from 'recharts'
 
-import { cn } from './../../lib/utils'
+import { cn } from '~/lib/utils'
 
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: '', dark: '.dark' } as const
@@ -42,7 +46,7 @@ const ChartContainer = React.forwardRef<
   }
 >(({ id, className, children, config, ...props }, ref) => {
   const uniqueId = React.useId()
-  const chartId = `chart-${id ?? uniqueId.replace(/:/g, '')}`
+  const chartId = `chart-${id || uniqueId.replace(/:/g, '')}`
 
   return (
     <ChartContext.Provider value={{ config }}>
@@ -50,7 +54,7 @@ const ChartContainer = React.forwardRef<
         data-chart={chartId}
         ref={ref}
         className={cn(
-          "flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-none [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line-line]:stroke-border [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-sector]:outline-none [&_.recharts-surface]:outline-none",
+          "flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-none [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-sector]:outline-none [&_.recharts-surface]:outline-none",
           className,
         )}
         {...props}
@@ -77,8 +81,9 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
   return (
     <style
       dangerouslySetInnerHTML={{
-        __html: Object.entries(THEMES).map(
-          ([theme, prefix]) => `
+        __html: Object.entries(THEMES)
+          .map(
+            ([theme, prefix]) => `
 ${prefix} [data-chart=${id}] {
 ${colorConfig
   .map(([key, itemConfig]) => {
@@ -90,7 +95,8 @@ ${colorConfig
   .join('\n')}
 }
 `,
-        ),
+          )
+          .join('\n'),
       }}
     />
   )
@@ -135,11 +141,12 @@ const ChartTooltipContent = React.forwardRef<
       }
 
       const [item] = payload
-      const key = `${labelKey ?? item.dataKey ?? item.name ?? 'value'}`
+      const key = `${labelKey || item.dataKey || item.name || 'value'}`
       const itemConfig = getPayloadConfigFromPayload(config, item, key)
       const value =
         !labelKey && typeof label === 'string'
-          ? (config[label].label ?? label)
+          ? // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+            config[label as keyof typeof config]?.label || label
           : itemConfig?.label
 
       if (labelFormatter) {
@@ -182,19 +189,21 @@ const ChartTooltipContent = React.forwardRef<
         {!nestLabel ? tooltipLabel : null}
         <div className="grid gap-1.5">
           {payload.map((item, index) => {
-            const key = `${nameKey ?? item.name ?? item.dataKey ?? 'value'}`
+            const key = `${nameKey || item.name || item.dataKey || 'value'}`
             const itemConfig = getPayloadConfigFromPayload(config, item, key)
-            const indicatorColor = color ?? item.payload.fill ?? item.color
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            const indicatorColor = color || item.payload.fill || item.color
 
             return (
               <div
                 key={item.dataKey}
                 className={cn(
-                  'flex w-full items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground',
+                  'flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground',
                   indicator === 'dot' && 'items-center',
                 )}
               >
-                {formatter && item.value !== undefined && item.name ? (
+                {formatter && item?.value !== undefined && item.name ? (
+                  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
                   formatter(item.value, item.name, item, index, item.payload)
                 ) : (
                   <>
@@ -215,7 +224,9 @@ const ChartTooltipContent = React.forwardRef<
                           )}
                           style={
                             {
+                              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                               '--color-bg': indicatorColor,
+                              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                               '--color-border': indicatorColor,
                             } as React.CSSProperties
                           }
@@ -231,7 +242,7 @@ const ChartTooltipContent = React.forwardRef<
                       <div className="grid gap-1.5">
                         {nestLabel ? tooltipLabel : null}
                         <span className="text-muted-foreground">
-                          {itemConfig?.label ?? item.name}
+                          {itemConfig?.label || item.name}
                         </span>
                       </div>
                       {item.value && (
@@ -282,11 +293,13 @@ const ChartLegendContent = React.forwardRef<
         )}
       >
         {payload.map((item) => {
+          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
           const key = `${nameKey || item.dataKey || 'value'}`
           const itemConfig = getPayloadConfigFromPayload(config, item, key)
 
           return (
             <div
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
               key={item.value}
               className={cn(
                 'flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground',
@@ -348,7 +361,8 @@ function getPayloadConfigFromPayload(
 
   return configLabelKey in config
     ? config[configLabelKey]
-    : config[key as keyof typeof config]
+    : // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+      config[key as keyof typeof config]
 }
 
 export {

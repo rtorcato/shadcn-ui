@@ -1,7 +1,7 @@
-import fs from "fs/promises"
-import path from "path"
-import esbuild from "esbuild"
-import { nodeExternalsPlugin } from "esbuild-node-externals"
+import fs from 'fs/promises'
+import path from 'path'
+import esbuild from 'esbuild'
+import { nodeExternalsPlugin } from 'esbuild-node-externals'
 
 async function getEntryPoints(dir) {
   const entries = await fs.readdir(dir, { withFileTypes: true })
@@ -9,8 +9,8 @@ async function getEntryPoints(dir) {
     .filter(
       (entry) =>
         !entry.isDirectory() &&
-        entry.name.endsWith("index.ts") &&
-        !entry.name.includes(".test.")
+        entry.name.endsWith('index.ts') &&
+        !entry.name.includes('.test.'),
     )
     .map((entry) => path.join(dir, entry.name))
   return entryPoints
@@ -22,8 +22,8 @@ async function getComponentEntryPoints(dir) {
     .filter(
       (entry) =>
         entry.isFile() &&
-        entry.name.endsWith(".tsx") &&
-        !entry.name.includes(".test.")
+        entry.name.endsWith('.tsx') &&
+        !entry.name.includes('.test.'),
     )
     .map((entry) => path.join(dir, entry.name))
 }
@@ -34,18 +34,18 @@ async function getFileEntryPoints(dir) {
     .filter(
       (entry) =>
         entry.isFile() &&
-        entry.name.endsWith(".ts") &&
-        !entry.name.includes(".test.")
+        entry.name.endsWith('.ts') &&
+        !entry.name.includes('.test.'),
     )
     .map((entry) => path.join(dir, entry.name))
 }
 
-const hookEntryPoints = await getFileEntryPoints("src/hooks")
-const uiEntryPoints = await getComponentEntryPoints("src/components/ui")
+const hookEntryPoints = await getFileEntryPoints('src/hooks')
+const uiEntryPoints = await getComponentEntryPoints('src/components/ui')
 const uiExtendedEntryPoints = await getComponentEntryPoints(
-  "src/components/ui-extended"
+  'src/components/ui-extended',
 )
-const libEntryPoints = await getFileEntryPoints("src/lib")
+const libEntryPoints = await getFileEntryPoints('src/lib')
 // allEntryPoints.push(...(await getEntryPoints("src/components")))
 // allEntryPoints.push(...(await getEntryPoints("src/hooks")))
 // allEntryPoints.push(...(await getEntryPoints("src/lib")))
@@ -59,21 +59,21 @@ async function build() {
     ...libEntryPoints,
   ]
 
-  console.log("All entry points:", allEntryPoints)
+  console.log('All entry points:', allEntryPoints)
   await esbuild.build({
     // entryPoints: ["src/index.ts"],
     entryPoints: allEntryPoints,
-    outdir: "dist",
+    outdir: 'dist',
     bundle: true,
     sourcemap: true,
     minify: true,
     splitting: true,
-    format: "esm",
-    target: ["esnext"],
+    format: 'esm',
+    target: ['esnext'],
     bundle: true,
     splitting: true,
-    chunkNames: "chunks/[name]-[hash]",
-    external: ["react", "react-dom"], // Add other external dependencies here
+    chunkNames: 'chunks/[name]-[hash]',
+    external: ['react', 'react-dom'], // Add other external dependencies here
     // plugins: [
     //   {
     //     name: 'make-all-packages-external',

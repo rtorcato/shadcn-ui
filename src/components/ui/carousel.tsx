@@ -1,10 +1,12 @@
+'use client'
+
 import type { UseEmblaCarouselType } from 'embla-carousel-react'
 import * as React from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 
-import { cn } from './../../lib/utils'
-import { Button } from './button'
+import { Button } from '~/components/ui/button'
+import { cn } from '~/lib/utils'
 
 type CarouselApi = UseEmblaCarouselType[1]
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
@@ -113,7 +115,8 @@ const Carousel = React.forwardRef<
       api.on('select', onSelect)
 
       return () => {
-        api.off('select', onSelect)
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        api?.off('select', onSelect)
       }
     }, [api, onSelect])
 
@@ -123,7 +126,9 @@ const Carousel = React.forwardRef<
           carouselRef,
           api: api,
           opts,
-          orientation: opts?.axis === 'y' ? 'vertical' : 'horizontal',
+          orientation:
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            orientation || (opts?.axis === 'y' ? 'vertical' : 'horizontal'),
           scrollPrev,
           scrollNext,
           canScrollPrev,
