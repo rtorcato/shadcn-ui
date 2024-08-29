@@ -1,6 +1,6 @@
 {
   "name": "@rtorcato/shadcn-ui",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "author": "Richard Torcato",
   "description": "A React component package",
@@ -245,8 +245,8 @@
       "import": "./dist/components/ui-extended/date-picker-with-presets.js"
     },
     "./hooks/useToast": {
-      "types": "./dist/hooks/useToast.d.ts",
-      "import": "./dist/hooks/useToast.js"
+      "types": "./dist/hooks/use-toast.d.ts",
+      "import": "./dist/hooks/use-toast.js"
     },
     "./lib/*": {
       "types": "./dist/lib/*.d.ts",
