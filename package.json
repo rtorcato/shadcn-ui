@@ -1,6 +1,6 @@
 {
   "name": "@rtorcato/shadcn-ui",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "type": "module",
   "author": "Richard Torcato",
   "description": "A React component package",
@@ -16,8 +16,7 @@
   "homepage": "https://gitlab.com/rtorcato/shadcn-ui",
   "packageManager": "pnpm@9.5.0",
   "scripts": {
-    "component-add": "pnpm dlx shadcn-ui add",
-    "ui-add": "pnpm component-add && prettier src --write --list-different",
+    "component-add": "npx shadcn@latest add",
     "build:css": "postcss src/styles/globals.css -o dist/styles.css",
     "build": "rimraf ./dist && pnpm build:css && node build.mjs && tsc --emitDeclarationOnly --project tsconfig.build.json",
     "prepublishOnly": "npm run build",
@@ -35,7 +34,7 @@
     "coverage": "vitest run --coverage",
     "change:new": "npx changeset",
     "change:release": "npx changeset version",
-    "change:publish": "npx changeset publish",
+    "change:publish1": "npx changeset publish",
     "prepare": "husky",
     "================================================": ""
   },
@@ -247,6 +246,10 @@
     "./hooks/useToast": {
       "types": "./dist/hooks/use-toast.d.ts",
       "import": "./dist/hooks/use-toast.js"
+    },
+    "./hooks": {
+      "types": "./dist/hooks/index.d.ts",
+      "import": "./dist/hooks/index.js"
     },
     "./lib/*": {
       "types": "./dist/lib/*.d.ts",

@@ -10,6 +10,7 @@ export default [
       'tailwind.config.ts',
       'vite.config.ts',
       'src/test',
+      'src/examples',
     ],
   },
   ...baseConfig,

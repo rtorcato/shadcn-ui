@@ -1,5 +1,11 @@
 # @rtorcato/shadcn-ui
 
+## 0.0.4
+
+### Patch Changes
+
+- added sidebar example and hooks for useMobile and useSidebar
+
 ## 0.0.3
 
 ### Patch Changes
