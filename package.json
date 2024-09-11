@@ -34,7 +34,7 @@
     "coverage": "vitest run --coverage",
     "change:new": "npx changeset",
     "change:release": "npx changeset version",
-    "change:publish1": "npx changeset publish",
+    "change:publish": "npx changeset publish",
     "prepare": "husky",
     "================================================": ""
   },
