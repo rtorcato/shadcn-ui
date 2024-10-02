@@ -23,6 +23,8 @@
     "prepack": "clean-package",
     "postpack": "clean-package restore",
     "package:check": "pnpm pack",
+    "package:analyzer": "esbuild-analyzer meta.json",
+    "package:analyzer1":"https://esbuild.github.io/analyze/",
     "==================== Common ====================": "",
     "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
     "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
@@ -273,6 +275,7 @@
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.20",
+    "bundle-buddy": "^0.2.2",
     "class-variance-authority": "^0.7.0",
     "clean-package": "2.2.0",
     "clsx": "^2.1.1",
@@ -293,7 +296,8 @@
     "tailwindcss": "3.4.10",
     "typescript": "^5.5.4",
     "vite": "^5.4.2",
-    "vitest": "^2.0.5"
+    "vitest": "^2.0.5",
+    "webpack-bundle-analyzer": "^4.10.2"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.0",
@@ -327,6 +331,7 @@
     "cmdk": "^1.0.0",
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.2.0",
+    "esbuild-analyzer": "^0.2.0",
     "input-otp": "^1.2.4",
     "lucide-react": "^0.436.0",
     "next-themes": "^0.3.0",
