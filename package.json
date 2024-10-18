@@ -1,6 +1,6 @@
 {
   "name": "@rtorcato/shadcn-ui",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "type": "module",
   "author": "Richard Torcato",
   "description": "A React component package",
@@ -24,7 +24,7 @@
     "postpack": "clean-package restore",
     "package:check": "pnpm pack",
     "package:analyzer": "esbuild-analyzer meta.json",
-    "package:analyzer1":"https://esbuild.github.io/analyze/",
+    "package:analyzer1": "https://esbuild.github.io/analyze/",
     "==================== Common ====================": "",
     "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
     "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
@@ -188,6 +188,10 @@
     "./components/ui/sheet": {
       "types": "./dist/components/ui/sheet.d.ts",
       "import": "./dist/components/ui/sheet.js"
+    },
+    "./components/ui/sidebar": {
+      "types": "./dist/components/ui/sidebar.d.ts",
+      "import": "./dist/components/ui/sidebar.js"
     },
     "./components/ui/skeleton": {
       "types": "./dist/components/ui/skeleton.d.ts",
