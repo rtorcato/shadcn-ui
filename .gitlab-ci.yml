@@ -3,112 +3,110 @@ image: node:20.11.1
 # variables: 
 
 stages:
-  - lint
-  - test
-  - build
-  # - comment
-  # - version
-  - publish
+- lint
+- test
+- build
+# - comment
+# - version
+- publish
 
 cache:
-    key: $CI_COMMIT_REF_SLUG
-    paths:
-      - .pnpm-store
-      - node_modules/
-    #   policy: pull-push
+  key: $CI_COMMIT_REF_SLUG
+  paths:
+  - .pnpm-store
+  - node_modules/
+  #   policy: pull-push
 
 before_script:
-  - corepack enable
-  - corepack prepare --activate
-  - pnpm config set store-dir .pnpm-store
-  - pnpm config set @scope:registry https://${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/
-  - pnpm config set -- //${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken ${CI_JOB_TOKEN}
-  - pnpm install --frozen-lockfile
+- corepack enable
+- corepack prepare --activate
+- pnpm config set store-dir .pnpm-store
+- pnpm config set @scope:registry https://${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/
+- pnpm config set -- //${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken ${CI_JOB_TOKEN}
+- pnpm install --no-frozen-lockfile
 
 typecheck:
   stage: lint
   script:
-    - pnpm typecheck
+  - pnpm typecheck
 
 lint:
   stage: lint
   script:
-    - pnpm lint
+  - pnpm lint
 
 test:
   stage: test
   script:
-    - pnpm test
-
+  - pnpm test
 
 build:
   stage: build
   script:
-    - pnpm run build
+  - pnpm run build
   artifacts:
     paths:
-      - dist/
+    - dist/
+    # changesets_comment: 
+    #   stage: commentversion
+    #   # this runs the command that will detect if there are any changesets and then comment on the current Merge Request
+    #   script: 
+    #     - pnpm changesets-gitlab comment
+    #   variables:
+    #     GITLAB_TOKEN: ${CI_JOB_TOKEN}
+    #   rules: 
+    #     - if: $IS_MERGE_REQUEST
 
-# changesets_comment: 
-#   stage: commentversion
-#   # this runs the command that will detect if there are any changesets and then comment on the current Merge Request
-#   script: 
-#     - pnpm changesets-gitlab comment
-#   variables:
-#     GITLAB_TOKEN: ${CI_JOB_TOKEN}
-#   rules: 
-#     - if: $IS_MERGE_REQUEST
-
-# version:
-#   stage: version
-#   script:
-#     - npx changeset
-#     - npx changeset version --verbose || { echo "Changeset versioning failed"; exit 1; }
-#     - git config user.name "GitLab CI"
-#     - git config user.email "your-email@example.com"
-#     - git add .
-#     - git commit -m "Version packages [skip ci]"
+    # version:
+    #   stage: version
+    #   script:
+    #     - npx changeset
+    #     - npx changeset version --verbose || { echo "Changeset versioning failed"; exit 1; }
+    #     - git config user.name "GitLab CI"
+    #     - git config user.email "your-email@example.com"
+    #     - git add .
+    #     - git commit -m "Version packages [skip ci]"
     # - git push origin HEAD:$CI_COMMIT_REF_NAME
-  # rules: 
-  #   - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    # rules: 
+    #   - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   only:
-    - main  # Run this job only on the main branch
+  - main # Run this job only on the main branch
 
 publish:
   stage: publish
   script:
-    - echo "//${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}">.npmrc
-    # - npm publish
-    - pnpm change:publish
+  - echo "//${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}">.npmrc
+  # - npm publish
+  - pnpm change:publish
   environment: production
-  rules: 
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  rules:
+  - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   # only:
   #   - main  # Run this job only on the main branch
 
 
-# publish: 
-#   stage: publish
-#   script: 
-#     - pnpm install
-#     - |
-#       cat <<EOF > "$HOME/.npmrc"
-#       //${CI_SERVER_HOST}/api/v4/projects/${YOUR_PACKAGE_REGISTRY_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}
-#       EOF
-#     - pnpm build
-#     - pnpm changesets-gitlab
-#   variables:
-#     GITLAB_TOKEN: $YOUR_TOKEN_HERE
-#     NPM_TOKEN: $CI_JOB_TOKEN
-#     INPUT_PUBLISH: pnpm changeset publish
-#   rules: 
-#     - if: $IS_MAIN_BRANCH
-  
-# Combine lint and test into a single stage
-# lint_and_typecheck:
-#   stage: lint
-#   parallel: 2  # Optional: specify the number of parallel jobs
-#   script:
-#     - pnpm lint &
-#     - pnpm typecheck &
-#     - wait  # Wait for both background jobs to finish
+  # publish: 
+  #   stage: publish
+  #   script: 
+  #     - pnpm install
+  #     - |
+  #       cat <<EOF > "$HOME/.npmrc"
+  #       //${CI_SERVER_HOST}/api/v4/projects/${YOUR_PACKAGE_REGISTRY_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}
+  #       EOF
+  #     - pnpm build
+  #     - pnpm changesets-gitlab
+  #   variables:
+  #     GITLAB_TOKEN: $YOUR_TOKEN_HERE
+  #     NPM_TOKEN: $CI_JOB_TOKEN
+  #     INPUT_PUBLISH: pnpm changeset publish
+  #   rules: 
+  #     - if: $IS_MAIN_BRANCH
+
+  # Combine lint and test into a single stage
+  # lint_and_typecheck:
+  #   stage: lint
+  #   parallel: 2  # Optional: specify the number of parallel jobs
+  #   script:
+  #     - pnpm lint &
+  #     - pnpm typecheck &
+  #     - wait  # Wait for both background jobs to finish
