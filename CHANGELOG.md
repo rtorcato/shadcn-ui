@@ -1,5 +1,17 @@
 # @rtorcato/shadcn-ui
 
+## 0.0.7
+
+### Patch Changes
+
+- just updating packages
+
+## 0.0.6
+
+### Patch Changes
+
+- update
+
 ## 0.0.5
 
 ### Patch Changes
