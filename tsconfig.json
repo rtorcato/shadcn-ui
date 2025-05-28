@@ -1,14 +1,16 @@
 {
-  "extends": "@rtorcato/js-tooling/typescript/react",
+  "extends": "@rtorcato/js-tooling/typescript/base",
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": "./src",
     "lib": ["esnext", "dom"],
+    "jsx": "react-jsx",
     "types": ["react", "react-dom", "tailwindcss"],
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src/**/*", "tests/**/*"],
-  "exclude": ["build.mjs", "node_modules", "dist", "build", "coverage", "**/*.spec.ts", "**/*.test.ts", "release.config.ts", "src/examples", "src/components/ui-stories"]
+  "exclude": ["build.mjs", "node_modules", "dist", "build", "coverage", "**/*.spec.ts", "**/*.test.ts", "release.config.ts", "OLD/examples", "OLD/ui-stories", "OLD"]
 }

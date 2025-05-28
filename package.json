@@ -19,7 +19,6 @@
     "build:css": "postcss src/styles/globals.css -o dist/styles.css",
     "build-dev": "rimraf ./dist && pnpm build:css && cross-env NODE_ENV=development node build.mjs && tsc --emitDeclarationOnly --project tsconfig.build.json",
     "build-prod": "rimraf ./dist && pnpm build:css && cross-env NODE_ENV=production node build.mjs && tsc --emitDeclarationOnly --project tsconfig.build.json",
-    "prepublishOnly1": "npm run build",
     "package:analyzer": "esbuild-analyzer meta.json",
     "package:analyzer1": "https://esbuild.github.io/analyze/",
     "==================== Common ====================": "",
@@ -185,15 +184,15 @@
       "import": "./dist/components/ui/separator.js"
     },
     "./components/ui/sheet": {
-      "types": "./dist/components/ui/sheet.d.ts",
+      "types": "./dist/types/components/ui/sheet.d.ts",
       "import": "./dist/components/ui/sheet.js"
     },
     "./components/ui/sidebar": {
-      "types": "./dist/components/ui/sidebar.d.ts",
+      "types": "./dist/types/components/ui/sidebar.d.ts",
       "import": "./dist/components/ui/sidebar.js"
     },
     "./components/ui/skeleton": {
-      "types": "./dist/components/ui/skeleton.d.ts",
+      "types": "./dist/types/components/ui/skeleton.d.ts",
       "import": "./dist/components/ui/skeleton.js"
     },
     "./components/ui/slider": {
@@ -220,14 +219,6 @@
       "types": "./dist/components/ui/textarea.d.ts",
       "import": "./dist/components/ui/textarea.js"
     },
-    "./components/ui/toast": {
-      "types": "./dist/components/ui/toast.d.ts",
-      "import": "./dist/components/ui/toast.js"
-    },
-    "./components/ui/toaster": {
-      "types": "./dist/types/components/ui/toaster.d.ts",
-      "import": "./dist/components/ui/toaster.js"
-    },
     "./components/ui/toggle-group": {
       "types": "./dist/components/ui/toggle-group.d.ts",
       "import": "./dist/components/ui/toggle-group.js"
@@ -248,10 +239,6 @@
       "types": "./dist/components/ui-extended/date-picker-with-presets.d.ts",
       "import": "./dist/components/ui-extended/date-picker-with-presets.js"
     },
-    "./hooks/useToast": {
-      "types": "./dist/hooks/use-toast.d.ts",
-      "import": "./dist/hooks/use-toast.js"
-    },
     "./hooks": {
       "types": "./dist/hooks/index.d.ts",
       "import": "./dist/hooks/index.js"
@@ -268,6 +255,7 @@
     "@biomejs/biome": "^1.9.4",
     "@commitlint/cli": "^19.8.1",
     "@semantic-release/changelog": "^6.0.3",
+    "esbuild-node-externals":"1.18.0",
     "cross-env": "^7.0.3",
     "esbuild": "^0.25.5",
     "husky": "^9.1.7",
