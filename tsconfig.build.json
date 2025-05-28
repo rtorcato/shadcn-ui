@@ -1,44 +1,11 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "target": "es5",
-    "esModuleInterop": true,
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "skipLibCheck": true,
-    "module": "ESNext",
-    "declaration": true,
-    // "declarationDir": "types",
-    "moduleResolution": "bundler",
-    "sourceMap": true,
-    "outDir": "dist",
-    "emitDeclarationOnly": false,
-    // "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "jsx": "react-jsx",
-    "baseUrl": ".",
-    "paths": {
-      "~/*": ["./src/*"]
-    },
-    "types": [
-      "react",
-      "react-dom",
-      "@radix-ui/react-slot",
-      "class-variance-authority",
-      "clsx",
-      "tailwind-merge"
-    ]
+    "noEmit": false, // Emit output files
+    "emitDeclarationOnly": false, // Emit JS and .d.ts files
+    "declaration": true, // Generate .d.ts files
+    "declarationMap": true, // (optional) Generate sourcemaps for d.ts files
+    "outDir": "dist" // Output directory for build
   },
-  "include": ["src"],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "src/test",
-    "**/*.test.ts",
-    "**/*.test.tsx",
-    "**/*.spec.ts",
-    "**/*.spec.tsx",
-    "src/examples"
-  ]
+  "exclude": ["dist", "node_modules", "**/*.test.ts", "**/*.test.tsx", "**/*.spec.ts", "**/*.spec.tsx"]
 }

@@ -11,5 +11,5 @@ expect.extend(matchers)
 
 // Run cleanup after each test case (e.g. clearing jsdom)
 afterEach(() => {
-  cleanup()
+	cleanup()
 })

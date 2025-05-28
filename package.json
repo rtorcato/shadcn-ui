@@ -14,32 +14,31 @@
   ],
   "license": "ISC",
   "homepage": "https://gitlab.com/rtorcato/shadcn-ui",
-  "packageManager": "pnpm@9.15.4",
   "scripts": {
     "component-add": "npx shadcn@latest add",
     "build:css": "postcss src/styles/globals.css -o dist/styles.css",
-    "build": "rimraf ./dist && pnpm build:css && node build.mjs && tsc --emitDeclarationOnly --project tsconfig.build.json",
-    "prepublishOnly": "npm run build",
-    "prepack": "clean-package",
-    "postpack": "clean-package restore",
-    "package:check": "pnpm pack",
+    "build-dev": "rimraf ./dist && pnpm build:css && cross-env NODE_ENV=development node build.mjs && tsc --emitDeclarationOnly --project tsconfig.build.json",
+    "build-prod": "rimraf ./dist && pnpm build:css && cross-env NODE_ENV=production node build.mjs && tsc --emitDeclarationOnly --project tsconfig.build.json",
+    "prepublishOnly1": "npm run build",
     "package:analyzer": "esbuild-analyzer meta.json",
     "package:analyzer1": "https://esbuild.github.io/analyze/",
     "==================== Common ====================": "",
-    "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
-    "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
-    "typecheck": "tsc --noEmit",
-    "lint": "eslint",
-    "lint:fix": "eslint --fix",
-    "clean": "rimraf .turbo node_modules dist",
-    "test": "vitest",
-    "coverage": "vitest run --coverage",
-    "change:new": "npx changeset",
-    "change:release": "npx changeset version",
-    "change:publish": "npx changeset publish",
+    "lint": "pnpm exec biome lint .",
+    "format": "pnpm exec biome format .",
+    "check:fix": "pnpm exec biome check --fix",
+    "check": "pnpm exec biome check .",
     "prepare": "husky",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "coverage": "vitest run --coverage",
+    "commit": "cz",
     "================================================": ""
   },
+  "files": [
+    "CHANGELOG.md",
+    "dist"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -263,15 +262,20 @@
     },
     "./styles.css": "./dist/styles.css"
   },
-  "files": [
-    "CHANGELOG.md",
-    "dist"
-  ],
   "devDependencies": {
+    "@rtorcato/js-tooling": "^1.0.9",
     "@changesets/cli": "^2.27.11",
-    "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
-    "@next/eslint-plugin-next": "^15.1.5",
-    "@rtorcato/js-tooling": "1.0.12",
+    "@biomejs/biome": "^1.9.4",
+    "@commitlint/cli": "^19.8.1",
+    "@semantic-release/changelog": "^6.0.3",
+    "cross-env": "^7.0.3",
+    "esbuild": "^0.25.5",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.0",
+    "rimraf": "^6.0.1",
+    "semantic-release": "^24.2.5",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.4",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@types/jest": "^29.5.14",
@@ -281,30 +285,16 @@
     "@typescript-eslint/parser": "^8.20.0",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
-    "bundle-buddy": "^0.2.2",
     "class-variance-authority": "^0.7.1",
     "clean-package": "2.2.0",
     "clsx": "^2.1.1",
-    "esbuild": "^0.24.2",
-    "esbuild-node-externals": "^1.16.0",
-    "eslint": "^9.18.0",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-jest": "^28.11.0",
-    "eslint-plugin-prettier": "^5.2.2",
-    "eslint-plugin-sort-keys-fix": "^1.1.2",
-    "husky": "^9.1.7",
     "jsdom": "^26.0.0",
     "postcss": "8.5.1",
     "postcss-cli": "^11.0.0",
-    "prettier": "3.4.2",
-    "rimraf": "^6.0.1",
     "tailwind-merge": "^2.6.0",
     "tailwindcss": "3.4.17",
-    "typescript": "^5.7.3",
     "vite": "^6.0.7",
-    "vitest": "^3.0.2",
-    "webpack-bundle-analyzer": "^4.10.2",
-    "typescript-eslint": "8.20.0"
+    "webpack-bundle-analyzer": "^4.10.2"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.2",
@@ -363,8 +353,24 @@
       "optional": true
     }
   },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+   "lint-staged": {
+    "*.{js,ts,json,md}": [
+      "pnpm exec biome lint",
+      "pnpm exec biome format",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "publishConfig": {
     "@rtorcato:registry": "https://gitlab.com/api/v4/projects/60598964/packages/npm/"
-  },
-  "prettier": "@rtorcato/js-tooling/prettier"
+  }
 }

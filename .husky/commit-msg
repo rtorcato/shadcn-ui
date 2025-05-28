@@ -1,12 +1,8 @@
 
-
-# npx --no-install commitlint --edit "$1"
-
-if ! head -1 "$1" | grep -qE "^(feat|fix|ci|chore|docs|test|style|refactor|perf|build|revert)(\(.+?\))?: .{1,}$"; then
-    echo "❌ Aborting commit. Your commit message is invalid." >&2
-    exit 1
+# Skip commitlint for semantic-release commits
+if grep -q "\[skip ci\]" "$1"; then
+  echo "⏩ Skipping commitlint for semantic-release commit"
+  exit 0
 fi
-if ! head -1 "$1" | grep -qE "^.{1,88}$"; then
-    echo "❌ Aborting commit. Your commit message is too long." >&2
-    exit 1
-fi
+
+npx --no-install commitlint --edit "$1"

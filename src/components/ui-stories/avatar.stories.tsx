@@ -4,10 +4,10 @@ import React from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 
 const meta: Meta<typeof Avatar> = {
-  title: 'ui/Avatar',
-  component: Avatar,
-  tags: ['autodocs'],
-  argTypes: {},
+	title: 'ui/Avatar',
+	component: Avatar,
+	tags: ['autodocs'],
+	argTypes: {},
 }
 
 export default meta
@@ -15,11 +15,11 @@ export default meta
 type Story = StoryObj<typeof Avatar>
 
 export const Base: Story = {
-  render: () => (
-    <Avatar>
-      <AvatarImage src="https://github.com/shadcn.png" />
-      <AvatarFallback>CN</AvatarFallback>
-    </Avatar>
-  ),
-  args: {},
+	render: () => (
+		<Avatar>
+			<AvatarImage src="https://github.com/shadcn.png" />
+			<AvatarFallback>CN</AvatarFallback>
+		</Avatar>
+	),
+	args: {},
 }

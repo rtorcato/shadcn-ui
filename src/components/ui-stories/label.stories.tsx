@@ -4,17 +4,17 @@ import React from 'react'
 import { Label } from '../ui/label'
 
 const meta: Meta<typeof Label> = {
-  title: 'ui/Label',
-  component: Label,
-  tags: ['autodocs'],
-  argTypes: {},
+	title: 'ui/Label',
+	component: Label,
+	tags: ['autodocs'],
+	argTypes: {},
 }
 export default meta
 
 type Story = StoryObj<typeof Label>
 
 export const Base: Story = {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  render: (args: any) => <Label htmlFor="email">Your email address</Label>,
-  args: {},
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	render: (args: any) => <Label htmlFor="email">Your email address</Label>,
+	args: {},
 }

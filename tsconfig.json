@@ -1,27 +1,14 @@
 {
+  "extends": "@rtorcato/js-tooling/typescript/react",
   "compilerOptions": {
-    "target": "es5",
-    "esModuleInterop": true,
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "skipLibCheck": true,
-    "module": "ESNext",
-    "declaration": true,
-    // "declarationDir": "types",
-    "moduleResolution": "bundler",
-    "sourceMap": true,
-    "outDir": "dist",
-    "emitDeclarationOnly": false,
-    // "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "jsx": "react-jsx",
     "baseUrl": ".",
+    "rootDir": "./src",
+    "lib": ["esnext", "dom"],
+    "types": ["react", "react-dom", "tailwindcss"],
     "paths": {
       "~/*": ["./src/*"]
-    },
-    "types": ["react", "react-dom"]
+    }
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist", "src/examples"]
+  "include": ["src/**/*", "tests/**/*"],
+  "exclude": ["build.mjs", "node_modules", "dist", "build", "coverage", "**/*.spec.ts", "**/*.test.ts", "release.config.ts", "src/examples", "src/components/ui-stories"]
 }
