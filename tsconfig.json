@@ -5,7 +5,7 @@
     "rootDir": "./src",
     "lib": ["esnext", "dom"],
     "jsx": "react-jsx",
-    "types": ["react", "react-dom", "tailwindcss"],
+    "types": ["react", "react-dom", "tailwindcss", "vitest"],
     "paths": {
       "~/*": ["./src/*"],
       "@/*": ["./src/*"]

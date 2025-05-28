@@ -250,10 +250,10 @@
     "./styles.css": "./dist/styles.css"
   },
   "devDependencies": {
-    "@rtorcato/js-tooling": "^1.0.9",
-    "@changesets/cli": "^2.27.11",
     "@biomejs/biome": "^1.9.4",
+    "@changesets/cli": "^2.27.11",
     "@commitlint/cli": "^19.8.1",
+    "@rtorcato/js-tooling": "^1.0.9",
     "@semantic-release/changelog": "^6.0.3",
     "esbuild-node-externals":"1.18.0",
     "cross-env": "^7.0.3",
@@ -265,7 +265,7 @@
     "typescript": "^5.8.3",
     "vitest": "^3.1.4",
     "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.2.0",
+    "@testing-library/react": "^16.3.0",
     "@types/jest": "^29.5.14",
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
@@ -276,7 +276,7 @@
     "class-variance-authority": "^0.7.1",
     "clean-package": "2.2.0",
     "clsx": "^2.1.1",
-    "jsdom": "^26.0.0",
+    "jsdom": "^26.1.0",
     "postcss": "8.5.1",
     "postcss-cli": "^11.0.0",
     "tailwind-merge": "^2.6.0",
@@ -346,7 +346,7 @@
       "path": "cz-conventional-changelog"
     }
   },
-   "lint-staged": {
+  "lint-staged": {
     "*.{js,ts,json,md}": [
       "pnpm exec biome lint",
       "pnpm exec biome format",

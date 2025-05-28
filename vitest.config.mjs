@@ -1,3 +1,24 @@
-import config from '@rtorcato/js-tooling/vitest/config'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite'
 
-export default config
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
+export default defineConfig({
+	plugins: [react()],
+	test: {
+		globals: true,
+		environment: 'jsdom',
+		coverage: {
+			provider: 'istanbul',
+			reporter: ['text', 'json', 'html'],
+		},
+	},
+	resolve: {
+		alias: {
+			'@': path.resolve(__dirname, './src'),
+			'~': path.resolve(__dirname, './src'),
+		},
+	},
+})
