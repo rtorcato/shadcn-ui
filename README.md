@@ -1,4 +1,4 @@
-# SHADCN-UI
+# SHADCN-UI components
 
 [![pipeline status](https://gitlab.com/rtorcato/shadcn-ui/badges/main/pipeline.svg)](https://gitlab.com/rtorcato/shadcn-ui/-/commits/main)
 
