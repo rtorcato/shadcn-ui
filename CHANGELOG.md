@@ -1,3 +1,10 @@
+## [1.0.2](https://gitlab.com/rtorcato/shadcn-ui/compare/v1.0.1...v1.0.2) (2025-10-10)
+
+
+### Bug Fixes
+
+* update npm version ([daa8755](https://gitlab.com/rtorcato/shadcn-ui/commit/daa87553c748d915af3c75aee6b98d14b29e00ef))
+
 ## [1.0.1](https://gitlab.com/rtorcato/shadcn-ui/compare/v1.0.0...v1.0.1) (2025-10-10)
 
 
