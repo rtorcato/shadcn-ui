@@ -1,3 +1,10 @@
+# [1.1.0](https://gitlab.com/rtorcato/shadcn-ui/compare/v1.0.2...v1.1.0) (2025-10-10)
+
+
+### Features
+
+* add input-group component ([e308cac](https://gitlab.com/rtorcato/shadcn-ui/commit/e308cacd93546c61e7349a5e36fa3dc6295e7ee0))
+
 ## [1.0.2](https://gitlab.com/rtorcato/shadcn-ui/compare/v1.0.1...v1.0.2) (2025-10-10)
 
 
