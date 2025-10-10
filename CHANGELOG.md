@@ -7,6 +7,15 @@
 * add new components and update packages ([fa1a8e2](https://gitlab.com/rtorcato/shadcn-ui/commit/fa1a8e2a6473720cbfc6f904c2ee26c3224f50e3))
 * downgrade jsdom to v26 for CI compatibility ([680c72c](https://gitlab.com/rtorcato/shadcn-ui/commit/680c72c47fdbf9b60683cc51c2f6d809a0fdc95b))
 
+## [1.0.1](https://gitlab.com/rtorcato/shadcn-ui/compare/v1.0.0...v1.0.1) (2025-10-10)
+
+
+### Bug Fixes
+
+* add new components and update packages ([76daa06](https://gitlab.com/rtorcato/shadcn-ui/commit/76daa0680947b9cc5ef041e11e0842dd933a8b06))
+* add new components and update packages ([fa1a8e2](https://gitlab.com/rtorcato/shadcn-ui/commit/fa1a8e2a6473720cbfc6f904c2ee26c3224f50e3))
+* downgrade jsdom to v26 for CI compatibility ([680c72c](https://gitlab.com/rtorcato/shadcn-ui/commit/680c72c47fdbf9b60683cc51c2f6d809a0fdc95b))
+
 # 1.0.0 (2025-05-28)
 
 
