@@ -14,8 +14,6 @@
       "!**/tsconfig*.json",
       "!**/node_modules",
       "!**/OLD",
-      "!**/OLD",
-      "!**/components/ui",
       "!**/components/ui",
       "!**/dist",
       "!**/coverage",
