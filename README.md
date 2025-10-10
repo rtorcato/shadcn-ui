@@ -28,6 +28,23 @@ yarn add @rtorcato/shadcn-ui
 
 ## 🎨 Usage
 
+
+### Update tailwind config
+We need tailwind to build the css for this library.
+
+```typescript
+import type { Config } from 'tailwindcss'
+
+const config: Config = {
+  content: [
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    // Scan the shadcn-ui package for Tailwind classes
+    './node_modules/@rtorcato/shadcn-ui/**/*.{js,ts,jsx,tsx}',
+  ],
+`
+
 ### Import Components
 
 Import individual components as needed:
