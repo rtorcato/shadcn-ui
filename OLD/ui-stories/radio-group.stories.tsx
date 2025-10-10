@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import React from 'react'
 
 import { Label } from '../ui/label'
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group'
@@ -16,7 +15,7 @@ type Story = StoryObj<typeof RadioGroup>
 
 export const Base: Story = {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	render: (args) => (
+	render: (_args) => (
 		<RadioGroup defaultValue="comfortable">
 			<div className="flex items-center space-x-2">
 				<RadioGroupItem value="default" id="r1" />

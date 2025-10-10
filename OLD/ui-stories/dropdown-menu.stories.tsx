@@ -15,7 +15,6 @@ import {
 	UserPlus,
 	Users,
 } from 'lucide-react'
-import React from 'react'
 
 import { Button } from '../ui/button'
 import {
@@ -45,7 +44,7 @@ type Story = StoryObj<typeof DropdownMenu>
 
 export const Base: Story = {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	render: (args: any) => (
+	render: (_args: any) => (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<Button variant="outline">Open</Button>

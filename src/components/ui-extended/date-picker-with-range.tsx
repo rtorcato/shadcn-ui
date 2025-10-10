@@ -11,6 +11,7 @@ import { Calendar } from '../ui/calendar'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 
 export default function DatePickerWithRange({ className }: React.HTMLAttributes<HTMLDivElement>) {
+	const dateId = React.useId()
 	const [date, setDate] = React.useState<DateRange | undefined>({
 		from: new Date(2022, 0, 20),
 		to: addDays(new Date(2022, 0, 20), 20),
@@ -21,7 +22,7 @@ export default function DatePickerWithRange({ className }: React.HTMLAttributes<
 			<Popover>
 				<PopoverTrigger asChild>
 					<Button
-						id="date"
+						id={dateId}
 						variant={'outline'}
 						className={cn(
 							'w-[300px] justify-start text-left font-normal',

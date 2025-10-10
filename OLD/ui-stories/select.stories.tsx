@@ -23,7 +23,7 @@ type Story = StoryObj<typeof Select>
 
 export const Base: Story = {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	render: (args) => (
+	render: (_args) => (
 		<Select>
 			<SelectTrigger className="w-[180px]">
 				<SelectValue placeholder="Select a fruit" />

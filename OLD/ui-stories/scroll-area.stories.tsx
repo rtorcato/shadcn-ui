@@ -16,7 +16,7 @@ type Story = StoryObj<typeof ScrollArea>
 
 export const Base: Story = {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	render: (args) => (
+	render: (_args) => (
 		<ScrollArea className="h-72 w-48 rounded-md border border-slate-100 dark:border-slate-700">
 			<div className="p-4">
 				<h4 className="mb-4 text-sm font-medium leading-none">Tags</h4>

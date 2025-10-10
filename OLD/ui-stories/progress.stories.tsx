@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import React from 'react'
 
 import { Progress } from '../ui/progress'
 
@@ -15,6 +14,6 @@ type Story = StoryObj<typeof Progress>
 
 export const Base: Story = {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	render: (args) => <Progress value={33} />,
+	render: (_args) => <Progress value={33} />,
 	args: {},
 }

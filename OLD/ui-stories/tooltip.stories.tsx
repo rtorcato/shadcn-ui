@@ -16,7 +16,7 @@ type Story = StoryObj<typeof Tooltip>
 
 export const Base: Story = {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	render: (args) => (
+	render: (_args) => (
 		<Tooltip>
 			<TooltipTrigger asChild>
 				<Button variant="outline" className="w-10 rounded-full p-0">

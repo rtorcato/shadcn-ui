@@ -14,7 +14,7 @@ type Story = StoryObj<typeof Separator>
 
 export const Base: Story = {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	render: (args) => (
+	render: (_args) => (
 		<div>
 			<div className="space-y-1">
 				<h4 className="text-sm font-medium leading-none">Radix Primitives</h4>

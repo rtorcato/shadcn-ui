@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { Loader2, Mail } from 'lucide-react'
-import React from 'react'
 
 import { Button } from '../ui/button'
 

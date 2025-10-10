@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { CalendarDays } from 'lucide-react'
-import React from 'react'
 
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { Button } from '../ui/button'
@@ -18,7 +17,7 @@ type Story = StoryObj<typeof HoverCard>
 
 export const Base: Story = {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	render: (args) => (
+	render: (_args) => (
 		<HoverCard>
 			<HoverCardTrigger asChild>
 				<Button variant="link">@nextjs</Button>

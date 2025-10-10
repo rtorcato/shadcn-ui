@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import React from 'react'
 
 import {
 	Menubar,
@@ -29,7 +28,7 @@ type Story = StoryObj<typeof Menubar>
 
 export const Base: Story = {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	render: (args) => (
+	render: (_args) => (
 		<Menubar>
 			<MenubarMenu>
 				<MenubarTrigger>File</MenubarTrigger>

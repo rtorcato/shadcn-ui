@@ -1,4 +1,4 @@
-import { buildCode, getEntryPoints, getEntrypointFolders } from '@rtorcato/js-tooling/esbuild'
+import { buildCode, getEntryPoints } from '@rtorcato/js-tooling/esbuild'
 
 const componentsFolder = await getEntryPoints('src/components')
 const libFolder = await getEntryPoints('src/lib')

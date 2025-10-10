@@ -2,7 +2,7 @@ import { Slot } from '@radix-ui/react-slot'
 import type { VariantProps } from 'class-variance-authority'
 import { cva } from 'class-variance-authority'
 import { PanelLeftIcon } from 'lucide-react'
-
+import React from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
@@ -16,7 +16,6 @@ import {
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { useIsMobile } from '@/hooks/use-mobile'
-import React from 'react'
 import { cn } from '~/lib/utils'
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state'

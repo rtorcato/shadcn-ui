@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { Settings2 } from 'lucide-react'
-import React from 'react'
 
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
@@ -19,7 +18,7 @@ type Story = StoryObj<typeof Popover>
 
 export const Base: Story = {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	render: (args) => (
+	render: (_args) => (
 		<Popover>
 			<PopoverTrigger asChild>
 				<Button variant="outline" className="w-10 rounded-full p-0">

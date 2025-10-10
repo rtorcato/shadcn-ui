@@ -6,7 +6,7 @@ import { cn } from '~/lib/utils'
 
 function Pagination({ className, ...props }: React.ComponentProps<'nav'>) {
 	// biome-ignore format: prevent wrapping
-	// biome-ignore lint/a11y/noRedundantRoles: <explanation>
+	// biome-ignore lint/a11y/noRedundantRoles: explicit role for better screen reader support
 	return <nav role="navigation" aria-label="pagination" data-slot="pagination" className={cn('mx-auto flex w-full justify-center', className)} {...props} />;
 }
 
@@ -92,9 +92,9 @@ function PaginationEllipsis({ className, ...props }: React.ComponentProps<'span'
 export {
 	Pagination,
 	PaginationContent,
-	PaginationLink,
-	PaginationItem,
-	PaginationPrevious,
-	PaginationNext,
 	PaginationEllipsis,
+	PaginationItem,
+	PaginationLink,
+	PaginationNext,
+	PaginationPrevious,
 }

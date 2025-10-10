@@ -1,6 +1,7 @@
 {
-  "extends": "@rtorcato/js-tooling/typescript/base",
+  "extends": "@rtorcato/js-tooling/typescript/react",
   "compilerOptions": {
+    "ignoreDeprecations": "5.0",
     "baseUrl": ".",
     "rootDir": "./src",
     "lib": ["esnext", "dom"],

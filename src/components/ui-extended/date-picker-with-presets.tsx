@@ -28,7 +28,7 @@ export default function DatePickerWithPresets() {
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent className="flex flex-col w-auto p-2 space-y-2">
-				<Select onValueChange={(value) => setDate(addDays(new Date(), Number.parseInt(value)))}>
+				<Select onValueChange={(value) => setDate(addDays(new Date(), Number.parseInt(value, 10)))}>
 					<SelectTrigger>
 						<SelectValue placeholder="Select" />
 					</SelectTrigger>

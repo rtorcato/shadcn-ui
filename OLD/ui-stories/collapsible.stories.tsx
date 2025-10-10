@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ChevronsUpDown, Plus, X } from 'lucide-react'
-import React from 'react'
+import { ChevronsUpDown } from 'lucide-react'
 
 import { Button } from '../ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../ui/collapsible'

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import React from 'react'
 
 import { Label } from '../ui/label'
 
@@ -15,6 +14,6 @@ type Story = StoryObj<typeof Label>
 
 export const Base: Story = {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	render: (args: any) => <Label htmlFor="email">Your email address</Label>,
+	render: (_args: any) => <Label htmlFor="email">Your email address</Label>,
 	args: {},
 }

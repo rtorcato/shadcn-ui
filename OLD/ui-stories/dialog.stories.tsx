@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import React from 'react'
 
 import { Button } from '../ui/button'
 import {
@@ -26,7 +25,7 @@ type Story = StoryObj<typeof Dialog>
 
 export const Base: Story = {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	render: (args) => (
+	render: (_args) => (
 		<Dialog>
 			<DialogTrigger asChild>
 				<Button variant="outline">Edit Profile</Button>

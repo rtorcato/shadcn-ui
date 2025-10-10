@@ -56,7 +56,7 @@ function Calendar({
 				...classNames,
 			}}
 			components={{
-				// @ts-ignore
+				// @ts-expect-error
 				PrevIcon: (props: React.SVGProps<SVGSVGElement>) => (
 					<ChevronLeft className={cn('size-4', props.className)} {...props} />
 				),
