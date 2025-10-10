@@ -10,6 +10,12 @@ export default defineConfig({
 	test: {
 		globals: true,
 		environment: 'jsdom',
+		environmentOptions: {
+			jsdom: {
+				resources: 'usable',
+				runScripts: 'dangerously',
+			},
+		},
 		coverage: {
 			provider: 'istanbul',
 			reporter: ['text', 'json', 'html'],
