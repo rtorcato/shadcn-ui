@@ -1,3 +1,10 @@
+# [1.2.0](https://gitlab.com/rtorcato/shadcn-ui/compare/v1.1.0...v1.2.0) (2026-04-01)
+
+
+### Features
+
+* migrate to shadcn new-york style with RTL and Radix consolidation ([df8648f](https://gitlab.com/rtorcato/shadcn-ui/commit/df8648f097535376d68e6e9f672049d19a189f7f))
+
 # [1.1.0](https://gitlab.com/rtorcato/shadcn-ui/compare/v1.0.2...v1.1.0) (2025-10-10)
 
 
