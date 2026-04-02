@@ -3,10 +3,6 @@
 import React from 'react'
 import type { ToasterProps } from 'sonner'
 
-// Update the path below to the correct location of your toast component/types
-import type { ToastActionElement } from '~/components/ui/toast'
-// import type { ToastProps } from '~/components/ui/toast'
-
 const TOAST_LIMIT = 1
 const TOAST_REMOVE_DELAY = 1000000
 
@@ -14,10 +10,9 @@ type ToasterToast = ToasterProps & {
 	id: string
 	title?: React.ReactNode
 	description?: React.ReactNode
-	action?: ToastActionElement
+	action?: React.ReactNode
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const actionTypes = {
 	ADD_TOAST: 'ADD_TOAST',
 	UPDATE_TOAST: 'UPDATE_TOAST',
@@ -91,8 +86,6 @@ export const reducer = (state: State, action: Action): State => {
 		case 'DISMISS_TOAST': {
 			const { toastId } = action
 
-			// ! Side effects ! - This could be extracted into a dismissToast() action,
-			// but I'll keep it here for simplicity
 			if (toastId) {
 				addToRemoveQueue(toastId)
 			} else {
@@ -155,10 +148,6 @@ function toast({ ...props }: Toast) {
 		toast: {
 			...props,
 			id,
-			open: true,
-			onOpenChange: (open: boolean) => {
-				if (!open) dismiss()
-			},
 		},
 	})
 
@@ -180,7 +169,7 @@ function useToast() {
 				listeners.splice(index, 1)
 			}
 		}
-	}, [state])
+	}, [])
 
 	return {
 		...state,

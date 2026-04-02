@@ -57,7 +57,7 @@
       "import": "./dist/components/ui/alert-dialog.js"
     },
     "./components/ui/alert": {
-      "types": "./dist/types/components/ui/alert.d.ts",
+      "types": "./dist/components/ui/alert.d.ts",
       "import": "./dist/components/ui/alert.js"
     },
     "./components/ui/aspect-ratio": {
@@ -69,7 +69,7 @@
       "import": "./dist/components/ui/avatar.js"
     },
     "./components/ui/badge": {
-      "types": "./dist/types/components/ui/badge.d.ts",
+      "types": "./dist/components/ui/badge.d.ts",
       "import": "./dist/components/ui/badge.js"
     },
     "./components/ui/breadcrumb": {
@@ -113,15 +113,15 @@
       "import": "./dist/components/ui/command.js"
     },
     "./components/ui/context-menu": {
-      "types": "./dist/types/components/ui/context-menu.d.ts",
+      "types": "./dist/components/ui/context-menu.d.ts",
       "import": "./dist/components/ui/context-menu.js"
     },
     "./components/ui/dialog": {
-      "types": "./dist/types/components/ui/dialog.d.ts",
+      "types": "./dist/components/ui/dialog.d.ts",
       "import": "./dist/components/ui/dialog.js"
     },
     "./components/ui/drawer": {
-      "types": "./dist/types/components/ui/drawer.d.ts",
+      "types": "./dist/components/ui/drawer.d.ts",
       "import": "./dist/components/ui/drawer.js"
     },
     "./components/ui/dropdown-menu": {
@@ -209,19 +209,19 @@
       "import": "./dist/components/ui/separator.js"
     },
     "./components/ui/sheet": {
-      "types": "./dist/types/components/ui/sheet.d.ts",
+      "types": "./dist/components/ui/sheet.d.ts",
       "import": "./dist/components/ui/sheet.js"
     },
     "./components/ui/sidebar": {
-      "types": "./dist/types/components/ui/sidebar.d.ts",
+      "types": "./dist/components/ui/sidebar.d.ts",
       "import": "./dist/components/ui/sidebar.js"
     },
     "./components/ui/skeleton": {
-      "types": "./dist/types/components/ui/skeleton.d.ts",
+      "types": "./dist/components/ui/skeleton.d.ts",
       "import": "./dist/components/ui/skeleton.js"
     },
     "./components/ui/slider": {
-      "types": "./dist/types/components/ui/slider.d.ts",
+      "types": "./dist/components/ui/slider.d.ts",
       "import": "./dist/components/ui/slider.js"
     },
     "./components/ui/sonner": {
@@ -241,7 +241,7 @@
       "import": "./dist/components/ui/table.js"
     },
     "./components/ui/tabs": {
-      "types": "./dist/types/components/ui/tabs.d.ts",
+      "types": "./dist/components/ui/tabs.d.ts",
       "import": "./dist/components/ui/tabs.js"
     },
     "./components/ui/textarea": {
@@ -260,6 +260,14 @@
       "types": "./dist/components/ui/tooltip.d.ts",
       "import": "./dist/components/ui/tooltip.js"
     },
+    "./components/ui-extended/confirm-dialog": {
+      "types": "./dist/components/ui-extended/confirm-dialog.d.ts",
+      "import": "./dist/components/ui-extended/confirm-dialog.js"
+    },
+    "./components/ui-extended/data-table": {
+      "types": "./dist/components/ui-extended/data-table.d.ts",
+      "import": "./dist/components/ui-extended/data-table.js"
+    },
     "./components/ui-extended/date-picker-with-range": {
       "types": "./dist/components/ui-extended/date-picker-with-range.d.ts",
       "import": "./dist/components/ui-extended/date-picker-with-range.js"
@@ -267,6 +275,18 @@
     "./components/ui-extended/date-picker-with-presets": {
       "types": "./dist/components/ui-extended/date-picker-with-presets.d.ts",
       "import": "./dist/components/ui-extended/date-picker-with-presets.js"
+    },
+    "./components/ui-extended/file-upload": {
+      "types": "./dist/components/ui-extended/file-upload.d.ts",
+      "import": "./dist/components/ui-extended/file-upload.js"
+    },
+    "./components/ui-extended/multi-select": {
+      "types": "./dist/components/ui-extended/multi-select.d.ts",
+      "import": "./dist/components/ui-extended/multi-select.js"
+    },
+    "./components/ui-extended/page-header": {
+      "types": "./dist/components/ui-extended/page-header.d.ts",
+      "import": "./dist/components/ui-extended/page-header.js"
     },
     "./hooks": {
       "types": "./dist/hooks/index.d.ts",
@@ -317,6 +337,7 @@
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
     "@storybook/react": "^9.1.10",
+    "@tanstack/react-table": "^8.21.3",
     "cmdk": "^1.1.1",
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.6.0",
