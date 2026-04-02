@@ -1,3 +1,10 @@
+# [1.3.0](https://gitlab.com/rtorcato/shadcn-ui/compare/v1.2.0...v1.3.0) (2026-04-02)
+
+
+### Features
+
+* add ui-extended components and custom hooks ([f33bd64](https://gitlab.com/rtorcato/shadcn-ui/commit/f33bd64faea45f50f175d6a54c26fc7dabb0bb3b))
+
 # [1.2.0](https://gitlab.com/rtorcato/shadcn-ui/compare/v1.1.0...v1.2.0) (2026-04-01)
 
 
