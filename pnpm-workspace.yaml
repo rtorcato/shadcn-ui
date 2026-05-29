@@ -9,3 +9,11 @@ allowBuilds:
 # We run install explicitly in the CI `dependencies` stage; this avoids
 # every other job/script re-triggering a deps check.
 verifyDepsBeforeRun: false
+
+# Whitelist our own packages from pnpm's minimum-release-age supply-chain
+# policy. The default 24h cutoff is good for arbitrary dependencies (defends
+# against malicious typosquat hijacks getting pulled in within hours) but it
+# blocks us on every fresh @rtorcato/* publish. We own these, we trust them.
+minimumReleaseAgeExclude:
+  - "@rtorcato/js-common"
+  - "@rtorcato/js-tooling"
