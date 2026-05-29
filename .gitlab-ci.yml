@@ -173,8 +173,11 @@ publish:
   # Web-triggered ("Run pipeline") runs always go through.
   rules:
     - if: '$CI_PIPELINE_SOURCE == "web" && $CI_COMMIT_BRANCH == "main"'
-    - if: '$CI_COMMIT_BRANCH == "main" && $CI_COMMIT_MESSAGE =~ /^(feat|fix|update|refactor|revert|perf)(\(.+\))?!?:/'
-    - if: '$CI_COMMIT_BRANCH == "main" && $CI_COMMIT_MESSAGE =~ /BREAKING[ -]CHANGE/'
+    # \A anchors to the absolute start of the message (commit subject), not
+    # each line — without it the body of a commit can falsely match.
+    - if: '$CI_COMMIT_BRANCH == "main" && $CI_COMMIT_MESSAGE =~ /\A(feat|fix|update|refactor|revert|perf)(\(.+\))?!?:/'
+    # BREAKING CHANGE footer (RFC convention): newline-prefixed + colon-terminated.
+    - if: '$CI_COMMIT_BRANCH == "main" && $CI_COMMIT_MESSAGE =~ /\nBREAKING[ -]CHANGE:/'
   variables:
     GIT_AUTHOR_NAME: "GitLab CI"
     GIT_AUTHOR_EMAIL: "ci@example.com"
