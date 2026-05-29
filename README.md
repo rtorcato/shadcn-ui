@@ -20,7 +20,7 @@ This package flips it around: shadcn components are built once, here, and consum
 
 This library leans on two sibling packages so it doesn't reinvent tooling or utilities:
 
-- **[`@rtorcato/js-common`](https://github.com/rtorcato/js-common)** — runtime utilities (date, formatting, arrays, async, validation). Used internally; also re-exported where it makes sense so consumers can pull both with one install.
+- **[`@rtorcato/js-common`](https://github.com/rtorcato/js-common)** — runtime utilities (date, formatting, arrays, async, validation). Compatible companion package — install separately if you want it; this library doesn't currently pull it as a dependency.
 - **[`@rtorcato/js-tooling`](https://github.com/rtorcato/js-tooling)** — shared TypeScript / Biome / Vitest / commitlint / semantic-release configs. The repo's `tsconfig.json` already extends `@rtorcato/js-tooling/typescript/react`; other configs are being migrated.
 
 ## Installation

@@ -1,6 +1,7 @@
 import { buildCode, getEntryPoints } from '@rtorcato/js-tooling/esbuild'
 
 const componentsFolder = await getEntryPoints('src/components')
+const componentsTsxFolder = await getEntryPoints('src/components', '.tsx')
 const libFolder = await getEntryPoints('src/lib')
 const hookFolders = await getEntryPoints('src/hooks')
 const uiFolders = await getEntryPoints('src/components/ui', '.tsx')
@@ -15,6 +16,7 @@ const allEntryPoints = [
 	//'src/index.ts',
 	...uiFolders,
 	...componentsFolder,
+	...componentsTsxFolder,
 	...libFolder,
 	...hookFolders,
 	...uiExtendedFolders,

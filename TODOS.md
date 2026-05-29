@@ -28,19 +28,26 @@ Migrate configs from local copies to the shared `@rtorcato/js-tooling` presets. 
 - [x] `release.config.mjs` extends `@rtorcato/js-tooling/semantic-release`
 - [x] `build.mjs` uses `buildCode` / `getEntryPoints` from `@rtorcato/js-tooling/esbuild`
 - [x] Upgrade `@rtorcato/js-tooling` to v2.6.0 (via direct tarball URL — pnpm doesn't support per-package registry routing)
-- [ ] Add a `pnpm doctor` script that calls `npx js-tooling doctor` (and wire it into the GitLab CI lint stage)
-- [ ] Add **knip** for unused-export / unused-file detection — `npx js-tooling fix knip` scaffolds it; useful for `src/lib`, `src/hooks`, and the auto-discovered esbuild entry points
+- [x] Add a `pnpm doctor` script that calls `npx js-tooling doctor` (wired into the GitLab CI `lint` stage with `allow_failure: true`)
+- [x] Add **knip** for unused-export / unused-file detection — `knip.json` configured for this project's entry points; surfaced ~10 unused deps + 1 dead barrel that we cleaned up
 
 ## Tier 2 — Utility consolidation with `js-common`
 
-Audit `src/lib/`, `src/hooks/`, and `ui-extended/` for code that duplicates `js-common`. Replace duplicates and re-export from `js-common` where it makes sense for consumers.
+Audited `src/lib/`, `src/hooks/`, and `ui-extended/` and found that the patterns we use don't have clean swaps for `js-common`:
 
-- [ ] Audit `src/hooks/use-debounce.ts` — back the hook with `debounce` from `@rtorcato/js-common/functions`
-- [ ] Audit date-picker components — replace ad-hoc `date-fns` usage with `@rtorcato/js-common/date` helpers where equivalent
-- [ ] Audit `src/lib/utils.ts` — `cn` stays (clsx + tailwind-merge is shadcn canonical), but check if formatting/validation helpers from `js-common` should be re-exported here
-- [ ] Add `js-common` to `peerDependencies` so consumers share a single install instead of double-bundling
-- [ ] Re-export commonly used `js-common` subpaths from this package (`/utils/date`, `/utils/format`) so a single install covers UI + helpers
-- [ ] Add a `ThemeProvider` re-export from `next-themes` so consumers don't need a separate install for the common case
+- [x] Audit `src/hooks/use-debounce.ts` — **no swap**. The hook returns a debounced *value* via `useState` + `useEffect`; js-common's `debounce` returns a debounced *function*. Different abstraction; wrapping it would add indirection, not save lines.
+- [x] Audit date-picker components — **no swap**. They use `date-fns` `addDays` + `format` with date-fns-syntax format strings (`'LLL dd, y'`, `'PPP'`). js-common's `/date` either passes through date-fns (no savings — js-common already pulls it transitively) or has a simpler API that would require rewriting format strings. Not worth the churn.
+- [x] Audit `src/lib/utils.ts` — `cn` stays. No formatting/validation helpers from `js-common` are needed by anything in src/.
+- [x] **Removed `@rtorcato/js-common` from `dependencies` entirely** (audit + knip both flagged it unused). Listing it as `peerDependencies` for code we don't ship is misleading; consumers who want it can install it directly. The README now describes it as a "compatible companion package".
+- [x] **Skipped** re-exporting `js-common` subpaths — would be pure pass-through with no consumer demand.
+- [x] Added `ThemeProvider` re-export from `next-themes` at `@rtorcato/shadcn-ui/theme-provider` so consumers don't need to know about `next-themes` for the common dark-mode case.
+
+### Other dependency cleanup surfaced by knip
+
+- Removed dead barrel `src/components/index.ts` (nothing imported it).
+- Removed unused `dependencies`: `@hookform/resolvers`, `@storybook/react`, `zod` (form helpers consumers can add if they want validation).
+- Removed unused `devDependencies`: `@changesets/cli` (replaced by semantic-release), `clean-package`, `webpack-bundle-analyzer` (replaced by esbuild-analyzer), duplicate `tailwind-merge` (kept in `dependencies`).
+- Added missing `commitizen` + `cz-conventional-changelog` for the `pnpm commit` workflow that the existing `config.commitizen` entry expected.
 
 ## Tier 3 — Testing & coverage
 
