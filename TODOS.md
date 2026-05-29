@@ -12,12 +12,11 @@ Roadmap organised by tier — Tier 0 lands first, Tier 3 is stretch. The headlin
 Low-risk edits, mostly docs and config wiring. Do these first.
 
 - [x] Rewrite `README.md` to position the package as "install once, all shadcn components included" and call out `js-common` / `js-tooling`
-- [ ] Add `@rtorcato/js-common` to `dependencies` in `package.json` (latest `^1.x`)
-- [ ] Add a `./styles.css` usage note and the full list of overridable CSS variables to README
-- [ ] Write `CONTRIBUTING.md` explaining the `ui/` vs `ui-extended/` split and the `pnpm component-add` workflow
-- [ ] Document the semantic-release flow (conventional commits → CI → GitLab publish) — either in `CONTRIBUTING.md` or a `/release` skill
-- [ ] Fill in the empty `.husky/pre-push` hook so `pnpm test` runs before push
-- [ ] Set a coverage threshold (e.g. 70% lines) in `vitest.config.mjs` so CI fails on regression — *already partially set, confirm and tune*
+- [x] Add `@rtorcato/js-common` to `dependencies` in `package.json` (via npm tarball URL, same routing reason as `js-tooling`)
+- [x] Add a `./styles.css` usage note and the full list of overridable CSS variables to README (Theming section + token table)
+- [x] Write `CONTRIBUTING.md` covering the `ui/` vs `ui-extended/` split, `pnpm component-add`, Tailwind v3/v4 strategy, commit conventions, semantic-release flow, and CI gates
+- [x] Fill in the `.husky/pre-push` hook so `pnpm test --run` runs before push
+- [x] Set a coverage threshold in `vitest.config.mjs` (currently 30% lines — real floor; raise as Tier 3 tests land)
 
 ## Tier 1 — Tooling alignment with `js-tooling`
 
