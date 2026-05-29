@@ -12,8 +12,8 @@ importers:
         specifier: ^5.2.2
         version: 5.4.0(react-hook-form@7.64.0(react@19.2.6))
       '@rtorcato/js-common':
-        specifier: https://registry.npmjs.org/@rtorcato/js-common/-/js-common-1.8.1.tgz
-        version: https://registry.npmjs.org/@rtorcato/js-common/-/js-common-1.8.1.tgz(@types/node@25.9.1)
+        specifier: https://registry.npmjs.org/@rtorcato/js-common/-/js-common-1.8.1.tgz#sha512-Og/iyKCeonISJCDn8Hocu24l3fkvdPqvsJxHPuJ20uavrQCCSTeVNhN9f4VNSizUBh8qs+H6LHK5k7QREG0Kxw==
+        version: https://registry.npmjs.org/@rtorcato/js-common/-/js-common-1.8.1.tgz#sha512-Og/iyKCeonISJCDn8Hocu24l3fkvdPqvsJxHPuJ20uavrQCCSTeVNhN9f4VNSizUBh8qs+H6LHK5k7QREG0Kxw==(@types/node@25.9.1)
       '@storybook/react':
         specifier: ^9.1.10
         version: 9.1.20(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(storybook@9.1.20(@testing-library/dom@10.4.1)(vite@7.3.3(@types/node@25.9.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)))(typescript@5.9.3)
@@ -88,8 +88,8 @@ importers:
         specifier: ^21.0.1
         version: 21.0.1
       '@rtorcato/js-tooling':
-        specifier: https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.6.0.tgz
-        version: https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.6.0.tgz(c1e21ad7e8661b49c84b3e3e819ee9a9)
+        specifier: https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.6.0.tgz#sha512-5F025RTCWF8+uu/wYOL47kQ0RkpjgQxmjKHjr2qUDsQuFek73oo3Kn1VRsNaF8cZCr+nlStST4mLu4yv6mEznw==
+        version: https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.6.0.tgz#sha512-5F025RTCWF8+uu/wYOL47kQ0RkpjgQxmjKHjr2qUDsQuFek73oo3Kn1VRsNaF8cZCr+nlStST4mLu4yv6mEznw==(c1e21ad7e8661b49c84b3e3e819ee9a9)
       '@semantic-release/changelog':
         specifier: ^6.0.3
         version: 6.0.3(semantic-release@25.0.3(typescript@5.9.3))
@@ -2094,14 +2094,14 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@rtorcato/js-common@https://registry.npmjs.org/@rtorcato/js-common/-/js-common-1.8.1.tgz':
-    resolution: {integrity: sha512-Og/iyKCeonISJCDn8Hocu24l3fkvdPqvsJxHPuJ20uavrQCCSTeVNhN9f4VNSizUBh8qs+H6LHK5k7QREG0Kxw==, tarball: https://registry.npmjs.org/@rtorcato/js-common/-/js-common-1.8.1.tgz}
+  '@rtorcato/js-common@https://registry.npmjs.org/@rtorcato/js-common/-/js-common-1.8.1.tgz#sha512-Og/iyKCeonISJCDn8Hocu24l3fkvdPqvsJxHPuJ20uavrQCCSTeVNhN9f4VNSizUBh8qs+H6LHK5k7QREG0Kxw==':
+    resolution: {integrity: sha512-Og/iyKCeonISJCDn8Hocu24l3fkvdPqvsJxHPuJ20uavrQCCSTeVNhN9f4VNSizUBh8qs+H6LHK5k7QREG0Kxw==, tarball: https://registry.npmjs.org/@rtorcato/js-common/-/js-common-1.8.1.tgz#sha512-Og/iyKCeonISJCDn8Hocu24l3fkvdPqvsJxHPuJ20uavrQCCSTeVNhN9f4VNSizUBh8qs+H6LHK5k7QREG0Kxw==}
     version: 1.8.1
     engines: {node: '>=22'}
     hasBin: true
 
-  '@rtorcato/js-tooling@https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.6.0.tgz':
-    resolution: {tarball: https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.6.0.tgz}
+  '@rtorcato/js-tooling@https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.6.0.tgz#sha512-5F025RTCWF8+uu/wYOL47kQ0RkpjgQxmjKHjr2qUDsQuFek73oo3Kn1VRsNaF8cZCr+nlStST4mLu4yv6mEznw==':
+    resolution: {integrity: sha512-5F025RTCWF8+uu/wYOL47kQ0RkpjgQxmjKHjr2qUDsQuFek73oo3Kn1VRsNaF8cZCr+nlStST4mLu4yv6mEznw==, tarball: https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.6.0.tgz#sha512-5F025RTCWF8+uu/wYOL47kQ0RkpjgQxmjKHjr2qUDsQuFek73oo3Kn1VRsNaF8cZCr+nlStST4mLu4yv6mEznw==}
     version: 2.6.0
     engines: {node: '>=22'}
     hasBin: true
@@ -7560,7 +7560,7 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.60.4':
     optional: true
 
-  '@rtorcato/js-common@https://registry.npmjs.org/@rtorcato/js-common/-/js-common-1.8.1.tgz(@types/node@25.9.1)':
+  '@rtorcato/js-common@https://registry.npmjs.org/@rtorcato/js-common/-/js-common-1.8.1.tgz#sha512-Og/iyKCeonISJCDn8Hocu24l3fkvdPqvsJxHPuJ20uavrQCCSTeVNhN9f4VNSizUBh8qs+H6LHK5k7QREG0Kxw==(@types/node@25.9.1)':
     dependencies:
       date-fns: 4.3.0
       date-fns-tz: 3.2.0(date-fns@4.3.0)
@@ -7579,7 +7579,7 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@rtorcato/js-tooling@https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.6.0.tgz(c1e21ad7e8661b49c84b3e3e819ee9a9)':
+  '@rtorcato/js-tooling@https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.6.0.tgz#sha512-5F025RTCWF8+uu/wYOL47kQ0RkpjgQxmjKHjr2qUDsQuFek73oo3Kn1VRsNaF8cZCr+nlStST4mLu4yv6mEznw==(c1e21ad7e8661b49c84b3e3e819ee9a9)':
     dependencies:
       chalk: 5.6.2
       commander: 14.0.3

@@ -307,7 +307,7 @@
     "@changesets/cli": "^2.27.11",
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^21.0.1",
-    "@rtorcato/js-tooling": "https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.6.0.tgz",
+    "@rtorcato/js-tooling": "https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.6.0.tgz#sha512-5F025RTCWF8+uu/wYOL47kQ0RkpjgQxmjKHjr2qUDsQuFek73oo3Kn1VRsNaF8cZCr+nlStST4mLu4yv6mEznw==",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/exec": "^7.1.0",
@@ -351,7 +351,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
-    "@rtorcato/js-common": "https://registry.npmjs.org/@rtorcato/js-common/-/js-common-1.8.1.tgz",
+    "@rtorcato/js-common": "https://registry.npmjs.org/@rtorcato/js-common/-/js-common-1.8.1.tgz#sha512-Og/iyKCeonISJCDn8Hocu24l3fkvdPqvsJxHPuJ20uavrQCCSTeVNhN9f4VNSizUBh8qs+H6LHK5k7QREG0Kxw==",
     "@storybook/react": "^9.1.10",
     "@tanstack/react-table": "^8.21.3",
     "cmdk": "^1.1.1",
