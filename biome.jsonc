@@ -1,60 +1,14 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.2.5/schema.json",
-  "vcs": {
-    "enabled": false,
-    "clientKind": "git",
-    "useIgnoreFile": true
-  },
+  "$schema": "https://biomejs.dev/schemas/2.4.16/schema.json",
+  "extends": ["@rtorcato/js-tooling/biome"],
   "files": {
-    "ignoreUnknown": false,
     "includes": [
-      "**",
       "!**/.pnpm-store",
-      "!**/package.json",
-      "!**/tsconfig*.json",
-      "!**/node_modules",
       "!**/OLD",
       "!**/components/ui",
-      "!**/dist",
-      "!**/coverage",
-      "!**/.git",
-      "!**/.github",
-      "!**/.vscode",
       "!**/.claude",
       "!**/styles/*.css"
     ]
-  },
-  "formatter": {
-    "enabled": true,
-    "indentStyle": "tab",
-    "lineWidth": 100
-  },
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true,
-      "style": {
-        "noInferrableTypes": "off"
-      },
-      "complexity": {
-        "useLiteralKeys": "off"
-      }
-      // "noUnusedVariables": "error", ❌ Not supported yet
-      // "noExplicitAny": "warn"       ❌ Not supported yet
-    }
-  },
-  "javascript": {
-    "formatter": {
-      "quoteStyle": "single",
-      "trailingCommas": "es5",
-      "semicolons": "asNeeded"
-    }
-  },
-  "json": {
-    "formatter": {
-      "indentStyle": "space",
-      "indentWidth": 2
-    }
   },
   "css": {
     "linter": {

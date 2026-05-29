@@ -1,0 +1,11 @@
+# pnpm 10+ moved settings out of package.json. Single-package repo, no workspace globs.
+
+# Approve build scripts (postinstall, etc.) per package.
+# esbuild needs its postinstall to verify its platform binary; deny everything else by default.
+allowBuilds:
+  esbuild: true
+
+# Skip the implicit install-status check when running `pnpm run <script>`.
+# We run install explicitly in the CI `dependencies` stage; this avoids
+# every other job/script re-triggering a deps check.
+verifyDepsBeforeRun: false

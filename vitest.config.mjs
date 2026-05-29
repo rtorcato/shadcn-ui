@@ -1,30 +1,59 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import sharedConfig from '@rtorcato/js-tooling/vitest/react'
 import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
+import { defineConfig, mergeConfig } from 'vite'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-export default defineConfig({
-	plugins: [react()],
+// The shared preset's setupFiles, coverage.include, coverage.thresholds, and
+// resolve.alias resolve against js-tooling's own package directory, so we
+// inherit the runtime/env settings but redefine paths below.
+const sharedTrimmed = {
 	test: {
-		globals: true,
-		environment: 'jsdom',
-		environmentOptions: {
-			jsdom: {
-				resources: 'usable',
-				runScripts: 'dangerously',
+		globals: sharedConfig.test.globals,
+		environment: sharedConfig.test.environment,
+		css: sharedConfig.test.css,
+		include: sharedConfig.test.include,
+		exclude: sharedConfig.test.exclude,
+		coverage: {
+			provider: sharedConfig.test.coverage.provider,
+			reporter: sharedConfig.test.coverage.reporter,
+		},
+	},
+}
+
+export default mergeConfig(
+	sharedTrimmed,
+	defineConfig({
+		plugins: [react()],
+		test: {
+			setupFiles: ['src/test/setup.ts'],
+			environmentOptions: {
+				jsdom: {
+					resources: 'usable',
+					runScripts: 'dangerously',
+				},
+			},
+			coverage: {
+				include: ['src/**/*.{ts,tsx}'],
+				exclude: [
+					'src/**/*.test.{ts,tsx}',
+					'src/**/*.spec.{ts,tsx}',
+					'src/test/**',
+					'src/components/ui/**',
+					'src/global.d.ts',
+				],
+				thresholds: {
+					lines: 70,
+				},
 			},
 		},
-		coverage: {
-			provider: 'istanbul',
-			reporter: ['text', 'json', 'html'],
+		resolve: {
+			alias: {
+				'@': path.resolve(__dirname, './src'),
+				'~': path.resolve(__dirname, './src'),
+			},
 		},
-	},
-	resolve: {
-		alias: {
-			'@': path.resolve(__dirname, './src'),
-			'~': path.resolve(__dirname, './src'),
-		},
-	},
-})
+	})
+)
