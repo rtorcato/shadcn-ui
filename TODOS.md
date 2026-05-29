@@ -1,34 +1,78 @@
 # TODOs
 
+Roadmap organised by tier — Tier 0 lands first, Tier 3 is stretch. The headline initiative is the **`js-common` + `js-tooling` adoption** so this package stops re-implementing config and utility code that already lives in the sibling repos:
 
-## Testing
+- [`@rtorcato/js-common`](https://github.com/rtorcato/js-common) — runtime utilities
+- [`@rtorcato/js-tooling`](https://github.com/rtorcato/js-tooling) — TS / Biome / Vitest / commitlint / semantic-release configs
 
-- [ ] Add component tests for at least the core UI components: Button, Input, Select, Dialog, Form
-- [ ] Add tests for all custom hooks (`use-mobile`, `use-sidebar`, `use-toast`)
-- [ ] Add tests for `ui-extended` components (date pickers)
-- [ ] Set a coverage threshold in `vitest.config` (e.g. 70% lines) so CI fails on regression
-- [ ] Fill in the empty pre-push hook — `.husky/pre-push` is currently a no-op; consider running `pnpm test` to catch failures before CI
+---
 
+## Tier 0 — Quick wins (≤ 30 min each)
 
+Low-risk edits, mostly docs and config wiring. Do these first.
 
-## Components (`ui-extended`)
+- [x] Rewrite `README.md` to position the package as "install once, all shadcn components included" and call out `js-common` / `js-tooling`
+- [ ] Add `@rtorcato/js-common` to `dependencies` in `package.json` (latest `^1.x`)
+- [ ] Add a `./styles.css` usage note and the full list of overridable CSS variables to README
+- [ ] Write `CONTRIBUTING.md` explaining the `ui/` vs `ui-extended/` split and the `pnpm component-add` workflow
+- [ ] Document the semantic-release flow (conventional commits → CI → GitLab publish) — either in `CONTRIBUTING.md` or a `/release` skill
+- [ ] Fill in the empty `.husky/pre-push` hook so `pnpm test` runs before push
+- [ ] Set a coverage threshold (e.g. 70% lines) in `vitest.config.mjs` so CI fails on regression — *already partially set, confirm and tune*
 
-- [x] `ConfirmDialog` — reusable AlertDialog wrapper with confirm/cancel callbacks and a loading state
-- [x] `DataTable` — TanStack Table wrapper (sorting, pagination, column visibility) since recharts/form infra is already here
-- [x] `FileUpload` — drag-and-drop input built on the existing Input + shadcn primitives
-- [x] `MultiSelect` — multi-value select built on Command + Popover (common gap in shadcn)
-- [x] `PageHeader` — standard page title + breadcrumb + action slot layout component
+## Tier 1 — Tooling alignment with `js-tooling`
 
-## Developer Experience
+Migrate configs from local copies to the shared `@rtorcato/js-tooling` presets. Each step is independent and reversible.
+
+- [x] Replace local Biome config with `@rtorcato/js-tooling/biome` (extends; project-specific ignores preserved)
+- [x] Replace `vitest.config.mjs` with the React preset from `@rtorcato/js-tooling/vitest/react` (jsdom + v8 coverage from shared; setupFiles/aliases/threshold overridden locally)
+- [x] `commitlint.config.mjs` re-exports `@rtorcato/js-tooling/commitlint/config`
+- [x] `release.config.mjs` extends `@rtorcato/js-tooling/semantic-release`
+- [x] `build.mjs` uses `buildCode` / `getEntryPoints` from `@rtorcato/js-tooling/esbuild`
+- [x] Upgrade `@rtorcato/js-tooling` to v2.6.0 (via direct tarball URL — pnpm doesn't support per-package registry routing)
+- [ ] Add a `pnpm doctor` script that calls `npx js-tooling doctor` (and wire it into the GitLab CI lint stage)
+- [ ] Add **knip** for unused-export / unused-file detection — `npx js-tooling fix knip` scaffolds it; useful for `src/lib`, `src/hooks`, and the auto-discovered esbuild entry points
+
+## Tier 2 — Utility consolidation with `js-common`
+
+Audit `src/lib/`, `src/hooks/`, and `ui-extended/` for code that duplicates `js-common`. Replace duplicates and re-export from `js-common` where it makes sense for consumers.
+
+- [ ] Audit `src/hooks/use-debounce.ts` — back the hook with `debounce` from `@rtorcato/js-common/functions`
+- [ ] Audit date-picker components — replace ad-hoc `date-fns` usage with `@rtorcato/js-common/date` helpers where equivalent
+- [ ] Audit `src/lib/utils.ts` — `cn` stays (clsx + tailwind-merge is shadcn canonical), but check if formatting/validation helpers from `js-common` should be re-exported here
+- [ ] Add `js-common` to `peerDependencies` so consumers share a single install instead of double-bundling
+- [ ] Re-export commonly used `js-common` subpaths from this package (`/utils/date`, `/utils/format`) so a single install covers UI + helpers
+- [ ] Add a `ThemeProvider` re-export from `next-themes` so consumers don't need a separate install for the common case
+
+## Tier 3 — Testing & coverage
+
+Bring the test suite up to a level where the coverage threshold is meaningful.
+
+- [ ] Component tests for the rest of the core UI primitives beyond the existing Button/Input/Select/Dialog/Form set
+- [ ] Tests for the remaining custom hooks (`use-click-outside`, `use-debounce`, `use-local-storage`, `use-media-query`)
+- [ ] Tests for the remaining `ui-extended` components (`confirm-dialog`, `data-table`, `file-upload`, `multi-select`, `page-header`)
+- [ ] Raise the vitest coverage threshold once the suite is broad enough
+
+## Tier 4 — Stretch / nice-to-have
+
+Larger investments — pick up once Tiers 0–3 are healthy.
 
 - [ ] Set up Storybook — `@storybook/react` is already in dependencies but unused; add stories for at least the extended components
-- [ ] Add a `./styles.css` usage note to README with the full list of overridable CSS variables
-- [ ] Export a `ThemeProvider` re-export from `next-themes` so consumers don't need a separate install for the common case
-- [ ] Add a `CONTRIBUTING.md` explaining the `ui/` vs `ui-extended/` split and the `pnpm component-add` workflow
-- [ ] Add a `/release` skill — document the semantic-release flow (conventional commits → CI → GitLab publish) for new contributors
-- [ ] Install the skill-creator plugin — `/plugin install skill-creator@claude-plugins-official` — lets you create and refine skills using evals
+- [ ] Publish a docs site (Astro Starlight, matching `js-common`'s site) — auto-deployed from `main`
+- [ ] Install the skill-creator plugin (`/plugin install skill-creator@claude-plugins-official`) for skill authoring with evals
+- [ ] Bundle-size budget per subpath (esbuild-analyzer is already wired; add a CI gate)
 
-## Build / Infra
+---
 
-- [ ] Add `"./styles.css"` to the `"files"` array in `package.json` — currently only `dist` is listed; if the CSS path ever changes this would silently break (verify the `dist` glob catches it)
-- [ ] Consider splitting `tailwindcss` and `tw-animate-css` to `peerDependencies` so consumers aren't double-bundling Tailwind
+## Completed
+
+### Components (`ui-extended`)
+- [x] `ConfirmDialog` — reusable AlertDialog wrapper with confirm/cancel callbacks and a loading state
+- [x] `DataTable` — TanStack Table wrapper (sorting, pagination, column visibility)
+- [x] `FileUpload` — drag-and-drop input built on the existing Input + shadcn primitives
+- [x] `MultiSelect` — multi-value select built on Command + Popover
+- [x] `PageHeader` — standard page title + breadcrumb + action slot layout component
+
+### Build / Infra
+- [x] `"./styles.css"` already covered by the `dist` glob in `package.json` `files` — no change needed
+- [x] Split `tailwindcss` and `tw-animate-css` to `peerDependencies` so consumers aren't double-bundling Tailwind
+- [x] Tests for `Button`, `Input`, `Select`, `Dialog`, `Form`, `use-mobile`, `use-sidebar`, `use-toast`, and the two date pickers

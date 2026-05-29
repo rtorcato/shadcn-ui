@@ -1,87 +1,84 @@
-# SHADCN-UI components
+# @rtorcato/shadcn-ui
 
 [![pipeline status](https://gitlab.com/rtorcato/shadcn-ui/badges/main/pipeline.svg)](https://gitlab.com/rtorcato/shadcn-ui/-/commits/main)
-
 [![coverage report](https://gitlab.com/rtorcato/shadcn-ui/badges/main/coverage.svg)](https://gitlab.com/rtorcato/shadcn-ui/-/commits/main)
-
 [![Latest Release](https://gitlab.com/rtorcato/shadcn-ui/-/badges/release.svg)](https://gitlab.com/rtorcato/shadcn-ui/-/releases)
 
-A React component library built with shadcn/ui components, TypeScript, and Tailwind CSS.
+A pre-built [shadcn/ui](https://ui.shadcn.com) component library for React + Tailwind CSS v4. Install once — every shadcn component, the extended components, and the hooks are available via subpath imports. No more running `npx shadcn add <name>` in every new project.
 
-## 🛠️ Development Setup
+## Why this package
 
-Run setup first to configure environment variables:
+The standard shadcn workflow is "copy components into your project". That's great for customization but painful when you start a new app every other week:
+
+- You run `npx shadcn add button card input dialog ...` on every project.
+- You re-style and re-tweak the same components.
+- Upgrades mean re-running the CLI and reconciling diffs by hand.
+
+This package flips it around: shadcn components are built once, here, and consumed as a regular npm dependency. You still own the source (everything is MIT-style open) and you can fork/extend `ui-extended/` for project-specific variants — but the baseline is reusable.
+
+## Companion packages
+
+This library leans on two sibling packages so it doesn't reinvent tooling or utilities:
+
+- **[`@rtorcato/js-common`](https://github.com/rtorcato/js-common)** — runtime utilities (date, formatting, arrays, async, validation). Used internally; also re-exported where it makes sense so consumers can pull both with one install.
+- **[`@rtorcato/js-tooling`](https://github.com/rtorcato/js-tooling)** — shared TypeScript / Biome / Vitest / commitlint / semantic-release configs. The repo's `tsconfig.json` already extends `@rtorcato/js-tooling/typescript/react`; other configs are being migrated.
+
+## Installation
 
 ```bash
-source ./setup.sh
-```
-
-## 📦 Installation
-
-```bash
-npm install @rtorcato/shadcn-ui
-# or
 pnpm add @rtorcato/shadcn-ui
+# or
+npm install @rtorcato/shadcn-ui
 # or
 yarn add @rtorcato/shadcn-ui
 ```
 
-## 🎨 Usage
+Peer dependencies (you most likely already have these):
 
+```bash
+pnpm add react react-dom lucide-react tailwindcss tw-animate-css
+```
 
-### Update tailwind config
-We need tailwind to build the css for this library.
+> The package is published to a private GitLab npm registry. Run `source ./setup.sh` once to export `NPM_TOKEN` before `pnpm install` if you're working on this repo.
 
-```typescript
+## Setup
+
+### 1. Import the stylesheet
+
+```ts
+import '@rtorcato/shadcn-ui/styles.css'
+```
+
+### 2. Tell Tailwind to scan the package
+
+Tailwind v4 needs the package source in its content globs so utility classes used inside components ship to your build:
+
+```ts
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-    // Scan the shadcn-ui package for Tailwind classes
-    './node_modules/@rtorcato/shadcn-ui/**/*.{js,ts,jsx,tsx}',
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
+    './node_modules/@rtorcato/shadcn-ui/dist/**/*.{js,mjs}',
   ],
-`
+}
 
-### Import Components
-
-Import individual components as needed:
-
-```typescript
-// UI Components
-import { Button } from '@rtorcato/shadcn-ui/components/ui/button'
-import { Card } from '@rtorcato/shadcn-ui/components/ui/card'
-import { Input } from '@rtorcato/shadcn-ui/components/ui/input'
-import { Spinner } from '@rtorcato/shadcn-ui/components/ui/spinner'
-import { ButtonGroup } from '@rtorcato/shadcn-ui/components/ui/button-group'
-import { Empty } from '@rtorcato/shadcn-ui/components/ui/empty'
-import { Field } from '@rtorcato/shadcn-ui/components/ui/field'
-import { Item } from '@rtorcato/shadcn-ui/components/ui/item'
-import { Kbd } from '@rtorcato/shadcn-ui/components/ui/kbd'
-
-// Extended Components
-import { DatePickerWithRange } from '@rtorcato/shadcn-ui/components/ui-extended/date-picker-with-range'
-import { DatePickerWithPresets } from '@rtorcato/shadcn-ui/components/ui-extended/date-picker-with-presets'
-
-// Hooks
-import { useToast } from '@rtorcato/shadcn-ui/hooks'
-
-// Styles
-import '@rtorcato/shadcn-ui/styles.css'
+export default config
 ```
 
-### Basic Example
+## Usage
+
+Import components from their subpath — bundlers tree-shake the rest.
 
 ```tsx
-import React from 'react'
 import { Button } from '@rtorcato/shadcn-ui/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@rtorcato/shadcn-ui/components/ui/card'
 import { Input } from '@rtorcato/shadcn-ui/components/ui/input'
+import { DataTable } from '@rtorcato/shadcn-ui/components/ui-extended/data-table'
+import { useToast } from '@rtorcato/shadcn-ui/hooks'
 import '@rtorcato/shadcn-ui/styles.css'
 
-function App() {
+export function App() {
   return (
     <Card className="w-[350px]">
       <CardHeader>
@@ -94,160 +91,120 @@ function App() {
     </Card>
   )
 }
-
-export default App
 ```
 
-### New Components
+## Components
 
-#### Spinner
-Loading spinner component with customizable size and color:
+### Core UI (`components/ui/*`)
+
+Generated from `shadcn@latest`. Drop-in compatible with the upstream API.
+
+`accordion`, `alert`, `alert-dialog`, `aspect-ratio`, `avatar`, `badge`, `breadcrumb`, `button`, `button-group`, `calendar`, `card`, `carousel`, `chart`, `checkbox`, `collapsible`, `command`, `context-menu`, `dialog`, `drawer`, `dropdown-menu`, `empty`, `field`, `form`, `hover-card`, `input`, `input-group`, `input-otp`, `item`, `kbd`, `label`, `menubar`, `navigation-menu`, `pagination`, `popover`, `progress`, `radio-group`, `resizable`, `scroll-area`, `select`, `separator`, `sheet`, `sidebar`, `skeleton`, `slider`, `sonner`, `spinner`, `switch`, `table`, `tabs`, `textarea`, `toggle`, `toggle-group`, `tooltip`
+
+### Extended (`components/ui-extended/*`)
+
+Hand-written compositions on top of the primitives:
+
+- `confirm-dialog` — AlertDialog wrapper with confirm/cancel callbacks and a loading state
+- `data-table` — TanStack Table wrapper (sorting, pagination, column visibility)
+- `date-picker-with-presets` — date picker with quick-pick presets
+- `date-picker-with-range` — date range picker
+- `file-upload` — drag-and-drop file input
+- `multi-select` — multi-value Command + Popover combobox
+- `page-header` — title + breadcrumb + actions layout
+
+### Hooks (`hooks`)
+
+`use-click-outside`, `use-debounce`, `use-local-storage`, `use-media-query`, `use-mobile`, `use-sidebar`, `use-toast`
+
+## Theming
+
+You don't have to fork the package to re-theme it. Every component uses semantic Tailwind utilities (`bg-primary`, `text-foreground`, `rounded-md`, …) that resolve to CSS variables at runtime. Override those variables in your own stylesheet and the components pick up the change.
+
+### How it works
+
+1. Import the library stylesheet **first**, then your overrides.
+
+   ```ts
+   import '@rtorcato/shadcn-ui/styles.css'
+   import './theme.css' // <- your overrides
+   ```
+
+2. In `theme.css`, redefine the tokens you care about under `:root` (light) and `.dark` (dark mode).
+
+   ```css
+   :root {
+     --primary: 262 83% 58%;          /* purple */
+     --primary-foreground: 0 0% 100%;
+     --radius: 0.75rem;
+   }
+
+   .dark {
+     --primary: 263 70% 50%;
+     --primary-foreground: 210 40% 98%;
+   }
+   ```
+
+   Color values are written as raw HSL triplets (`H S L`) — no `hsl()` wrapper — because the components call `hsl(var(--primary))` internally.
+
+### Overridable tokens
+
+| Group | Tokens | Notes |
+|---|---|---|
+| **Surfaces** | `--background`, `--foreground`, `--card`, `--card-foreground`, `--popover`, `--popover-foreground`, `--muted`, `--muted-foreground` | Base page + container colors |
+| **Brand** | `--primary`, `--primary-foreground`, `--secondary`, `--secondary-foreground`, `--accent`, `--accent-foreground` | Buttons, links, highlights |
+| **Status** | `--destructive`, `--destructive-foreground` | Error / danger states |
+| **Form** | `--border`, `--input`, `--ring` | Inputs, focus rings, dividers |
+| **Sidebar** | `--sidebar-background`, `--sidebar-foreground`, `--sidebar-primary`, `--sidebar-primary-foreground`, `--sidebar-accent`, `--sidebar-accent-foreground`, `--sidebar-border`, `--sidebar-ring` | Used by `Sidebar` |
+| **Charts** | `--chart-1` through `--chart-5` | Recharts palette |
+| **Shape** | `--radius` | Base radius; `rounded-{sm,md,lg,xl}` are derived |
+| **Typography** | `--font-geist-sans` | Default sans font stack |
+
+### Dark mode
+
+Dark mode is wired to the `.dark` class. Toggle it on `<html>` either manually or via `next-themes`:
 
 ```tsx
-import { Spinner } from '@rtorcato/shadcn-ui/components/ui/spinner'
+import { ThemeProvider } from 'next-themes'
 
-<Spinner size="sm" />
-<Spinner size="md" />
-<Spinner size="lg" />
+export function Providers({ children }: { children: React.ReactNode }) {
+  return (
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      {children}
+    </ThemeProvider>
+  )
+}
 ```
 
-#### Button Group
-Group related buttons together:
+### Tailwind v3 vs v4 consumers
 
-```tsx
-import { ButtonGroup } from '@rtorcato/shadcn-ui/components/ui/button-group'
-import { Button } from '@rtorcato/shadcn-ui/components/ui/button'
+This package ships both a Tailwind v3 `tailwind.config.ts` (with `hsl(var(--xxx))` mappings) and a Tailwind v4 `@theme inline` block in `dist/styles.css`. Either consumer path works without extra setup.
 
-<ButtonGroup>
-  <Button variant="outline">Left</Button>
-  <Button variant="outline">Center</Button>
-  <Button variant="outline">Right</Button>
-</ButtonGroup>
+## Development
+
+```bash
+source ./setup.sh        # one-time: sets NPM_TOKEN for the private registry
+pnpm install
+pnpm build-dev           # clean → CSS → esbuild → tsc declarations
+pnpm test                # vitest + jsdom + Testing Library
+pnpm check               # biome lint + format check
+pnpm typecheck           # tsc --noEmit
 ```
 
-#### Empty State
-Display empty states with optional actions:
+To add a new shadcn component:
 
-```tsx
-import { Empty } from '@rtorcato/shadcn-ui/components/ui/empty'
-
-<Empty 
-  title="No items found"
-  description="Try adjusting your search criteria"
-  action={<Button>Add Item</Button>}
-/>
+```bash
+pnpm component-add <name>     # wraps `npx shadcn@latest add`
 ```
 
-#### Field
-Form field wrapper with label and error handling:
+The esbuild wrapper (`build.mjs`) auto-discovers entry points by scanning `src/components/`, `src/lib/`, and `src/hooks/` — new files are picked up automatically. Add a matching subpath entry under `exports` in `package.json` so consumers can import it.
 
-```tsx
-import { Field } from '@rtorcato/shadcn-ui/components/ui/field'
-import { Input } from '@rtorcato/shadcn-ui/components/ui/input'
+See [`CLAUDE.md`](./CLAUDE.md) for the full contributor guide and [`TODOS.md`](./TODOS.md) for the active roadmap.
 
-<Field label="Email" error="Please enter a valid email">
-  <Input type="email" placeholder="Enter your email" />
-</Field>
-```
+## Releases
 
-#### Item
-List item component for consistent styling:
+Versioning and publishing are handled by `semantic-release` in GitLab CI on every push to `main`. Do **not** bump the version in `package.json` manually. Commit messages must follow [Conventional Commits](https://www.conventionalcommits.org/) — use `pnpm commit` for an interactive prompt.
 
-```tsx
-import { Item } from '@rtorcato/shadcn-ui/components/ui/item'
+## License
 
-<Item title="Item Title" description="Item description" />
-```
-
-#### Kbd
-Keyboard shortcut display component:
-
-```tsx
-import { Kbd } from '@rtorcato/shadcn-ui/components/ui/kbd'
-
-<p>Press <Kbd>Cmd</Kbd> + <Kbd>K</Kbd> to search</p>
-```
-
-## 🧪 Available Components
-
-### Core UI Components
-- `accordion` - Collapsible content sections
-- `alert-dialog` - Modal alert dialogs
-- `alert` - Alert messages
-- `aspect-ratio` - Maintain aspect ratios
-- `avatar` - User avatars
-- `badge` - Status badges
-- `breadcrumb` - Navigation breadcrumbs
-- `button` - Interactive buttons
-- `button-group` - ✨ **NEW** - Grouped buttons
-- `calendar` - Date picker calendar
-- `card` - Content containers
-- `carousel` - Image/content carousels
-- `chart` - Data visualization
-- `checkbox` - Checkbox inputs
-- `collapsible` - Collapsible content
-- `command` - Command palette
-- `context-menu` - Right-click menus
-- `dialog` - Modal dialogs
-- `drawer` - Slide-out panels
-- `dropdown-menu` - Dropdown menus
-- `empty` - ✨ **NEW** - Empty state component
-- `field` - ✨ **NEW** - Form field wrapper
-- `form` - Form components
-- `hover-card` - Hover tooltips
-- `input-otp` - OTP input fields
-- `input` - Text inputs
-- `item` - ✨ **NEW** - List item component
-- `kbd` - ✨ **NEW** - Keyboard shortcuts
-- `label` - Form labels
-- `menubar` - Menu bars
-- `navigation-menu` - Navigation menus
-- `pagination` - Page navigation
-- `popover` - Floating content
-- `progress` - Progress indicators
-- `radio-group` - Radio button groups
-- `resizable` - Resizable panels
-- `scroll-area` - Custom scrollbars
-- `select` - Select dropdowns
-- `separator` - Visual separators
-- `sheet` - Side sheets
-- `sidebar` - Navigation sidebars
-- `skeleton` - Loading skeletons
-- `slider` - Range sliders
-- `sonner` - Toast notifications
-- `spinner` - ✨ **NEW** - Loading spinners
-- `switch` - Toggle switches
-- `table` - Data tables
-- `tabs` - Tab navigation
-- `textarea` - Multi-line text inputs
-- `toggle-group` - Toggle button groups
-- `toggle` - Toggle buttons
-- `tooltip` - Hover tooltips
-
-### Extended Components
-- `date-picker-with-range` - Date range picker
-- `date-picker-with-presets` - Date picker with presets
-
-## 🎯 TypeScript Support
-
-All components are built with TypeScript and include full type definitions.
-
-## 🎨 Styling
-
-This library uses Tailwind CSS. Make sure to import the styles:
-
-```tsx
-import '@rtorcato/shadcn-ui/styles.css'
-```
-
-## 📚 Documentation
-
-For detailed component documentation and examples, visit our [component documentation](#).
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+ISC.
