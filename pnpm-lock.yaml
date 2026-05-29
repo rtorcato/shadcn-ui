@@ -2246,7 +2246,7 @@ packages:
     os: [win32]
 
   '@rtorcato/js-tooling@https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.6.0.tgz#sha512-5F025RTCWF8+uu/wYOL47kQ0RkpjgQxmjKHjr2qUDsQuFek73oo3Kn1VRsNaF8cZCr+nlStST4mLu4yv6mEznw==':
-    resolution: {tarball: https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.6.0.tgz#sha512-5F025RTCWF8+uu/wYOL47kQ0RkpjgQxmjKHjr2qUDsQuFek73oo3Kn1VRsNaF8cZCr+nlStST4mLu4yv6mEznw==}
+    resolution: {integrity: sha512-5F025RTCWF8+uu/wYOL47kQ0RkpjgQxmjKHjr2qUDsQuFek73oo3Kn1VRsNaF8cZCr+nlStST4mLu4yv6mEznw==, tarball: https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.6.0.tgz#sha512-5F025RTCWF8+uu/wYOL47kQ0RkpjgQxmjKHjr2qUDsQuFek73oo3Kn1VRsNaF8cZCr+nlStST4mLu4yv6mEznw==}
     version: 2.6.0
     engines: {node: '>=22'}
     hasBin: true
