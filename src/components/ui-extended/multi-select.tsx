@@ -50,7 +50,7 @@ function MultiSelect({
 		onValueChange?.(next)
 	}
 
-	function remove(optionValue: string, e: React.MouseEvent) {
+	function remove(optionValue: string, e: React.MouseEvent | React.KeyboardEvent) {
 		e.stopPropagation()
 		onValueChange?.(value.filter((v) => v !== optionValue))
 	}
@@ -72,14 +72,24 @@ function MultiSelect({
 							selectedLabels.map((option) => (
 								<Badge key={option.value} variant="secondary" className="gap-1 pr-1">
 									{option.label}
-									<button
-										type="button"
+									{/* biome-ignore lint/a11y/useSemanticElements: PopoverTrigger
+									    already renders this badge inside a <button>, so we can't
+									    nest a real <button> here. */}
+									<span
+										role="button"
+										tabIndex={0}
 										aria-label={`Remove ${option.label}`}
 										onClick={(e) => remove(option.value, e)}
-										className="rounded-full outline-none ring-offset-background focus:ring-2 focus:ring-ring focus:ring-offset-2"
+										onKeyDown={(e) => {
+											if (e.key === 'Enter' || e.key === ' ') {
+												e.preventDefault()
+												remove(option.value, e)
+											}
+										}}
+										className="inline-flex cursor-pointer items-center rounded-full outline-none ring-offset-background focus:ring-2 focus:ring-ring focus:ring-offset-2"
 									>
 										<XIcon className="size-3" />
-									</button>
+									</span>
 								</Badge>
 							))
 						) : (
