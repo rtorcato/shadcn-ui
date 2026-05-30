@@ -8,8 +8,16 @@
     "src/hooks/index.ts",
     "src/hooks/*.{ts,tsx}",
     "src/lib/index.ts",
-    "src/lib/*.ts"
+    "src/lib/*.ts",
+    ".storybook/{main,preview}.ts",
+    "src/**/*.stories.{ts,tsx}"
   ],
-  "project": ["src/**/*.{ts,tsx}", "!src/**/*.test.{ts,tsx}", "!src/test/**", "!src/global.d.ts"],
+  "project": [
+    "src/**/*.{ts,tsx}",
+    "!src/**/*.test.{ts,tsx}",
+    "!src/**/*.stories.{ts,tsx}",
+    "!src/test/**",
+    "!src/global.d.ts"
+  ],
   "ignoreDependencies": ["tw-animate-css"]
 }

@@ -7,7 +7,8 @@
       "!**/OLD",
       "!**/components/ui",
       "!**/.claude",
-      "!**/styles/*.css"
+      "!**/styles/*.css",
+      "!**/storybook-static"
     ]
   },
   "css": {
