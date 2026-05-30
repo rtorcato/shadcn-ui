@@ -26,7 +26,9 @@ default:
   before_script:
     - set -e
     - corepack enable
-    - corepack prepare pnpm@latest --activate
+    # Honors the `packageManager` field in package.json so CI pins to the same
+    # pnpm as local dev — `pnpm@latest` had been rejecting our lockfile.
+    - corepack install
 
 ####################################################
 # Pipeline rules — skip on [skip ci]/[ci skip], only run on tracked branches + MRs.
