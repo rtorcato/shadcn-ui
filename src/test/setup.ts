@@ -38,3 +38,34 @@ if (typeof globalThis.ResizeObserver === 'undefined') {
 		disconnect() {}
 	} as unknown as typeof ResizeObserver
 }
+
+// jsdom doesn't implement IntersectionObserver, which embla-carousel uses
+// to detect slides entering the viewport.
+if (typeof globalThis.IntersectionObserver === 'undefined') {
+	globalThis.IntersectionObserver = class IntersectionObserver {
+		observe() {}
+		unobserve() {}
+		disconnect() {}
+		takeRecords() {
+			return []
+		}
+		root = null
+		rootMargin = ''
+		thresholds = []
+	} as unknown as typeof IntersectionObserver
+}
+
+// jsdom doesn't implement matchMedia, which Sidebar/useIsMobile and
+// embla-carousel both call at mount time.
+if (typeof window !== 'undefined' && typeof window.matchMedia === 'undefined') {
+	window.matchMedia = ((query: string) => ({
+		matches: false,
+		media: query,
+		onchange: null,
+		addListener: () => {},
+		removeListener: () => {},
+		addEventListener: () => {},
+		removeEventListener: () => {},
+		dispatchEvent: () => false,
+	})) as typeof window.matchMedia
+}
