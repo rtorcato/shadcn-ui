@@ -13,6 +13,22 @@ If you see `ERR_PNPM_FETCH_401` against `gitlab.com/api/v4/...`, `NPM_TOKEN` isn
 
 Node version: see `.nvmrc` (currently `22`). Use `nvm use` or your tool of choice.
 
+## Running the workshop
+
+This is a component library, so there's no app-level dev server. The way to develop visually is Storybook:
+
+```bash
+pnpm dev              # alias for `pnpm storybook` — http://localhost:6006
+pnpm storybook        # same thing, explicit
+pnpm build-storybook  # produce a static build at storybook-static/
+```
+
+Stories live next to their components as `*.stories.tsx`. CSF3 conventions; see `src/components/ui-extended/*.stories.tsx` for examples. Each story imports straight from the source (`~/components/...`), not from `dist`, so changes hot-reload instantly.
+
+**Theme toggle:** the top toolbar has a "Theme" control (configured in `.storybook/preview.ts`) that toggles a `dark` class on `<html>`, which is how `src/styles/globals.css` activates the dark CSS variables. Flip Storybook's background to "dark" too so the canvas behind dark-mode components isn't white.
+
+If your component uses a `bg-*`/`border-*`/`text-*` utility that resolves to nothing in Storybook, you're probably missing a `--color-*` mapping under `@theme inline` in `globals.css`. The `src/test/theme-tokens.test.ts` smoke check is meant to catch this at CI time.
+
 ## Component split
 
 There are two component directories and the distinction matters:
@@ -115,11 +131,12 @@ CI requirements:
 | Gate | Blocking? | Notes |
 |---|---|---|
 | `dependencies` | yes | pnpm install with frozen lockfile |
-| `lint` / `typecheck` / `commitlint` | yes | parallel |
+| `lint` / `typecheck` / `commitlint` / `knip` | yes | parallel |
 | `doctor` | **no** (`allow_failure: true`) | runs `pnpm doctor` (= `js-tooling doctor`); surfaces config drift |
 | `varcheck` | yes | confirms `GITLAB_TOKEN` + `NPM_TOKEN` are set |
 | `test: [22]` / `test: [24]` | yes | matrix; Node 22 also collects v8 coverage |
 | `build` | yes | `pnpm build-prod` |
+| `storybook` | yes | `pnpm build-storybook` — catches broken stories before merge |
 | `publish` | yes when it runs | only runs on releasing commit types |
 | `renovate` | scheduled only | monthly via Pipeline Schedule |
 

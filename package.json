@@ -18,7 +18,7 @@
   },
   "homepage": "https://gitlab.com/rtorcato/shadcn-ui",
   "scripts": {
-    "dev": "echo \"This is a component library — there is no dev server. Use 'pnpm build-dev' to build, or 'pnpm test:watch' to run tests in watch mode.\"",
+    "dev": "storybook dev -p 6006",
     "component-add": "npx shadcn@latest add",
     "build:css": "postcss src/styles/globals.css -o dist/styles.css",
     "build-dev": "rimraf ./dist && pnpm build:css && cross-env NODE_ENV=development node build.mjs && tsc --emitDeclarationOnly --project tsconfig.build.json",

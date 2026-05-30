@@ -67,6 +67,12 @@ doctor:
   script:
     - pnpm doctor
 
+knip:
+  stage: lint
+  needs: [dependencies]
+  script:
+    - pnpm knip
+
 commitlint:
   stage: lint
   needs: [dependencies]
@@ -150,6 +156,16 @@ build:
       - .npmrc
     expire_in: 1 week
 
+storybook:
+  stage: build
+  needs: [dependencies]
+  script:
+    - pnpm build-storybook --quiet
+  artifacts:
+    paths:
+      - storybook-static/
+    expire_in: 1 week
+
 ####################################################
 # Publish via semantic-release. Only on main, only after every gate passes.
 # Mirrors the GitHub release job; preserves the GitLab npm registry .npmrc inject.
@@ -160,10 +176,12 @@ publish:
     - job: dependencies
     - job: lint
     - job: typecheck
+    - job: knip
     - job: varcheck
     - job: test
     - job: build
       artifacts: true
+    - job: storybook
     - job: commitlint
       optional: true
   # Only run when the head commit could actually produce a release.
