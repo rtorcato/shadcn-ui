@@ -29,3 +29,12 @@ if (typeof Element !== 'undefined') {
 		Element.prototype.scrollIntoView = () => {}
 	}
 }
+
+// jsdom doesn't implement ResizeObserver, which Radix Tooltip / cmdk rely on.
+if (typeof globalThis.ResizeObserver === 'undefined') {
+	globalThis.ResizeObserver = class ResizeObserver {
+		observe() {}
+		unobserve() {}
+		disconnect() {}
+	} as unknown as typeof ResizeObserver
+}
