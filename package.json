@@ -389,9 +389,6 @@
     "@types/react-dom": {
       "optional": true
     },
-    "lucide-react": {
-      "optional": true
-    },
     "tailwindcss": {
       "optional": true
     },
