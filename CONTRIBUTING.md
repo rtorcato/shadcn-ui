@@ -137,6 +137,7 @@ CI requirements:
 | `test: [22]` / `test: [24]` | yes | matrix; Node 22 also collects v8 coverage |
 | `build` | yes | `pnpm build-prod` |
 | `storybook` | yes | `pnpm build-storybook` — catches broken stories before merge |
+| `bundle-size` | yes | `pnpm bundle-size` — gzips each exported subpath, fails if any grows past its `bundle-size.json` budget × `(1 + tolerance)`. Re-baseline with `pnpm bundle-size:write` |
 | `publish` | yes when it runs | only runs on releasing commit types |
 | `renovate` | scheduled only | monthly via Pipeline Schedule |
 

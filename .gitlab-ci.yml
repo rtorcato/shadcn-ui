@@ -168,6 +168,14 @@ storybook:
       - storybook-static/
     expire_in: 1 week
 
+bundle-size:
+  stage: build
+  needs:
+    - job: build
+      artifacts: true
+  script:
+    - pnpm bundle-size
+
 ####################################################
 # Publish via semantic-release. Only on main, only after every gate passes.
 # Mirrors the GitHub release job; preserves the GitLab npm registry .npmrc inject.
@@ -184,6 +192,7 @@ publish:
     - job: build
       artifacts: true
     - job: storybook
+    - job: bundle-size
     - job: commitlint
       optional: true
   # Only run when the head commit could actually produce a release.

@@ -26,6 +26,8 @@
     "build-prod": "rimraf ./dist && pnpm build:css && cross-env NODE_ENV=production node build.mjs && tsc --emitDeclarationOnly --project tsconfig.build.json",
     "package:analyzer": "esbuild-analyzer meta.json",
     "package:analyzer1": "https://esbuild.github.io/analyze/",
+    "bundle-size": "node scripts/check-bundle-size.mjs",
+    "bundle-size:write": "node scripts/check-bundle-size.mjs --write",
     "==================== Common ====================": "",
     "lint": "pnpm exec biome lint .",
     "format": "pnpm exec biome format .",
