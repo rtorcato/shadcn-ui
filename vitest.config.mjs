@@ -49,9 +49,10 @@ export default mergeConfig(
 					'src/hooks/index.ts',
 					'src/lib/index.ts',
 				],
-				// Floor reflects current coverage. Raise as Tier 3 tests (TODOS.md) land.
+				// Floor sits comfortably below the current ~95% so routine source edits
+				// don't trip CI, while still catching large regressions.
 				thresholds: {
-					lines: 30,
+					lines: 85,
 				},
 			},
 		},

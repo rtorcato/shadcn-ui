@@ -54,9 +54,9 @@ Audited `src/lib/`, `src/hooks/`, and `ui-extended/` and found that the patterns
 Bring the test suite up to a level where the coverage threshold is meaningful.
 
 - [ ] Component tests for the rest of the core UI primitives beyond the existing Button/Input/Select/Dialog/Form set
-- [ ] Tests for the remaining custom hooks (`use-click-outside`, `use-debounce`, `use-local-storage`, `use-media-query`)
-- [ ] Tests for the remaining `ui-extended` components (`confirm-dialog`, `data-table`, `file-upload`, `multi-select`, `page-header`)
-- [ ] Raise the vitest coverage threshold once the suite is broad enough
+- [x] Tests for the remaining custom hooks (`use-click-outside`, `use-debounce`, `use-local-storage`, `use-media-query`)
+- [x] Tests for the remaining `ui-extended` components (`confirm-dialog`, `data-table`, `file-upload`, `multi-select`, `page-header`)
+- [x] Raise the vitest coverage threshold once the suite is broad enough (30% → 85%; suite now at ~95% lines)
 
 ## Tier 4 — Stretch / nice-to-have
 
