@@ -10,10 +10,24 @@ Active roadmap. Tier 0–2 and most of Tier 3 are done; see `## Completed` at th
 ## Tier 3 — Testing & coverage (in progress)
 
 - [ ] Component tests for the rest of the core UI primitives beyond the existing Button/Input/Select/Dialog/Form set
+- [ ] Visual smoke check for theme tokens — assert every `bg-*` / `text-*` / `border-*` utility referenced under `src/components/` resolves to a real CSS rule in `dist/styles.css`. Would have caught the `@theme inline` regression that surfaced when running Storybook
+- [ ] Fix `<button>` inside `<button>` in `MultiSelect` (Radix Trigger renders a `button`, and each selected-badge has a `button` for remove → React/DOM warning). Probably swap the inner remove control to an `aria-label`'d `<span role="button">` or change the trigger to `asChild` div
 
 ## Tier 4 — Stretch / nice-to-have
 
-- [ ] Hosted Storybook preview — Chromatic or GitLab Pages auto-deployed from `main`
+### Storybook follow-ups
+- [ ] Stories for the most-used `ui/` primitives — Button, Input, Select, Dialog, Form, Card, Badge, Tabs, Checkbox, Switch
+- [ ] `pnpm build-storybook` step in GitLab CI so broken stories block merges (~12s; non-publishing job)
+- [ ] Hosted Storybook preview — Chromatic or GitLab Pages auto-deployed from `main` *(explicitly deferred 2026-05-30 — local-only for now)*
+- [ ] Storybook 9 → 10 upgrade (10.4.1 available; review the v9→v10 migration guide before bumping)
+
+### Infra
+- [ ] Wire `pnpm knip` into CI as a hard gate (now exits clean after removing the `lucide-react` optional flag)
+- [ ] Replace `package.json` `scripts.dev` placeholder with `storybook dev -p 6006` so `pnpm dev` does the obvious thing
+- [ ] Update `CONTRIBUTING.md` to document the Storybook workflow + theme toggle
+- [ ] Audit `globals.css` for any further unmapped CSS variables (sidebar tokens were already correct; sweep for tokens introduced after this session)
+
+### Bigger investments
 - [ ] Publish a docs site (Astro Starlight, matching `js-common`'s site) — auto-deployed from `main`
 - [ ] Install the skill-creator plugin (`/plugin install skill-creator@claude-plugins-official`) for skill authoring with evals
 - [ ] Bundle-size budget per subpath (esbuild-analyzer is already wired; add a CI gate)
@@ -53,6 +67,10 @@ Active roadmap. Tier 0–2 and most of Tier 3 are done; see `## Completed` at th
 - Seed stories for `ConfirmDialog`, `DataTable`, `FileUpload`, `MultiSelect`, `PageHeader`
 - `pnpm storybook` (dev) and `pnpm build-storybook` (static) scripts; `storybook-static/` ignored and excluded from Biome
 - `knip.json` updated to treat `.storybook/*` and `*.stories.tsx` as entry points
+
+### Misc fixes
+- `globals.css` `@theme inline` extended to map all shadcn design tokens (`--color-background`, `--color-popover`, `--color-card`, `--color-primary`, etc.) — fixed transparent-modal regression for both Storybook and `dist/styles.css` consumers
+- `lucide-react` moved out of `peerDependenciesMeta` (no longer marked optional) so consumers see a missing-peer warning if they forget to install it
 
 ### Components (`ui-extended`)
 - `ConfirmDialog` — AlertDialog wrapper with confirm/cancel + loading state
