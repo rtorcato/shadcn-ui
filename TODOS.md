@@ -9,9 +9,7 @@ Active roadmap. Tier 0–2 and most of Tier 3 are done; see `## Completed` at th
 
 ## Tier 3 — Testing & coverage (in progress)
 
-- [ ] Component tests for the rest of the core UI primitives beyond the existing Button/Input/Select/Dialog/Form set
-- [ ] Visual smoke check for theme tokens — assert every `bg-*` / `text-*` / `border-*` utility referenced under `src/components/` resolves to a real CSS rule in `dist/styles.css`. Would have caught the `@theme inline` regression that surfaced when running Storybook
-- [ ] Fix `<button>` inside `<button>` in `MultiSelect` (Radix Trigger renders a `button`, and each selected-badge has a `button` for remove → React/DOM warning). Probably swap the inner remove control to an `aria-label`'d `<span role="button">` or change the trigger to `asChild` div
+- [ ] Component tests for the remaining `ui/` primitives — Accordion, Alert, AlertDialog, Avatar, Breadcrumb, Calendar, Carousel, Command, ContextMenu, Drawer, DropdownMenu, HoverCard, Menubar, NavigationMenu, Pagination, Popover, Progress, RadioGroup, ScrollArea, Separator, Sheet, Sidebar, Skeleton, Slider, Toggle, ToggleGroup, Tooltip-variants (~25 components still uncovered)
 
 ## Tier 4 — Stretch / nice-to-have
 
@@ -59,7 +57,11 @@ Active roadmap. Tier 0–2 and most of Tier 3 are done; see `## Completed` at th
 ### Tier 3 — Testing (so far)
 - Hook tests added: `use-click-outside`, `use-debounce`, `use-local-storage`, `use-media-query`
 - `ui-extended` tests added: `confirm-dialog`, `data-table`, `file-upload`, `multi-select`, `page-header`
-- vitest coverage threshold raised 30% → 85% (suite at ~95.6% lines, 103 tests)
+- `ui/` primitive tests added: `checkbox`, `switch`, `label`, `textarea`, `badge`, `card`, `tabs`, `tooltip` (135 tests total)
+- vitest coverage threshold raised 30% → 85% (suite at ~95.6% lines)
+- Theme-token smoke check at `src/test/theme-tokens.test.ts` — fails the test run if any `bg-*` / `border-*` / `text-*` utility under `src/components/` references a design token that isn't declared in `@theme inline`
+- ResizeObserver polyfilled in `src/test/setup.ts` (Radix Tooltip and cmdk depend on it)
+- `MultiSelect` remove-badge control swapped from nested `<button>` to `<span role="button" tabIndex={0}>` + `biome-ignore` for the a11y rule, with the rationale documented in-line
 
 ### Tier 4 — Storybook
 - Storybook 9 + `@storybook/react-vite` + `@storybook/addon-a11y` installed
