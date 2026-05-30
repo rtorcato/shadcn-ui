@@ -40,6 +40,7 @@ export default mergeConfig(
 				exclude: [
 					'src/**/*.test.{ts,tsx}',
 					'src/**/*.spec.{ts,tsx}',
+					'src/**/*.stories.{ts,tsx}',
 					'src/test/**',
 					'src/components/ui/**',
 					'src/global.d.ts',
