@@ -25,7 +25,11 @@ pnpm build-storybook  # produce a static build at storybook-static/
 
 Stories live next to their components as `*.stories.tsx`. CSF3 conventions; see `src/components/ui-extended/*.stories.tsx` for examples. Each story imports straight from the source (`~/components/...`), not from `dist`, so changes hot-reload instantly.
 
-**Theme toggle:** the top toolbar has a "Theme" control (configured in `.storybook/preview.ts`) that toggles a `dark` class on `<html>`, which is how `src/styles/globals.css` activates the dark CSS variables. Flip Storybook's background to "dark" too so the canvas behind dark-mode components isn't white.
+**Theme controls** (top toolbar, configured in `.storybook/preview.ts`):
+
+- **Theme** — color preset (Default, Orange, Blue, Rose, Green, Violet). Each preset is a CSS file under `.storybook/themes/` that overrides `--primary`, `--primary-foreground`, and `--ring` for both light and dark. Add new presets by dropping another file in `.storybook/themes/` and adding it to the `withThemeByClassName` map in `preview.ts`.
+- **Mode** — toggles a `dark` class on `<html>`, which is how `src/styles/globals.css` activates the dark CSS variables. Flip Storybook's background to "dark" too so the canvas behind dark-mode components isn't white.
+- **Radius** — sets `--radius` on `<html>` to one of `0`, `0.3`, `0.5`, `0.75`, `1` rem so you can preview rounded variants live.
 
 If your component uses a `bg-*`/`border-*`/`text-*` utility that resolves to nothing in Storybook, you're probably missing a `--color-*` mapping under `@theme inline` in `globals.css`. The `src/test/theme-tokens.test.ts` smoke check is meant to catch this at CI time.
 
