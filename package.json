@@ -4,9 +4,6 @@
 	"type": "module",
 	"author": "Richard Torcato",
 	"description": "A React component package",
-	"main": "dist/index.js",
-	"module": "dist/index.js",
-	"types": "dist/index.d.ts",
 	"keywords": [
 		"react",
 		"component",
@@ -50,10 +47,6 @@
 		"dist"
 	],
 	"exports": {
-		".": {
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.js"
-		},
 		"./components/MyComponent": {
 			"types": "./dist/components/MyComponent.d.ts",
 			"import": "./dist/components/MyComponent.js"
