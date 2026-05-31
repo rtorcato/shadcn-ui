@@ -73,8 +73,8 @@ importers:
         specifier: ^21.0.1
         version: 21.0.1
       '@rtorcato/js-tooling':
-        specifier: https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.6.0.tgz#sha512-5F025RTCWF8+uu/wYOL47kQ0RkpjgQxmjKHjr2qUDsQuFek73oo3Kn1VRsNaF8cZCr+nlStST4mLu4yv6mEznw==
-        version: https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.6.0.tgz#sha512-5F025RTCWF8+uu/wYOL47kQ0RkpjgQxmjKHjr2qUDsQuFek73oo3Kn1VRsNaF8cZCr+nlStST4mLu4yv6mEznw==(c1e21ad7e8661b49c84b3e3e819ee9a9)
+        specifier: https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.7.0.tgz#sha512-+QWj2Bvv4CtTvjvgA+pvY2YGyAfxjbf67XqU+PCWa2eZPRG0vD5ydaXM7IigQzTnwggfIcOYqpRD9FzdNIKoDw==
+        version: https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.7.0.tgz#sha512-+QWj2Bvv4CtTvjvgA+pvY2YGyAfxjbf67XqU+PCWa2eZPRG0vD5ydaXM7IigQzTnwggfIcOYqpRD9FzdNIKoDw==(c1e21ad7e8661b49c84b3e3e819ee9a9)
       '@semantic-release/changelog':
         specifier: ^6.0.3
         version: 6.0.3(semantic-release@25.0.3(typescript@5.9.3))
@@ -2272,9 +2272,9 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@rtorcato/js-tooling@https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.6.0.tgz#sha512-5F025RTCWF8+uu/wYOL47kQ0RkpjgQxmjKHjr2qUDsQuFek73oo3Kn1VRsNaF8cZCr+nlStST4mLu4yv6mEznw==':
-    resolution: {integrity: sha512-5F025RTCWF8+uu/wYOL47kQ0RkpjgQxmjKHjr2qUDsQuFek73oo3Kn1VRsNaF8cZCr+nlStST4mLu4yv6mEznw==, tarball: https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.6.0.tgz}
-    version: 2.6.0
+  '@rtorcato/js-tooling@https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.7.0.tgz#sha512-+QWj2Bvv4CtTvjvgA+pvY2YGyAfxjbf67XqU+PCWa2eZPRG0vD5ydaXM7IigQzTnwggfIcOYqpRD9FzdNIKoDw==':
+    resolution: {integrity: sha512-+QWj2Bvv4CtTvjvgA+pvY2YGyAfxjbf67XqU+PCWa2eZPRG0vD5ydaXM7IigQzTnwggfIcOYqpRD9FzdNIKoDw==, tarball: https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.7.0.tgz#sha512-+QWj2Bvv4CtTvjvgA+pvY2YGyAfxjbf67XqU+PCWa2eZPRG0vD5ydaXM7IigQzTnwggfIcOYqpRD9FzdNIKoDw==}
+    version: 2.7.0
     engines: {node: '>=22'}
     hasBin: true
     peerDependencies:
@@ -2289,7 +2289,7 @@ packages:
       '@semantic-release/commit-analyzer': ^13.0.0
       '@semantic-release/exec': ^7.0.0
       '@semantic-release/git': ^10.0.0
-      '@semantic-release/github': ^12.0.0
+      '@semantic-release/github': ^12.0.8
       '@semantic-release/npm': ^13.0.0
       '@semantic-release/release-notes-generator': ^14.0.0
       '@total-typescript/ts-reset': ^0.6.0
@@ -7744,7 +7744,7 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.60.4':
     optional: true
 
-  '@rtorcato/js-tooling@https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.6.0.tgz#sha512-5F025RTCWF8+uu/wYOL47kQ0RkpjgQxmjKHjr2qUDsQuFek73oo3Kn1VRsNaF8cZCr+nlStST4mLu4yv6mEznw==(c1e21ad7e8661b49c84b3e3e819ee9a9)':
+  '@rtorcato/js-tooling@https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.7.0.tgz#sha512-+QWj2Bvv4CtTvjvgA+pvY2YGyAfxjbf67XqU+PCWa2eZPRG0vD5ydaXM7IigQzTnwggfIcOYqpRD9FzdNIKoDw==(c1e21ad7e8661b49c84b3e3e819ee9a9)':
     dependencies:
       chalk: 5.6.2
       commander: 14.0.3
