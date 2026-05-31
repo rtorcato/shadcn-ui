@@ -62,6 +62,16 @@ Tailwind v4 + shadcn use CSS variables under `@theme inline` in `globals.css`. T
 
 **Every utility class in `src/components/` that references a token must be backed by a `--color-*` entry in `@theme inline`.** The smoke test in `src/test/theme-tokens.test.ts` enforces this — if it fails, add the missing mapping rather than the missing CSS var.
 
+## Previewing themes in Storybook
+
+The Storybook toolbar has three theme controls wired in `.storybook/preview.ts`:
+
+- **Theme** — color preset dropdown (Default, Orange, Blue, Rose, Green, Violet) backed by CSS files in `.storybook/themes/`. Adding a preset means adding a `.theme-<name>` scoped CSS file and registering it in the `withThemeByClassName` map.
+- **Mode** — light/dark toggle (toggles `.dark` on `html`).
+- **Radius** — `--radius` selector (0, 0.3, 0.5, 0.75, 1 rem).
+
+Preset files only override `--primary`, `--primary-foreground`, `--ring` (and dark equivalents). Structural tokens stay shared with `globals.css` to keep presets focused on the brand color.
+
 ## Theming-related debugging checklist
 
 When a component renders with wrong/transparent colors:
