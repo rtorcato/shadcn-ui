@@ -147,6 +147,37 @@ You don't have to fork the package to re-theme it. Every component uses semantic
 
    Color values are written as raw HSL triplets (`H S L`) — no `hsl()` wrapper — because the components call `hsl(var(--primary))` internally.
 
+### Using a shadcn theme preset
+
+If you're coming from shadcn.com's [`/create`](https://ui.shadcn.com/create) flow, note that `pnpm dlx shadcn@latest init --preset <id>` **does not apply to this library**. That CLI scaffolds a brand-new project by *copying* shadcn primitives into your repo — the opposite of how this package works. Here, primitives are already built and shipped as a regular dependency, so a preset goes straight into your own CSS instead.
+
+The actual workflow:
+
+1. Pick a theme at <https://ui.shadcn.com/themes>.
+2. Copy its `:root { ... }` and `.dark { ... }` blocks.
+3. Paste them into the `theme.css` you already import after `@rtorcato/shadcn-ui/styles.css` (see "How it works" above).
+
+For example, the canonical **Orange** preset:
+
+```css
+/* theme.css */
+:root {
+  --primary: 24.6 95% 53.1%;
+  --primary-foreground: 60 9.1% 97.8%;
+  --ring: 24.6 95% 53.1%;
+}
+
+.dark {
+  --primary: 20.5 90.2% 48.2%;
+  --primary-foreground: 60 9.1% 97.8%;
+  --ring: 20.5 90.2% 48.2%;
+}
+```
+
+These are the same values used by the Orange preview in this repo's Storybook (`.storybook/themes/orange.css`), so what you see there matches what you ship.
+
+> **HSL vs OKLCH:** the current shadcn theme generator emits OKLCH values, but this library still uses HSL triplets internally. Either grab presets from the older HSL-based picker, or convert OKLCH → HSL when copying. The token table below lists every variable that's available to override.
+
 ### Overridable tokens
 
 | Group | Tokens | Notes |
