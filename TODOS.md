@@ -11,7 +11,6 @@ Active roadmap. Tiers 0–3 are done; the remaining items live in Tier 4. See `#
 
 ### Storybook follow-ups
 - [ ] Hosted Storybook preview — Chromatic or GitLab Pages auto-deployed from `main` *(explicitly deferred 2026-05-30 — local-only for now)*
-- [ ] Storybook 9 → 10 upgrade (10.4.1 available; review the v9→v10 migration guide before bumping)
 
 ### Bigger investments
 - [ ] Publish a docs site (Astro Starlight, matching `js-common`'s site) — auto-deployed from `main`
@@ -52,7 +51,7 @@ Active roadmap. Tiers 0–3 are done; the remaining items live in Tier 4. See `#
 - `*.stories.tsx` excluded from coverage so demo stubs don't drag the global threshold
 
 ### Tier 4 — Storybook
-- Storybook 9 + `@storybook/react-vite` + `@storybook/addon-a11y` installed
+- Storybook 9 + `@storybook/react-vite` + `@storybook/addon-a11y` installed; upgraded to Storybook 10.4.1 (config was already ESM-clean — no `__dirname`/`require`, no extensionless relative imports — so the bump was just deps + `engines.node` to `>=22.12`)
 - `.storybook/main.ts` and `preview.ts` written; Tailwind v4 wired via the existing PostCSS pipeline; light/dark theme toolbar
 - Seed stories for `ui-extended`: `ConfirmDialog`, `DataTable`, `FileUpload`, `MultiSelect`, `PageHeader`
 - Stories for the ten most-used `ui/` primitives: Button, Input, Select, Dialog, Form, Card, Badge, Tabs, Checkbox, Switch
