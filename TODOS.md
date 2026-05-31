@@ -16,7 +16,6 @@ Active roadmap. Tiers 0–3 are done; the remaining items live in Tier 4. See `#
 ### Bigger investments
 - [ ] Publish a docs site (Astro Starlight, matching `js-common`'s site) — auto-deployed from `main`
 - [ ] Install the skill-creator plugin (`/plugin install skill-creator@claude-plugins-official`) for skill authoring with evals
-- [ ] Fix the broken `.` root export — `package.json` lists `dist/index.js` as `main`/`module`/`types`, but `src/index.ts` doesn't exist so the build never produces it. Either drop the bare-name export (subpath-only consumers) or add a real barrel. Surfaced by the bundle-size gate's "missing dist artifact (no budget)" warning
 
 ---
 
@@ -78,3 +77,4 @@ Active roadmap. Tiers 0–3 are done; the remaining items live in Tier 4. See `#
 - `"./styles.css"` already covered by the `dist` glob in `package.json` `files`
 - `tailwindcss` and `tw-animate-css` split to `peerDependencies` so consumers aren't double-bundling Tailwind
 - Bundle-size gate at `scripts/check-bundle-size.mjs` + `bundle-size.json` budget snapshot — gzips every exported subpath and the shared `dist/chunks/` total, fails on growth past `budget * (1 + tolerance)` (default 10%). Wired into GitLab CI as a blocking `bundle-size` job that consumes the `build` artifact, and into the `publish` job's needs. Re-baseline with `pnpm bundle-size:write`
+- Dropped the broken `.` root export — removed `main`/`module`/`types` and the `"."` entry from `package.json` `exports`, deleted stale `src/index.ts1`. Library is subpath-only; matches the README and build design. Clears the bundle-size gate's "missing dist artifact" warning
