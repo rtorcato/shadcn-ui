@@ -5,11 +5,10 @@ Thanks for picking this up. This file covers the conventions specific to `@rtorc
 ## One-time setup
 
 ```bash
-source ./setup.sh    # exports NPM_TOKEN from .env (needed for private GitLab pkgs)
 pnpm install
 ```
 
-If you see `ERR_PNPM_FETCH_401` against `gitlab.com/api/v4/...`, `NPM_TOKEN` isn't sourced — re-run `source ./setup.sh`.
+All dependencies (including `@rtorcato/js-tooling`) resolve from the public npm registry — no token needed.
 
 Node version: see `.nvmrc` (currently `22`). Use `nvm use` or your tool of choice.
 
@@ -86,7 +85,7 @@ This repo leans on two sibling packages so we don't reinvent infrastructure:
 | [`@rtorcato/js-tooling`](https://github.com/rtorcato/js-tooling) | TypeScript, Biome, Vitest, commitlint, semantic-release, esbuild config |
 | [`@rtorcato/js-common`](https://github.com/rtorcato/js-common) | Runtime utilities (date, formatting, arrays, async, validation) |
 
-Both are installed via direct npm tarball URLs in `package.json` rather than version specs. The reason: pnpm doesn't support per-package registry routing — only per-scope — and the broad `@rtorcato:registry=...` rule in `.npmrc` points to a private GitLab registry that doesn't host these. The tarball URL bypasses the routing entirely. Renovate keeps them updated.
+`@rtorcato/js-tooling` is published to the public npm registry and installed as a normal version spec. Dependabot keeps it updated. (`@rtorcato/js-common` isn't a dependency here — it's a compatible companion package, install it separately if a consumer wants it.)
 
 ## Commits
 
@@ -116,19 +115,17 @@ Branch names mirror commit types: `feat/...`, `fix/...`, `chore/...`.
 
 ## Releases
 
-Versioning and publishing are fully automated. Semantic-release runs on every push to `main` in GitLab CI:
+Versioning and publishing are fully automated. Semantic-release runs on every push to `main` in GitHub Actions:
 
 1. `commit-analyzer` reads the commit messages since the last tag (using the rules above).
-2. If a releasing commit is found, semantic-release bumps the version in `package.json`, generates `CHANGELOG.md` entries, pushes a `chore(release): X.Y.Z [skip ci]` commit + a `vX.Y.Z` tag, and publishes the npm package to the private GitLab registry.
-3. If no releasing commits exist (only `chore`/`ci`/`docs`/`style`/`test`/`build`), publish exits cleanly with "no new version" — no churn.
+2. If a releasing commit is found, semantic-release bumps the version in `package.json`, generates `CHANGELOG.md` entries, pushes a `chore(release): X.Y.Z [skip ci]` commit + a `vX.Y.Z` tag, creates a GitHub Release, and publishes the package to the public npm registry.
+3. If no releasing commits exist (only `chore`/`ci`/`docs`/`style`/`test`/`build`), release exits cleanly with "no new version" — no churn.
 
 **Do not** bump the version in `package.json` manually — semantic-release will overwrite it.
 
-The publish job in `.gitlab-ci.yml` is also gated by a commit-message regex so it only runs when a release is *possible*. That saves runner minutes on no-release commits and avoids red icons if there's a token issue.
-
-CI requirements:
-- `GITLAB_TOKEN` CI/CD variable, **protected + masked**, scopes `api` + `read_repository` + `write_repository`. Used by semantic-release to push the release commit and tag. Refresh when it expires.
-- `NPM_TOKEN` CI/CD variable — used by the `.npmrc` injection in the publish job to authenticate against the private GitLab npm registry where this package is published.
+CI requirements (repository secrets, in **Settings → Secrets and variables → Actions**):
+- `NPM_TOKEN` — an npm **automation** token with publish rights to `@rtorcato/*`. Used to publish to the public npm registry.
+- `RELEASE_TOKEN` (optional) — a fine-grained PAT with `contents: write`. Falls back to the built-in `GITHUB_TOKEN` if unset; only needed if you want release commits to trigger downstream workflows or to push to a protected `main`.
 
 ## CI gates
 
@@ -136,14 +133,12 @@ CI requirements:
 |---|---|---|
 | `dependencies` | yes | pnpm install with frozen lockfile |
 | `lint` / `typecheck` / `commitlint` / `knip` | yes | parallel |
-| `doctor` | **no** (`allow_failure: true`) | runs `pnpm doctor` (= `js-tooling doctor`); surfaces config drift |
-| `varcheck` | yes | confirms `GITLAB_TOKEN` + `NPM_TOKEN` are set |
-| `test: [22]` / `test: [24]` | yes | matrix; Node 22 also collects v8 coverage |
+| `test (22)` / `test (24)` | yes | matrix |
 | `build` | yes | `pnpm build-prod` |
 | `storybook` | yes | `pnpm build-storybook` — catches broken stories before merge |
 | `bundle-size` | yes | `pnpm bundle-size` — gzips each exported subpath, fails if any grows past its `bundle-size.json` budget × `(1 + tolerance)`. Re-baseline with `pnpm bundle-size:write` |
-| `publish` | yes when it runs | only runs on releasing commit types |
-| `renovate` | scheduled only | monthly via Pipeline Schedule |
+| `release` | runs on `main` push | semantic-release; no-ops on non-releasing commits |
+| Dependabot | scheduled | weekly npm + monthly actions PRs (`.github/dependabot.yml`) |
 
 ## Pre-commit / pre-push hooks
 

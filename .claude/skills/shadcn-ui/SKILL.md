@@ -100,12 +100,12 @@ When a component renders with wrong/transparent colors:
 - **Don't hand-edit `src/components/ui/*.tsx`** unless fixing a specific upstream bug. Biome doesn't lint these on purpose — they're meant to track upstream.
 - **Don't add `@rtorcato/js-common` as a dep** — knip audit removed it; the README calls it a "compatible companion package." Use it if a consumer wants to; don't pull it in here.
 - **Don't pin `lucide-react` as a hard dependency** — it's a `peerDependency` (consumers bring their own version). Same for `react`, `react-dom`, `tailwindcss`, `tw-animate-css`.
-- **Don't bump the package version manually** — semantic-release in GitLab CI does this from conventional commits.
+- **Don't bump the package version manually** — semantic-release in GitHub Actions does this from conventional commits.
 - **Don't add inline jsdom shims** — use the shared `@rtorcato/js-tooling` shims (already imported in `src/test/setup.ts`).
 
 ## CI gates you must not break
 
-Every gate in `.gitlab-ci.yml` is blocking (except `doctor`):
+Every gate in `.github/workflows/ci.yml` is blocking:
 
 - `pnpm typecheck` · `pnpm check` (biome) · `pnpm knip` · `pnpm test` (85% coverage) · `pnpm build-prod` · `pnpm build-storybook` · `pnpm bundle-size`
 
