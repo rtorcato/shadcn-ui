@@ -80,10 +80,14 @@ const config: Config = {
 			respectPrefersColorScheme: true,
 		},
 		navbar: {
-			title: 'shadcn-ui',
+			// The wordmark is baked into the SVG logo (light + dark), so title stays empty.
+			title: '',
 			logo: {
 				alt: 'shadcn-ui',
 				src: 'img/logo.svg',
+				srcDark: 'img/logo-dark.svg',
+				width: 112,
+				height: 26,
 			},
 			items: [
 				{ to: '/docs', position: 'left', label: 'Docs' },
