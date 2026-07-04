@@ -19,5 +19,6 @@
     "!src/test/**",
     "!src/global.d.ts"
   ],
-  "ignoreDependencies": ["tw-animate-css"]
+  "ignoreDependencies": ["tw-animate-css"],
+  "ignoreWorkspaces": ["apps/docs"]
 }
