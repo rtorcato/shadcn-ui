@@ -1,3 +1,17 @@
+# [1.4.0](https://github.com/rtorcato/shadcn-ui/compare/v1.3.0...v1.4.0) (2026-07-04)
+
+
+### Bug Fixes
+
+* **deps:** mark lucide-react as a required peer dependency ([73eb7b2](https://github.com/rtorcato/shadcn-ui/commit/73eb7b2e6cb5b28e2810e5e3043403f5386790f9))
+* **multi-select:** swap nested <button> for span role="button" ([fa6d3cc](https://github.com/rtorcato/shadcn-ui/commit/fa6d3cc071f34a6bafb45a416b189cef96775ead))
+* **styles:** map design tokens into [@theme](https://github.com/theme) inline for Tailwind v4 ([e85ba7c](https://github.com/rtorcato/shadcn-ui/commit/e85ba7c375a4223ada1b39c82d6f510162bc3f23))
+
+
+### Features
+
+* **storybook:** add theme preset, mode, and radius toolbars ([6bdccc0](https://github.com/rtorcato/shadcn-ui/commit/6bdccc030055a42bd152383a1c40aa325cf24e15))
+
 # [1.3.0](https://gitlab.com/rtorcato/shadcn-ui/compare/v1.2.0...v1.3.0) (2026-04-02)
 
 
