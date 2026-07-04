@@ -1,0 +1,26 @@
+/**
+ * Scaffold theme only. The full branded palette, fonts, and landing-page
+ * styling land in #7 (brand theme + marketing landing page). Infima defaults
+ * are kept here so the site builds and renders with a dark-first look.
+ */
+
+:root {
+	--ifm-color-primary: #0f172a;
+	--ifm-color-primary-dark: #0d1424;
+	--ifm-color-primary-darker: #0c1221;
+	--ifm-color-primary-darkest: #0a0f1b;
+	--ifm-color-primary-light: #111b30;
+	--ifm-color-primary-lighter: #121d33;
+	--ifm-color-primary-lightest: #16243d;
+	--ifm-code-font-size: 95%;
+}
+
+[data-theme="dark"] {
+	--ifm-color-primary: #818cf8;
+	--ifm-color-primary-dark: #6674f5;
+	--ifm-color-primary-darker: #5a69f4;
+	--ifm-color-primary-darkest: #3a4bf1;
+	--ifm-color-primary-light: #9ca5fb;
+	--ifm-color-primary-lighter: #a8b0fc;
+	--ifm-color-primary-lightest: #cbd0fd;
+}

@@ -1,8 +1,14 @@
-# pnpm 10+ moved settings out of package.json. Single-package repo, no workspace globs.
+# pnpm 10+ moved settings out of package.json. The library lives at the repo
+# root; apps/* are workspace members (currently just the Docusaurus docs site),
+# so docs can consume the local library via `workspace:*` for live previews.
+packages:
+  - "apps/*"
 
 # Approve build scripts (postinstall, etc.) per package.
 # esbuild needs its postinstall to verify its platform binary; deny everything else by default.
 allowBuilds:
+  # Docusaurus pulls in core-js; its postinstall is just a funding banner.
+  core-js: false
   esbuild: true
 
 # Skip the implicit install-status check when running `pnpm run <script>`.
