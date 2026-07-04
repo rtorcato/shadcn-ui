@@ -53,7 +53,7 @@ jobs:
               id: cache-key
               run: echo "key=${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}" >> $GITHUB_OUTPUT
             - name: 📦 Cache dependencies
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: |
                       ~/.pnpm-store
@@ -75,7 +75,7 @@ jobs:
                   node-version: "22"
             - uses: pnpm/action-setup@v6
             - name: 📦 Restore dependencies cache
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: |
                       ~/.pnpm-store
@@ -95,7 +95,7 @@ jobs:
                   node-version: "22"
             - uses: pnpm/action-setup@v6
             - name: 📦 Restore dependencies cache
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: |
                       ~/.pnpm-store
@@ -115,7 +115,7 @@ jobs:
                   node-version: "22"
             - uses: pnpm/action-setup@v6
             - name: 📦 Restore dependencies cache
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: |
                       ~/.pnpm-store
@@ -137,7 +137,7 @@ jobs:
                   node-version: "22"
             - uses: pnpm/action-setup@v6
             - name: 📦 Restore dependencies cache
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: |
                       ~/.pnpm-store
@@ -177,7 +177,7 @@ jobs:
                   node-version: "22"
             - uses: pnpm/action-setup@v6
             - name: 📦 Restore dependencies cache
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: |
                       ~/.pnpm-store
@@ -206,7 +206,7 @@ jobs:
                   node-version: "22"
             - uses: pnpm/action-setup@v6
             - name: 📦 Restore dependencies cache
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: |
                       ~/.pnpm-store
@@ -226,7 +226,7 @@ jobs:
                   node-version: "22"
             - uses: pnpm/action-setup@v6
             - name: 📦 Restore dependencies cache
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: |
                       ~/.pnpm-store
@@ -255,7 +255,7 @@ jobs:
             - name: 📦 Setup pnpm
               uses: pnpm/action-setup@v6
             - name: 📦 Restore dependencies cache
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: |
                       ~/.pnpm-store
