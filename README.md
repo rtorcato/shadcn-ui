@@ -1,8 +1,7 @@
 # @rtorcato/shadcn-ui
 
-[![pipeline status](https://gitlab.com/rtorcato/shadcn-ui/badges/main/pipeline.svg)](https://gitlab.com/rtorcato/shadcn-ui/-/commits/main)
-[![coverage report](https://gitlab.com/rtorcato/shadcn-ui/badges/main/coverage.svg)](https://gitlab.com/rtorcato/shadcn-ui/-/commits/main)
-[![Latest Release](https://gitlab.com/rtorcato/shadcn-ui/-/badges/release.svg)](https://gitlab.com/rtorcato/shadcn-ui/-/releases)
+[![CI/CD](https://github.com/rtorcato/shadcn-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/rtorcato/shadcn-ui/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/@rtorcato/shadcn-ui)](https://www.npmjs.com/package/@rtorcato/shadcn-ui)
 
 A pre-built [shadcn/ui](https://ui.shadcn.com) component library for React + Tailwind CSS v4. Install once — every shadcn component, the extended components, and the hooks are available via subpath imports. No more running `npx shadcn add <name>` in every new project.
 
@@ -38,8 +37,6 @@ Peer dependencies (you most likely already have these):
 ```bash
 pnpm add react react-dom lucide-react tailwindcss tw-animate-css
 ```
-
-> The package is published to a private GitLab npm registry. Run `source ./setup.sh` once to export `NPM_TOKEN` before `pnpm install` if you're working on this repo.
 
 ## Setup
 
@@ -214,7 +211,6 @@ This package ships both a Tailwind v3 `tailwind.config.ts` (with `hsl(var(--xxx)
 ## Development
 
 ```bash
-source ./setup.sh        # one-time: sets NPM_TOKEN for the private registry
 pnpm install
 pnpm build-dev           # clean → CSS → esbuild → tsc declarations
 pnpm test                # vitest + jsdom + Testing Library
@@ -234,7 +230,7 @@ See [`CLAUDE.md`](./CLAUDE.md) for the full contributor guide and [`TODOS.md`](.
 
 ## Releases
 
-Versioning and publishing are handled by `semantic-release` in GitLab CI on every push to `main`. Do **not** bump the version in `package.json` manually. Commit messages must follow [Conventional Commits](https://www.conventionalcommits.org/) — use `pnpm commit` for an interactive prompt.
+Versioning and publishing are handled by `semantic-release` in GitHub Actions on every push to `main`, publishing to the public npm registry. Do **not** bump the version in `package.json` manually. Commit messages must follow [Conventional Commits](https://www.conventionalcommits.org/) — use `pnpm commit` for an interactive prompt.
 
 ## License
 

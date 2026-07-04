@@ -1,0 +1,47 @@
+# Automated dependency updates with Dependabot
+# https://docs.github.com/en/code-security/dependabot
+
+version: 2
+updates:
+  # npm / pnpm dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "10:00"
+    open-pull-requests-limit: 10
+    assignees:
+      - "rtorcato"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    groups:
+      development-dependencies:
+        patterns:
+          - "@types/*"
+          - "@semantic-release/*"
+          - "semantic-release"
+          - "storybook"
+          - "@storybook/*"
+          - "vitest*"
+          - "@vitest/*"
+          - "typescript"
+          - "@rtorcato/js-tooling"
+          - "@biomejs/biome"
+          - "husky"
+          - "lint-staged"
+          - "knip"
+      production-dependencies:
+        exclude-patterns:
+          - "@types/*"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "ci"
+    assignees:
+      - "rtorcato"

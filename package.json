@@ -14,7 +14,14 @@
 		"node": ">=22.12"
 	},
 	"packageManager": "pnpm@11.1.3",
-	"homepage": "https://gitlab.com/rtorcato/shadcn-ui",
+	"homepage": "https://github.com/rtorcato/shadcn-ui#readme",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/rtorcato/shadcn-ui.git"
+	},
+	"bugs": {
+		"url": "https://github.com/rtorcato/shadcn-ui/issues"
+	},
 	"scripts": {
 		"dev": "storybook dev -p 6006",
 		"component-add": "npx shadcn@latest add",
@@ -309,12 +316,11 @@
 		"@biomejs/biome": "^2.2.5",
 		"@commitlint/cli": "^20.1.0",
 		"@commitlint/config-conventional": "^21.0.1",
-		"@rtorcato/js-tooling": "https://registry.npmjs.org/@rtorcato/js-tooling/-/js-tooling-2.7.0.tgz#sha512-+QWj2Bvv4CtTvjvgA+pvY2YGyAfxjbf67XqU+PCWa2eZPRG0vD5ydaXM7IigQzTnwggfIcOYqpRD9FzdNIKoDw==",
+		"@rtorcato/js-tooling": "^2.7.0",
 		"@semantic-release/changelog": "^6.0.3",
 		"@semantic-release/commit-analyzer": "^13.0.1",
-		"@semantic-release/exec": "^7.1.0",
 		"@semantic-release/git": "^10.0.1",
-		"@semantic-release/gitlab": "^13.2.5",
+		"@semantic-release/github": "^12.0.0",
 		"@semantic-release/npm": "^13.1.1",
 		"@semantic-release/release-notes-generator": "^14.1.0",
 		"@storybook/addon-a11y": "^10.4.1",
@@ -411,6 +417,6 @@
 		}
 	},
 	"publishConfig": {
-		"registry": "https://gitlab.com/api/v4/projects/60598964/packages/npm/"
+		"access": "public"
 	}
 }

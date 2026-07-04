@@ -4,11 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project overview
 
-`@rtorcato/shadcn-ui` is a React component library built on shadcn/ui, Radix UI, TypeScript, and Tailwind CSS v4. It publishes to a private GitLab npm registry.
-
-## Environment setup
-
-Run `source ./setup.sh` before development — it sets `NPM_TOKEN` required for the private GitLab npm registry (`@rtorcato/*` packages). Without it, `pnpm install` will warn and private packages may fail to resolve.
+`@rtorcato/shadcn-ui` is a React component library built on shadcn/ui, Radix UI, TypeScript, and Tailwind CSS v4. It publishes to the public npm registry. Just run `pnpm install` — all dependencies resolve from public npm, no token required.
 
 ## Build
 
@@ -63,4 +59,4 @@ Use `@/*` or `~/*` for imports from `src/`. Both aliases resolve to `./src/*`.
 
 ## Releases
 
-Versioning and npm publishing are fully automated via `semantic-release` in GitLab CI. CI requires `GITLAB_TOKEN` and `NPM_TOKEN` env vars. Do not run `semantic-release` locally.
+Versioning and npm publishing are fully automated via `semantic-release` in GitHub Actions (`.github/workflows/ci.yml`) on `main`. CI requires the `NPM_TOKEN` repository secret (public npm publish); `GITHUB_TOKEN` is provided automatically. Do not run `semantic-release` locally.
